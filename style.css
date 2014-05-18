@@ -1,12 +1,69 @@
-body {
-  font-family: "Open Sans", "Arial", sans-serif;
-  margin: auto;
+html {
+  background-color: rgb(121, 147, 194);
 }
 
-h1 {
-  font-family: "Montserrat", "Open Sans", "Arial", sans-serif;
+body {
+  font-family: "Open Sans", "Arial", sans-serif;
+  text-align: center;
+  margin: 0;
+  color: rgb(51, 51, 51);
+  -webkit-font-smoothing: antialiased;
 }
 
 div {
+  margin: 0;
+  width: 100%;
+}
+
+h1 {
+  font-family: "Montserrat", "Arial", sans-serif;
+  font-size: 20px;
+  text-transform: uppercase;
+  margin: 0;
+  text-align: center;
+}
+h2 {
+  font-family: "Montserrat", "Arial", sans-serif;
+  font-size: 16px;
+  text-transform: uppercase;
+  margin: 0;
+}
+h3 {
+  font-family: "Montserrat", "Arial", sans-serif;
+  font-size: 13px;
+  margin: 0 20px;
+}
+a:visited {color: rgb(51, 51, 51);}
+a:hover {color: rgb(102, 102, 102);}
+
+.container {
+  width: 600px;
   margin: auto;
+  text-align: left;
+}
+
+#title {
+  height: 120px;
+  line-height: 120px;
+  margin: 0;
+  background-color: rgb(229, 231, 235);
+}
+
+#about {
+  margin: 0;
+  background-color: rgb(193, 203, 222);
+  padding: 20px 0px;
+}
+
+#projects {
+  margin: 0;
+  background-color: rgb(157, 175, 208);
+  padding: 20px 0px;
+}
+
+#contact {
+  height: 60px;
+  line-height: 60px;
+  margin: 0;
+  background-color: rgb(121, 147, 194);
 }
