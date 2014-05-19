@@ -1,5 +1,5 @@
 html {
-  background-color: rgb(121, 147, 194);
+  background-color: hsl(220, 50%, 60%);
 }
 
 body {
@@ -46,24 +46,35 @@ a:hover {color: rgb(102, 102, 102);}
   height: 120px;
   line-height: 120px;
   margin: 0;
-  background-color: rgb(229, 231, 235);
+  background-color: hsl(220, 20%, 84%);
 }
 
 #about {
   margin: 0;
-  background-color: rgb(193, 203, 222);
+  background-color: hsl(220, 30%, 76%);
   padding: 20px 0px;
 }
 
 #projects {
   margin: 0;
-  background-color: rgb(157, 175, 208);
+  background-color: hsl(220, 40%, 68%);
   padding: 20px 0px;
 }
 
 #contact {
-  height: 60px;
-  line-height: 60px;
+  height: 80px;
+  line-height: 80px;
   margin: 0;
-  background-color: rgb(121, 147, 194);
+  background-color: hsl(220, 50%, 60%);
+}
+
+#slider-container {
+  width: 200px;
+  height: 80px;
+  position: relative;
+  margin: auto;
+  padding-top: 20px;
+  font-size: 14px;
+  height: 14px;
+  line-height: 14px;
 }
