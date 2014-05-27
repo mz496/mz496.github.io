@@ -33,6 +33,7 @@ h3 {
   font-size: 13px;
   margin: 0 20px;
 }
+a {color: rgb(51, 51, 51);}
 a:visited {color: rgb(51, 51, 51);}
 a:hover {color: rgb(102, 102, 102);}
 
@@ -77,4 +78,18 @@ a:hover {color: rgb(102, 102, 102);}
   font-size: 14px;
   height: 14px;
   line-height: 14px;
+}
+
+.more-info {
+  overflow-y: hidden;
+  height: 0;
+  -webkit-transition: height 0.4s ease-in;
+  -moz-transition: height 0.4s ease-in;
+  -o-transition: height 0.4s ease-in;
+  -ms-transition: height 0.4s ease-in;
+  transition: height 0.4s ease-in;
+}
+
+.prelim-info:hover > div {
+  height: 6em;
 }
