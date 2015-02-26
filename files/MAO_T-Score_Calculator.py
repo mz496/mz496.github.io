@@ -1,15 +1,4 @@
-'''''''''''''''''''''''''''''''''''''''
-S-Score Calculator for AHS MAO
-Matthew Zhu
-
-Version 1: March 01, 2014
-    first iteration
-Version 2: May 23, 2014
-    add LaTeX output
-Version 3: June 7, 2014
-    preparing for large-scale data crunching: properly dealing with ties in the output, automating the corrections dictionary creation process
-
-'''''''''''''''''''''''''''''''''''''''
+# T-Score Calculator, modified from S-Score Calculator, June 7, 2014, Matthew Zhu
 
 import math
 import numpy as np
@@ -17,14 +6,10 @@ import urllib.request
 from bs4 import BeautifulSoup
 
 ###################################################
-
+    
 # the list of people removed from consideration for states
 # need title case
 middleSchoolers = ["Max Ranis", "Azzara Nincevic", "Nithya Kasarla", "Kishan Patel"]
-
-# change the school name if desired, for funsies
-# name must be exactly as appears on famat.org
-school = "American Heritage (Plantation)"
 
 # for output of all s-scores at the end "as of ..."
 date = "March Regional, 3/1/2014"
@@ -44,24 +29,14 @@ realTieSystem = True
 # format: use any of the URLs for a comp, e.g. Sweepstakes, and remove e.g. "Sweeps.html" and leave the /
 # http:// required
 baseURLs = [
-"http://floridamao.org/Downloadable/Results/Tampa%20Bay%20Tech%20January%20Statewide%202014/",
-"http://floridamao.org/Downloadable/Results/Combined01182014/",
-"http://floridamao.org/Downloadable/Results/Combined02012014/",
-"http://floridamao.org/Downloadable/Results/February%20Statewide%20at%20Coral%20Glades%20HS/",
-"http://floridamao.org/Downloadable/Results/Combined03012014/"]
+"http://famat.org/Downloadable/Results/Hagerty%20Student%20Delegate%20March%20Statewide/",
+"http://famat.org/Downloadable/Results/Combined03022013/",
+"http://famat.org/Downloadable/Results/Tampa%20Bay%20Tech%20Statewide%20Feb%20%202013/",
+"http://famat.org/Downloadable/Results/Combined02012013/",
+"http://famat.org/Downloadable/Results/Combined01182013/",
+"http://famat.org/Downloadable/Results/Vero%20Beach%20January%202013/"]
 
 ###################################################
-
-''' DEFUNCT: because built-in python functions stole my thunder
-# some cute functions for parsing output
-def hangingIndent(string, space):
-    # string is a str, space is an int, how many characters of space there are
-    tabs = math.ceil((space-len(string))/8)
-    result = string
-    for k in range(tabs):
-        result = result + "\t"
-    return result
-'''
 
 def roundList(iterable, ndigits):
     resultList = []
@@ -76,22 +51,6 @@ def fillZeroes(num, desiredPlaces):
     while (len(numstr) - 1 - numstr.find(".") < desiredPlaces):
         numstr += "0"
     return numstr
-
-''' DEFUNCT: because it's just easier to add the URLs into the code and run
-# in case you ever want to add your urls custom-ly
-baseURLs = []
-sweepsURL = input("Enter the URL of the Sweepstakes results for a (statewide or combined regional) competition to analyze: ")
-while sweepsURL == "": # if some derp decides to leave it blank the first time
-    sweepsURL = input("Enter the URL: ")
-
-while sweepsURL != "": # once we have something
-    # all division URLs have the form http://floridamao.org/Downloadable/Results/(competition name)/(division name)_Indv.html
-    slashes = [slashInd for slashInd in range(len(sweepsURL)) if sweepsURL[slashInd] == "/"]
-    # cut the URL after the 6th slash (similar technique used later), append division+"_Indv.html"
-    baseURL = sweepsURL[:slashes[5]+1]
-    baseURLs.append(baseURL)
-    sweepsURL = input("Any more competition URLs? Leave blank and press enter if the answer is \"no.\" ")
-'''
 
 masterlist = {}
 divisions = {}
@@ -115,29 +74,25 @@ for division in ["Geometry", "Algebra 2", "Precalculus", "Calculus", "Statistics
         for tag in cells:
             cellText.append(str(tag)) # convert to string for manipulation
 
-        # order of 9 tags is (place), (school), (name), (score), (famat ID), (right), (wrong), (blank), (tscore)
-        # 10th place celltext at index 90 (1st place celltext at index 9, 2nd place at 18, ..., "10th" at 90)
-        # failsafe against ties where 10th/25th doesn't actually exist in the html
-        tenthPlace = cellText[9*10 + 3]
-        twentyFifthPlace = cellText[9*25 + 3]
-        tenthScore = int(tenthPlace[4:-5]) # cut off the <td>, </td>
-        twentyFifthScore = int(twentyFifthPlace[4:-5])
-
-        # list comp to get indices of all occurrences of school name
-        indices = [ind for ind in range(len(cellText)) if cellText[ind] == "<td>" + school + "</td>"]
-
-        for i in range(len(indices)):
-            # indices[i]+1 is the position of the student's name, +2 is score, +3 is ID
-            studentName = cellText[indices[i]+1][4:-5].title() # cut tags, standardize to title case
-            studentScore = int(cellText[indices[i]+2][4:-5])
-            ID = cellText[indices[i]+3][4:-5]
+        # order of the 9 tags is (place), (school), (name), (score), (famat ID), (right), (wrong), (blank), (tscore)
+        # grab every student's t-score
+        for i in range(0, len(cellText), 9):
+            if i==0:
+                continue # this is the header row that names all the columns
+            # i+2 is the position of the student's name, i+8 is t-score
+            studentName = cellText[i+2][4:-5].title() # cut tags, standardize to title case
+            tScore = float(cellText[i+8][4:-5])
+            ID = cellText[i+4][4:-5]
             
-            sScore = 5*(studentScore - twentyFifthScore)/(tenthScore - twentyFifthScore + 1) + 70 # formula!!
+            # most top performers will have a 4th-highest t-score at least 60, so cut off these for a little buffer
+            # however also an optimization to weed out noobs
+            if tScore < 50:
+                break
             if studentName in students:
-                students[studentName].append(sScore)
+                students[studentName].append(tScore)
             else:
                 students.update({studentName:[]}) # create a list for scores and append a new one at each comp
-                students[studentName].append(sScore)
+                students[studentName].append(tScore)
 
             # the last two digits of a famat ID are mutable, e.g. for students in two divisions or who are on/off the team
             ID = ID[:-2]
@@ -156,14 +111,11 @@ for division in ["Geometry", "Algebra 2", "Precalculus", "Calculus", "Statistics
                 # we're going to have to assume that one spelling is correct... if we store the wrong one first, well, sucks
                 # all we really need is a unique index/key to store all of a student's data
                 IDs.update({ID:studentName})        
-        
-    # at this point we have students={name:[s-scores...],name:[s-scores...],...}
 
-    ###
-    ###
-    ### correct for spelling errors
-    
-    ### locate the correct version and add the s-score list of the incorrect version to the correct version
+    # at this point we have students={name:[s-scores...],name:[s-scores...]...}
+
+    # correct for spelling errors
+    # locate the correct version and add the s-score list of the incorrect version to the correct version
     for correctVer in corrections:
         for incorrectVer in corrections[correctVer]: # (corrections[correctVer] is a list)
             if incorrectVer not in students:
@@ -184,17 +136,14 @@ for division in ["Geometry", "Algebra 2", "Precalculus", "Calculus", "Statistics
         descending = sorted(students[st], reverse=True) # students[st] contains the s-scores
         students[st] = descending
 
-    ###
-    ###
-    ### begin parsing output for each division
-        
+    # begin parsing output for each division
     compCount = ""
     if len(baseURLs) == 1:
         compCount = "1 Competition"
     else:
         compCount = str(len(baseURLs)) + " Competitions"
-    print("===== " + division + " S-score Results After " + compCount + " =====")
-    print("Name".ljust(20), "Sum of Top 3 S-Scores".ljust(24), "All S-Scores")
+    print("===== " + division + " Sums of Top 4 T-Scores After " + compCount + " =====")
+    print("Rank\t" + "Name".ljust(24) + "Sum of Top 4 T-Scores")
 
     # there are 2 dicts: students (name:descending s-scores) and studentSums (name:sum of top 3 s-scores)
     # and a list to order the students in
@@ -204,7 +153,7 @@ for division in ["Geometry", "Algebra 2", "Precalculus", "Calculus", "Statistics
 
     # put the sum of top 3 into the studentSums and into topThreeSum
     for stu in students:
-        topThreeSum = sum(students[stu][0:3]) # students[stu] is already sorted descending
+        topThreeSum = sum(students[stu][0:4]) # students[stu] is already sorted descending
         studentSums.update({stu:topThreeSum})
         topThreeRankings.append(topThreeSum)
 
@@ -212,19 +161,55 @@ for division in ["Geometry", "Algebra 2", "Precalculus", "Calculus", "Statistics
     topThreeRankings = sorted(list(set(topThreeRankings)), reverse=True)
     # remove duplicates from topThreeRankings
 
-    ### find the student whose topThreeSum is this rank in the topThreeRankings
+    previousSum, accumulatedTies, tempHangingRank = 0,0,0
+    inStreak = False
+
+    # find the student(s) whose topThreeSum is this rank in the topThreeRankings
     # (order the students in the order of topThreeRankings)
     for rank in range(len(topThreeRankings)):
         for stud in students:
             if studentSums[stud] == topThreeRankings[rank]:
-                # print name, the sum, then the list of top 3
-                print(stud.ljust(20), str(round(studentSums[stud], decimalPlaces)).ljust(24), str(roundList(students[stud], decimalPlaces)))
+                
+                # NOTE on ties: the above if stmt. keeps returning true w/o increasing counter as long as there are ppl with the same score
+                # (*)this results in multiple ppl w/ same rank, but with no gaps in numbering (1 2 3 3 3 4 5 6 ...)
+                # we may want everyone unique (1 2 3 4 5 ...) or we may want a tie rank order (1 2 3 3 3 6 7 8 ...)
+                
+                if topThreeRankings[rank] == previousSum:
+                    # then this is a duplicate of the last one
+                    if realTieSystem:
+                        if not inStreak:
+                            tempHangingRank = studentsSoFar # capture the current i.e. last student's rank throughout streak
+                            inStreak = True
+                    accumulatedTies += 1 # keeps the count running when "counter" is stuck dealing with tied and same-ranked ppl
+                else:
+                    # streak is over, update previousSum, reset variables
+                    previousSum = topThreeRankings[rank]
+                    inStreak = False
+                    tempHangingRank = 0
+
+                studentsSoFar = rank + 1 + accumulatedTies
+                # combining the zero-indexed counter and the additional counting we do to deal with the tie situation (see comment (*))
+                
+                if realTieSystem:
+                    # tie rank order mode (the rank jumps whenever streaks end, according to where it "should" be)
+                    # identical to famat ranking system
+                    if inStreak:
+                        printedRank = str(tempHangingRank)
+                    else:
+                        printedRank = str(studentsSoFar)
+                else:
+                    # default mode (everybody gets a unique rank according to the number of people)
+                    # useful for the latex graph since overlapping points look bad
+                    printedRank = str(studentsSoFar)
+                    
+                score = str(round(topThreeRankings[rank], decimalPlaces))
+                print(printedRank + "\t" + stud.ljust(24) + score)
+        if rank + 1 + accumulatedTies == 30:
+            break
+    
     print("============================================================")
 
-    ###
-    ###
-    ### finally, append to the master list dictionary
-    
+'''    # finally, append to the master list dictionary
     # if a student is in more than one division and we try to re-add, use the higher s-score and division
     # skip middle schoolers
     for stude in studentSums:
@@ -238,22 +223,19 @@ for division in ["Geometry", "Algebra 2", "Precalculus", "Calculus", "Statistics
             # for latex purposes: define the division ID (first letter of div.) and create a new dictionary for student:ID
             # if the student's sum is overwritten by a higher one in another division, overwrite the division too
 
-###
-###
-### print out the master list, in order, numbering each student
-            
+# print out the master list, in order, numbering each student
 # to do this, add the anonymous sums to a new list, sort it, and match identities back in the loop
 allSums = []
 for studen in masterlist:
     allSums.append(masterlist[studen])
     
-allSums = sorted(allSums, reverse=True)
+allSums = sorted(list(set(allSums)), reverse=True)
 data = np.array(allSums[:numRows])
 
 print()
-print("===== All S-Scores as of " + date + " =====")
+print("===== All T-Scores as of " + date + " =====")
 
-### find the student's name ("student") that goes with the scores arranged in order (looping through allSums by index)
+# find the student's name ("student") that goes with the scores arranged in order (looping through allSums by index)
 
 previousSum, accumulatedTies, tempHangingRank = 0,0,0
 inStreak = False
@@ -416,3 +398,4 @@ print()
 print(docFooter)
 
 # HUZZAH! MAY GRAND VICTORY BE IN AHS'S NEAR FUTURE
+'''
