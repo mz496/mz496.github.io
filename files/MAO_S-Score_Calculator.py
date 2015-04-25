@@ -20,17 +20,17 @@ from bs4 import BeautifulSoup
 
 # the list of people removed from consideration for states
 # need title case
-middleSchoolers = ["Max Ranis", "Azzara Nincevic", "Nithya Kasarla", "Kishan Patel"]
+middleSchoolers = []#["Max Ranis", "Azzara Nincevic", "Nithya Kasarla", "Kishan Patel"]
 
 # change the school name if desired, for funsies
 # name must be exactly as appears on famat.org
 school = "American Heritage (Plantation)"
 
 # for output of all s-scores at the end "as of ..."
-date = "March Regional, 3/1/2014"
+date = "February Regional, 2/14/2015"
 
 # decimal places to calculate to throughout output+program
-decimalPlaces = 4
+decimalPlaces = 6
 
 # number of people (top X) to analyze for latex output; usually limited by the number of rows that can fit in the table
 # 45 works well
@@ -44,11 +44,9 @@ realTieSystem = True
 # format: use any of the URLs for a comp, e.g. Sweepstakes, and remove e.g. "Sweeps.html" and leave the /
 # http:// required
 baseURLs = [
-"http://floridamao.org/Downloadable/Results/Tampa%20Bay%20Tech%20January%20Statewide%202014/",
-"http://floridamao.org/Downloadable/Results/Combined01182014/",
-"http://floridamao.org/Downloadable/Results/Combined02012014/",
-"http://floridamao.org/Downloadable/Results/February%20Statewide%20at%20Coral%20Glades%20HS/",
-"http://floridamao.org/Downloadable/Results/Combined03012014/"]
+"http://famat.org/Downloadable/Results/Combined02142015/",
+"http://famat.org/Downloadable/Results/Combined01312015/",
+"http://famat.org/Downloadable/Results/Vero%20Beach%20Statewide%20Jan%202015/"]
 
 ###################################################
 
