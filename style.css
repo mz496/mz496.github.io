@@ -4,90 +4,71 @@ body, nav, header, section, ul {
   padding: 0;
   font-family: "Droid Serif", serif;
   color: #666666;
-  box-sizing: border-box;
+}
+nav {
+  width: 100%;
 }
 
-h1, h2, h3 {
+body * {
+  /*border: 1px solid black;*/
+}
+
+h1, h2 {
   font-family: "Assistant", sans-serif;
 }
 
-h1, h3 {
+h1 {
   font-weight: 700;
 }
 h2 {
-  font-weight: 300;
+  font-weight: 400;
 }
 
-/* Constrained-width, centered elements */
-main, nav div.nav-content, header div.header-content-container {
-  width: 100%;
-  max-width: 75rem;
-  margin: 0 auto;
+nav, header {
+  padding: 0 5rem;
 }
-
-
-
 
 nav {
   position: fixed;
   top: 0;
   height: 5rem;
-  width: 100%;
-  background-color: rgba(255,255,255,0.5);
+  background-color: rgba(128,128,128,0.5);
   z-index: 3;
-  display: flex;
-  align-items: center;
 }
-nav div.nav-content {
-  display: flex;
-  justify-content: space-between;
-}
-
-
-
-
-
 
 header {
   position: relative;
   padding-top: 8rem;
   height: 100vh;
   min-height: 40rem;
-  max-height: 60rem;
-  box-sizing: border-box;
   z-index: 2;
 }
-header svg {
+
+header div.header-bg {
   position: absolute;
   top: 0;
   right: 0;
-  bottom: 0;
-  left: 0;
-  z-index: -1;
+  height: 100%;
+  width: 100%;
+  z-index: 0;
 }
 
-header img.self-portrait {
-  height: 80%;
-  position: absolute;
-  bottom: 0;
-  left: 60%;
+header div.header-bg img {
+  height: 100%;
+  opacity: 0.5;
 }
 
 header div.header-content {
   width: 50%;
-  margin-left: 0;
   z-index: 1;
 }
 
 
 
-
-
-ul {
+ul.projects-list {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  list-style-type: none;
 }
 
 ul.projects-list li {
@@ -120,4 +101,10 @@ ul.projects-list li div.project-wrapper div.description {
   padding: 10px;
   flex-basis: 33.3333%;
   max-width: 33.3333%;
+}
+
+main {
+  max-width: 75rem;
+  margin: 0 auto;
+  padding: 0 5rem;
 }
