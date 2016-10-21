@@ -1,0 +1,13 @@
+to do
+
+header buttons, underline fade in upward
+
+outline transition buttons (blog, resume)
+
+header styles
+
+outline transitions on project images
+
+project pages
+
+contact links
