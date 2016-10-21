@@ -1,110 +1,149 @@
-body, nav, header, section, ul {
-  display: block;
+/* Custom Stylesheet */
+/**
+ * Use this file to override Materialize files so you can update
+ * the core Materialize files in the future
+ *
+ * Made By MaterializeCSS.com
+ */
+
+.icon-block {
+  padding: 0 15px;
+}
+.icon-block .material-icons {
+	font-size: inherit;
+}
+
+body {
+  font-family: "Open Sans", "Arial," sans-serif;
+}
+
+h1,h2,h3 {
+  font-family: "Montserrat", "Arial", sans-serif;
+  color: #0097a7;
+}
+
+#title {
+  height: 600px;
+  background-image: url("images/splash.jpg");
+  background-size: cover;
+}
+.splash {
+  color: white;
+}
+.splash div {
+  height: 180px;
+}
+.splash img {
+  position: absolute;
+  left: 0;
+  height: 100%;
+}
+.splash-img {
+  position: relative;
+}
+.info {
+  background-color: rgba(0,0,0,0.5);
+  font-size: 16pt;
+}
+strong {
+  font-weight: bold;
+}
+
+.experience, .other-projects {
+  background-color: #b0bec5;
+}
+.skills, .projects {
+  background-color: #cfd8dc;
+}
+.experience hr,
+.projects hr,
+.other-projects hr {
+  border-color: #455a64;
+  opacity: 0.3;
+}
+
+.contact {
+  background-color: #455a64;
+  color: rgba(255,255,255,0.6);
+}
+.contact h2 {
+  color: white;
+}
+.contact hr {
+  border-color: rgba(255,255,255,0.4);
+}
+.highlight-button-wrapper {
+  margin: 40px;
+}
+.highlight-button {
+  font-family: "Montserrat", "Arial", sans-serif;
+  font-size: 24px;
+  border: 3px solid white;
+  color: white;
+  padding: 20px 30px;
+}
+
+.experience-entry img {
+  width: 100%;
+}
+.experience-entry div {
+  height: 100%;
+}
+
+
+.row {
+  position: relative;
+}
+.no-margin {
   margin: 0;
-  padding: 0;
-  font-family: "Droid Serif", serif;
-  color: #666666;
 }
-nav {
-  width: 100%;
+hr {
+  border: none;
+  border-top: 1px solid #0097a7;
+  opacity: 0.3;
+  width: 61.8%;
 }
-
-body * {
-  /*border: 1px solid black;*/
-}
-
-h1, h2 {
-  font-family: "Assistant", sans-serif;
-}
-
-h1 {
-  font-weight: 700;
-}
-h2 {
-  font-weight: 400;
-}
-
-nav, header {
-  padding: 0 5rem;
-}
-
-nav {
-  position: fixed;
-  top: 0;
-  height: 5rem;
-  background-color: rgba(128,128,128,0.5);
-  z-index: 3;
-}
-
-header {
-  position: relative;
-  padding-top: 8rem;
-  height: 100vh;
-  min-height: 40rem;
-  z-index: 2;
-}
-
-header div.header-bg {
+/* If any projects need an extra line, attach the proper class to
+   the div of other one in the row */
+.bottom-right {
   position: absolute;
-  top: 0;
+  bottom: 0;
   right: 0;
-  height: 100%;
-  width: 100%;
-  z-index: 0;
 }
-
-header div.header-bg img {
-  height: 100%;
-  opacity: 0.5;
-}
-
-header div.header-content {
-  width: 50%;
-  z-index: 1;
-}
-
-
-
-ul.projects-list {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-}
-
-ul.projects-list li {
-  height: 200px;
-}
-
-ul.projects-list li div.project-wrapper {
-  position: relative;
-  overflow: hidden;
-}
-
-ul.projects-list li div.project-wrapper img {
-  width: 100%;
-}
-
-ul.projects-list li div.project-wrapper div.title {
-  position: absolute;
-  right: 1rem;
-  top: 1rem;
-}
-ul.projects-list li div.project-wrapper div.description {
+.bottom-left {
   position: absolute;
   bottom: 0;
   left: 0;
 }
 
-.col-4 {
-  display: flex;
-  box-sizing: border-box;
-  padding: 10px;
-  flex-basis: 33.3333%;
-  max-width: 33.3333%;
+.project-entry .img-wrapper {
+  height: 250px;
+  overflow: hidden;
+  position: relative;
 }
-
-main {
-  max-width: 75rem;
-  margin: 0 auto;
-  padding: 0 5rem;
+.project-entry-secondary .img-wrapper {
+  height: 200px;
+  overflow: hidden;
+  position: relative;
+}
+.project-entry img,
+.project-entry-secondary img {
+  width: 100%;
+}
+.project-entry .description,
+.project-entry-secondary .description {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  background-color: rgba(0,0,0,0.7);
+  color: white;
+  display: none;
+}
+.project-entry .description p,
+.project-entry-secondary .description p {
+  margin: 10px;
+}
+a {
+  color: inherit;
 }
