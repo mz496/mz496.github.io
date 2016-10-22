@@ -1,4 +1,8 @@
-body, nav, header, section, ul {
+body {
+  font-size: 16px;
+}
+
+body, nav, header, section, ul, a {
   display: block;
   margin: 0;
   padding: 0;
@@ -9,22 +13,53 @@ body, nav, header, section, ul {
 
 h1, h2, h3 {
   font-family: "Assistant", sans-serif;
+  margin: 0;
 }
 
-h1, h3 {
+/* h1: Top heading, h2: Top blurb, h3: Section headings */
+h1 {
+  font-size: 4rem;
   font-weight: 700;
 }
 h2 {
+  font-size: 3rem;
   font-weight: 300;
+}
+h3 {
+  font-size: 2rem;
+  font-weight: 700;
+  text-transform: uppercase;
 }
 
 /* Constrained-width, centered elements */
-main, nav div.nav-content, header div.header-content-container {
+div.row, section.centered {
   width: 100%;
-  max-width: 75rem;
+  max-width: 70rem;
   margin: 0 auto;
 }
+section.fullwidth {
+  width: 100%;
+}
 
+a {
+  cursor: pointer;
+}
+a.button {
+  display: inline-block;
+  margin: 1rem;
+  padding: 1rem;
+  font-family: "Assistant", sans-serif;
+  font-weight: 400;
+  text-transform: uppercase;
+}
+a.button.button-body {
+  font-size: 1.5rem;
+}
+a.button.button-body-small {
+  text-transform: initial;
+  margin: 0.5rem;
+  padding: 0;
+}
 
 
 
@@ -35,12 +70,13 @@ nav {
   width: 100%;
   background-color: rgba(255,255,255,0.5);
   z-index: 3;
+  /*display: flex;*/
+}
+nav div.row {
   display: flex;
   align-items: center;
-}
-nav div.nav-content {
-  display: flex;
   justify-content: space-between;
+  height: 100%;
 }
 
 
@@ -90,34 +126,55 @@ ul {
   list-style-type: none;
 }
 
-ul.projects-list li {
-  height: 200px;
+.projects {
+  background-color: #cccccc;
 }
 
-ul.projects-list li div.project-wrapper {
+.projects ul li {
   position: relative;
+  box-sizing: border-box;
+  padding: 1rem;
+  height: 13rem;
+  max-width: 33.3333%;
+  min-width: 22rem;
+}
+
+.projects ul li > div { /* For hiding overflow into padding */
+  height: 100%;
   overflow: hidden;
 }
 
-ul.projects-list li div.project-wrapper img {
+.projects ul li img {
   width: 100%;
 }
 
-ul.projects-list li div.project-wrapper div.title {
+.projects ul li div.title {
   position: absolute;
-  right: 1rem;
+  padding: 1rem;
+  left: 1rem;
   top: 1rem;
 }
-ul.projects-list li div.project-wrapper div.description {
+.projects ul li div.description {
   position: absolute;
-  bottom: 0;
-  left: 0;
+  text-align: right;
+  padding: 1rem;
+  bottom: 1rem;
+  left: 1rem;
+  right: 1rem;
 }
 
-.col-4 {
-  display: flex;
-  box-sizing: border-box;
-  padding: 10px;
-  flex-basis: 33.3333%;
-  max-width: 33.3333%;
+.contact ul {
+  margin: 0 auto;
+  max-width: 30rem;
 }
+.contact ul li {
+  height: 6rem;
+  width: 33.3333%;
+  text-align: center;
+}
+.contact ul li i {
+  font-size: 2rem;
+}
+
+
+

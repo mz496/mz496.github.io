@@ -2,23 +2,24 @@
 <html>
 <head>
   <title>Matthew Zhu</title>
-  <link href="https://fonts.googleapis.com/css?family=Assistant:300,700|Droid+Serif" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Assistant:300,400,700|Droid+Serif" rel="stylesheet">
   <link type="text/css" rel="stylesheet" href="style.css">
+  <script src="https://use.fontawesome.com/5b74aa4cb1.js"></script>
 </head>
 
 <!--left to do: make playground items, make contact items, make project pages-->
 
 <body>
   <nav>
-    <div class="nav-content">
+    <div class="row">
       <a class="home">
         MATTHEW ZHU
       </a>
 
       <ul>
-        <li><a>Button1</a></li>
-        <li><a>Button2</a></li>
-        <li><a>Button3</a></li>
+        <li><a class="button button-header">Button1</a></li>
+        <li><a class="button button-header">Button2</a></li>
+        <li><a class="button button-header">Button3</a></li>
       </ul>
     </div>
   </nav>
@@ -41,7 +42,7 @@
 
     <img class="self-portrait" src="./images/me.png" />
 
-    <div class="header-content-container">
+    <div class="row">
       <div class="header-content">
         <h1>Hi, I'm Matthew!</h1>
         <h2>I like to do stuff.</h2>
@@ -50,102 +51,147 @@
   </header>
 
   <main>
-    <section>
-      <h1>PROJECTS</h1>
-      <ul class="projects-list">
-        <li class="col-4">
-          <div class="project-wrapper">
-            <a href="http://www.google.com">
-              <img src="images/maotimers.png">
-              <div class="title">
-                MA&#920; Timers
-              </div>
-              <div class="description">
-                A set of nine stopwatch-style timers, designed for Mu Alpha Theta high school math honor society competitions and the special timing and alerting involved. It's been used in official competitions since the 2014 National Convention in Orlando, FL!
-              </div>
-            </a>
-          </div>
-        </li>
+    <section class="projects">
+      <div class="row">
+        <h3>Projects</h3>
+        <ul>
+          <li>
+            <div>
+              <a href="http://www.google.com">
+                <img src="images/maotimers.png">
+                <div class="title">
+                  MA&#920; Timers
+                </div>
+                <div class="description">
+                  A set of nine stopwatch-style timers, designed for Mu Alpha Theta high school math honor society competitions and the special timing and alerting involved. It's been used in official competitions since the 2014 National Convention in Orlando, FL!
+                </div>
+              </a>
+            </div>
+          </li>
 
-        <li class="col-4">
-          <div class="project-wrapper">
-            <a href="http://www.google.com">
-              <img src="images/planetarium.png">
-              <div class="title">
-                Ten-Second Planetarium
-              </div>
-              <div class="description">
-                A HTML5 canvas visualization of solar system orbits and orbital speed using the benchmark that one Earth year equals ten seconds. Includes relevant background and plenty of math and astronomy I learned at the Summer Science Program 2013.
-              </div>
-            </a>
-          </div>
-        </li>
+          <li>
+            <div>
+              <a href="http://www.google.com">
+                <img src="images/planetarium.png">
+                <div class="title">
+                  Ten-Second Planetarium
+                </div>
+                <div class="description">
+                  A HTML5 canvas visualization of solar system orbits and orbital speed using the benchmark that one Earth year equals ten seconds. Includes relevant background and plenty of math and astronomy I learned at the Summer Science Program 2013.
+                </div>
+              </a>
+            </div>
+          </li>
 
-        <li class="col-4">
-          <div class="project-wrapper">
-            <a href="http://www.google.com">
-              <img src="images/subvert.png">
-              <div class="title">
-                Subvert: Resistance Universe Toolkit
-              </div>
-              <div class="description">
-                Android app that simplifies the 5-10 player board games The Resistance and The Resistance: Avalon by implementing a large subset of the gameplay logic. The (attained) goal was to make the game playable without a physical game board.
-              </div>
-            </a>
-          </div>
-        </li>
+          <li>
+            <div>
+              <a href="http://www.google.com">
+                <img src="images/subvert.png">
+                <div class="title">
+                  Subvert: Resistance Universe Toolkit
+                </div>
+                <div class="description">
+                  Android app that simplifies the 5-10 player board games The Resistance and The Resistance: Avalon by implementing a large subset of the gameplay logic. The (attained) goal was to make the game playable without a physical game board.
+                </div>
+              </a>
+            </div>
+          </li>
 
-        <li class="col-4">
-          <div class="project-wrapper">
-            <a href="http://www.google.com">
-              <img src="images/dayta.png">
-              <div class="title">
-                Dayta: data for days
-              </div>
-              <div class="description">
-                Gives information about dates and pairs of dates, with an interface modeled after the Windows native date selector. Developed a working knowledge of AngularJS 1.
-              </div>
-            </a>
-          </div>
-        </li>
+          <li>
+            <div>
+              <a href="http://www.google.com">
+                <img src="images/dayta.png">
+                <div class="title">
+                  Dayta: data for days
+                </div>
+                <div class="description">
+                  Gives information about dates and pairs of dates, with an interface modeled after the Windows native date selector. Developed a working knowledge of AngularJS 1.
+                </div>
+              </a>
+            </div>
+          </li>
 
-        <li class="col-4">
-          <div class="project-wrapper">
-            <a href="http://gamesvault.us.to">
-              <img src="images/gamesvault.png">
-              <div class="title">
-                GamesVault
-              </div>
-              <div class="description">
-                Ruby on Rails web app that aggregates data from gaming information websites in order to streamline the game-buying process. Created UI and wrote Ruby and Ajax to interact with the database. (Website is currently down.)
-              </div>
-            </a>
-          </div>
-        </li>
+          <li>
+            <div>
+              <a href="http://gamesvault.us.to">
+                <img src="images/gamesvault.png">
+                <div class="title">
+                  GamesVault
+                </div>
+                <div class="description">
+                  Ruby on Rails web app that aggregates data from gaming information websites in order to streamline the game-buying process. Created UI and wrote Ruby and Ajax to interact with the database. (Website is currently down.)
+                </div>
+              </a>
+            </div>
+          </li>
 
-        <li class="col-4">
-          <div class="project-wrapper">
-            <a href="files/MAO_S-Score_Calculator.py">
-              <img src="images/sscore.png">
-              <div class="title">
-                MA&#920; S-score Calculator
-              </div>
-              <div class="description">
-                A Python script that scrapes data from the Florida MA&#920; national high school math honor society's website to calculate performance statistics. Python 2.7 requires the urllib, BeautifulSoup4, and numpy modules. Optional LaTeX output requires the pgfplots and fancyhdr packages.
-              </div>
-            </a>
-          </div>
-        </li>
-      </ul>
+          <li>
+            <div>
+              <a href="files/MAO_S-Score_Calculator.py">
+                <img src="images/sscore.png">
+                <div class="title">
+                  MA&#920; S-score Calculator
+                </div>
+                <div class="description">
+                  A Python script that scrapes data from the Florida MA&#920; national high school math honor society's website to calculate performance statistics. Python 2.7 requires the urllib, BeautifulSoup4, and numpy modules. Optional LaTeX output requires the pgfplots and fancyhdr packages.
+                </div>
+              </a>
+            </div>
+          </li>
+        </ul>
+      </div>
     </section>
 
-    <section>
-      <h1>PLAYGROUND</h1>
+    <section class="playground centered">
+      <h3>Playground</h3>
+
+      <div>
+        <ul>
+          <li>
+            <i class="fa fa-wordpress" aria-hidden="true"></i>
+            <div>Blag</div>
+          </li>
+          <li>
+            <i class="fa fa-youtube" aria-hidden="true"></i>
+            <div>Music</div>
+          </li>
+
+        </ul>
+      </div>
     </section>
 
-    <section>
-      <h1>CONTACT</h1>
+    <section class="contact">
+      <div class="row">
+        <h3>Contact</h3>
+
+        <div>
+          <a class="button button-body">Resume</a>
+          <ul>
+            <li>
+              <a class="button button-body-small">
+              <i class="fa fa-github-square" aria-hidden="true"></i>
+              <div>/mz496</div>
+              </a>
+            </li>
+            <li>
+              <a class="button button-body-small">
+              <i class="fa fa-envelope" aria-hidden="true"></i>
+              <div>mzhu1@andrew.cmu.edu</div>
+              </a>
+            </li>
+            <li>
+              <a class="button button-body-small">
+              <i class="fa fa-linkedin-square" aria-hidden="true"></i>
+              <div>/in/mz496</div>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
     </section>
+
+
+    
   </main>
 </body>
 </html>
