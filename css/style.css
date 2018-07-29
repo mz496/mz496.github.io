@@ -110,10 +110,7 @@ div#social input#email:checked + label + span {
    make picture appear above content,
    make content a little wider
 */
-@media only screen and (max-width: 600px),
-       only screen and (max-width: 400px) and (-webkit-device-pixel-ratio: 2),
-       only screen and (max-width: 400px) and (-webkit-device-pixel-ratio: 3),
-       only screen and (max-width: 400px) and (-webkit-device-pixel-ratio: 4) {
+@media only screen and (max-width: 600px) {
     body {
         display: block;
         width: 90%;
@@ -131,6 +128,22 @@ div#social input#email:checked + label + span {
         max-width: 50%;
     }
 }
+
+@media (min-resolution: 160dpi) {
+    main h1 {
+        font-size: 120px;
+    }
+}
+/*@media (-webkit-device-pixel-ratio: 3) {
+    main h1 {
+        font-size: 180px;
+    }
+}
+@media (-webkit-device-pixel-ratio: 4) {
+    main h1 {
+        font-size: 240px;
+    }
+}*/
 
 /* Large screens:
    increase margins and header font size
