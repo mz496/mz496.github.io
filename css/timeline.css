@@ -1,0 +1,188 @@
+/* Major page sections */
+body {
+    margin: 0 auto;
+    font-family: "Lato", sans-serif;
+}
+
+nav {
+    width: 20%;
+    position: fixed;
+    z-index: 10000;
+}
+
+nav img#profile {
+    width: 100px;
+    height: auto;
+    border-radius: 50%;
+    float: right;
+    margin-top: 40px;
+    margin-right: 20px;
+}
+
+main {
+    width: 60%;
+    margin: 0 auto;
+}
+
+main h1 {
+    font-family: "Playfair Display", serif;
+    font-weight: 700;
+    font-size: 60px;
+    margin: 0;
+    padding-top: 0.67em;
+}
+
+ul#timeline {
+    list-style-type: none;
+    margin: 0;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    padding: 0;
+}
+
+li {
+    font-size: 20px;
+    position: relative;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+li.year {
+    font-family: "Playfair Display", serif;
+    font-weight: 400;
+    font-size: 40px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+
+li:before {
+    content: "";
+    position: absolute;
+    height: 100%;
+    width: 1px;
+    top: 0;
+    left: calc(-20px + -100px / 2 + -1px / 2);
+    /* Right margin of image + half of image width + half of line width */
+    background: rgba(0,0,0,1);
+}
+
+li:after {
+    content: "";
+    position: absolute;
+    font-size: 18px;
+    height: 32px;
+    width: 32px;
+    text-align: center;
+    line-height: 32px;
+    border: 1px solid black;
+    border-radius: 50%;
+    top: 0;
+    left: calc(-20px + -100px / 2 + -32px / 2);
+    background: rgba(255,255,255,1);
+}
+
+li.year:after {
+    height: 0;
+    width: 0;
+    border: 0;
+    /*content: "📆";*/
+    /*top: calc(15px + 0.5em - 32px / 2);*/
+    /* Top padding + half a capital letter height (to find center of element) - radius */
+}
+li.milestone:after {
+    content: "👏";
+    top: calc(10px + 0.5em - 32px / 2);
+}
+li.project:after {
+    content: "🛠";
+    top: calc(10px + 0.5em - 32px / 2);
+}
+li.fun:after {
+    content: "🎉";
+    top: calc(10px + 0.5em - 32px / 2);
+}
+
+li:first-of-type:before {
+    background: linear-gradient(rgba(0,0,0,0), rgba(0,0,0,1));
+}
+li:last-of-type:before {
+    background: linear-gradient(rgba(0,0,0,1), rgba(0,0,0,0));
+}
+li:first-of-type:after, li:last-of-type:after {
+    height: 0;
+    width: 0;
+    border: 0;
+}
+
+input.timeline-toggle {
+    display: none;
+}
+
+input.timeline-toggle + label {
+    font-size: 20px;
+    display: inline-flex;
+    align-items: center;
+    margin-right: 30px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+input.timeline-toggle + label:before {
+    content: "";
+    width: 15px;
+    height: 15px;
+    border: 1px solid black;
+    border-radius: 50%;
+    margin-right: 5px;
+    display: inline-block;
+    transition: .3s;
+    -webkit-transition: .3s;
+}
+input.timeline-toggle:checked + label:before {
+    background: black;
+    transition: .3s;
+    -webkit-transition: .3s;
+}
+
+/* Small screens:
+   widen main section,
+   shrink corner picture and fonts,
+   adjust position of timeline
+*/
+@media only screen and (max-width: 600px) {
+    main {
+        width: 70%;
+        margin-left: 20%;
+    }
+
+    nav img#profile {
+        max-width: 70%;
+        margin: 0 15%;
+        margin-top: 20px;
+    }
+
+    main h1 {
+        font-size: 40px;
+    }
+
+    li, input.timeline-toggle + label {
+        font-size: 18px;
+    }
+    input.timeline-toggle + label {
+        padding-top: 5px;
+        padding-bottom: 5px;
+    }
+
+    li.year {
+        font-size: 30px;
+    }
+
+    li:before {
+        left: calc(-100% / 7 + -1px / 2);
+        /* Image is centered in left column i.e. at 10% of page width */
+        /* 100% is the entire width of the timeline i.e. 70% of page width, so 100%/7 = 10% of page width */
+        /* Half of left column width + half of line width */
+    }
+    li:after {
+        left: calc(-100% / 7 + -32px / 2);
+    }
+}
