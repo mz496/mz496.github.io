@@ -9,6 +9,7 @@ body {
     margin: 40px auto;
     display: flex;
     font-family: "Lato", sans-serif;
+    font-size: 24px;
 }
 
 aside {
@@ -53,7 +54,7 @@ main div#social {
 
 a.button {
     font-family: "Playfair Display SC", serif;
-    font-size: 24px;
+    /*font-size: 24px;*/
     color: inherit;
     text-decoration: none;
     cursor: pointer;
@@ -79,7 +80,7 @@ div#social input#email + label {
 }
 
 div#social input#email + label + span {
-    font-size: 24px;
+    /*font-size: 24px;*/
     opacity: 0;
     margin-left: 10px;
     transition: .3s;
@@ -109,11 +110,13 @@ div#social input#email:checked + label + span {
 /* Small screens:
    make picture appear above content,
    make content a little wider
+   make fonts smaller
 */
 @media only screen and (max-width: 600px) {
     body {
         display: block;
         width: 90%;
+        font-size: 18px;
     }
     aside {
         text-align: center;
@@ -126,6 +129,14 @@ div#social input#email:checked + label + span {
     aside img#profile {
         margin-top: 0;
         max-width: 50%;
+    }
+
+    main h1 {
+        font-size: 40px;
+    }
+
+    main p {
+        font-size: 20px;
     }
 }
 
