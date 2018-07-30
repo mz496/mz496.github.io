@@ -129,11 +129,6 @@ div#social input#email:checked + label + span {
     }
 }
 
-@media (min-resolution: 160dpi) {
-    main h1 {
-        font-size: 120px;
-    }
-}
 /*@media (-webkit-device-pixel-ratio: 3) {
     main h1 {
         font-size: 180px;
