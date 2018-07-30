@@ -148,10 +148,7 @@ input.timeline-toggle:checked + label:before {
    shrink corner picture and fonts,
    adjust position of timeline
 */
-@media only screen and (max-width: 600px),
-       only screen and (max-width: 400px) and (-webkit-device-pixel-ratio: 2),
-       only screen and (max-width: 400px) and (-webkit-device-pixel-ratio: 3),
-       only screen and (max-width: 400px) and (-webkit-device-pixel-ratio: 4) {
+@media only screen and (max-width: 600px) {
     main {
         width: 70%;
         margin-left: 20%;
