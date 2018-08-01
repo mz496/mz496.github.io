@@ -32,6 +32,8 @@ main h1 {
     padding-top: 0.67em;
 }
 
+/* Timeline and bubbles */
+
 ul#timeline {
     list-style-type: none;
     margin: 0;
@@ -114,6 +116,8 @@ li:first-of-type:after, li:last-of-type:after {
     border: 0;
 }
 
+/* Show X toggles for the timeline entries */
+
 input.timeline-toggle {
     display: none;
 }
@@ -141,6 +145,19 @@ input.timeline-toggle:checked + label:before {
     background: black;
     transition: .3s;
     -webkit-transition: .3s;
+}
+
+/* Links */
+
+a {
+    transition: .3s;
+    -webkit-transition: .3s;
+}
+a, a:visited, a:active {
+    color: black;
+}
+a:hover {
+    color: rgba(0,0,0,0.7);
 }
 
 /* Small screens:
