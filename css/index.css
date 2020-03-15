@@ -1,0 +1,47 @@
+body {
+    display: flex;
+    flex-direction: row;
+}
+header {width: 30%;}
+main {width: 70%;}
+h1 {
+    /* Half width of header section */
+    margin-top: calc((30/70) * (1/2) * 100%);
+}
+
+
+
+li:after {
+    left: calc(-1.8em/2 + -1.8em);
+}
+li.linkedin:after {content: "🌤";}
+li.github:after {content: "🌒";}
+li.instagram:after {content: "🖋️";}
+li.youtube:after {content: "🎹";}
+li.soundcloud:after {content: "🎧";}
+li.email:after {content: "✉️";}
+
+
+
+/* Small screens */
+@media only screen and (max-width: 800px) {
+    body {
+        width: 70vw;
+        margin-left: 20vw;
+        margin-top: 5vh;
+        flex-direction: column;
+    }
+    header, main {width: 100%;}
+
+    header {
+        text-align: right;
+    }
+    img.profile {
+        max-width: 50%;
+    }
+
+    h1 {
+        margin-top: -30px;
+        text-align: right;
+    }
+}

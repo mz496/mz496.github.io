@@ -1,210 +1,113 @@
-/* Major page sections */
-body {
-    margin: 0 auto;
-    font-family: "Lato", sans-serif;
+header {
+    width: 10vw;
 }
-
-nav {
-    width: 20%;
-    position: fixed;
-    z-index: 10000;
+img.profile {
+    position: absolute;
+    width: 10vw;
 }
-
-nav img#profile {
-    width: 100px;
-    height: auto;
-    border-radius: 50%;
-    float: right;
-    margin-top: 40px;
-    margin-right: 20px;
-}
-
 main {
-    width: 60%;
-    margin: 0 auto;
+    width: 63vw;
+    /* Width of main = 63+2 */
+    padding-left: 2vw;
+    /* Width of header */
+    margin-left: 10vw;
+}
+h2 {
+    padding-top: 0;
+    padding-bottom: 0;
+    margin-top: 1em;
+    margin-bottom: 0.5em;
 }
 
-main h1 {
-    font-family: "Playfair Display", serif;
-    font-weight: 700;
-    font-size: 60px;
-    margin: 0;
-    padding-top: 0.67em;
-}
 
-/* Timeline and bubbles */
 
-ul#timeline {
-    list-style-type: none;
-    margin: 0;
-    margin-top: 30px;
-    margin-bottom: 30px;
-    padding: 0;
-}
-
+/* Timeline */
 li {
-    font-size: 20px;
-    position: relative;
-    padding-top: 10px;
-    padding-bottom: 10px;
     transition: opacity .2s, max-height .2s, padding .2s;
     -webkit-transition: opacity .2s, max-height .2s, padding .2s;
 }
-
-li.year {
-    font-family: "Playfair Display", serif;
-    font-weight: 400;
-    font-size: 40px;
-    padding-top: 15px;
-    padding-bottom: 15px;
-}
-
 li:before {
-    /* Vertical line for timeline */
-    content: "";
-    position: absolute;
-    height: 100%; /*calc(100% + 32px); /* Make the line not show a gap when disappearing by adding the height of a circle */
-    width: 1px;
-    top: 0;
-    left: calc(-20px + -100px / 2 + -1px / 2);
-    /* Right margin of image + half of image width + half of line width */
-    background: rgba(0,0,0,1);
+    /* half line width + distance between header and main + half header width */
+    left: calc(-1px/2 + -2vw + -10vw/2);
 }
-
 li:after {
-    /* Empty circle */
-    content: "";
-    position: absolute;
-    font-size: 18px;
-    height: 32px;
-    width: 32px;
-    text-align: center;
-    line-height: 32px;
-    border: 1px solid black;
-    border-radius: 50%;
-    top: 0;
-    left: calc(-20px + -100px / 2 + -32px / 2);
-    background: rgba(255,255,255,1);
+    /* half line width + distance between header and main + half header width */
+    left: calc(-1.8em/2 + -2vw + -10vw/2);
 }
-
-li.year:after {
-    height: 0;
-    width: 0;
-    border: 0;
-    /*content: "📆";*/
-    /*top: calc(15px + 0.5em - 32px / 2);*/
-    /* Top padding + half a capital letter height (to find center of element) - radius */
-}
-li.milestone:after {
-    content: "👏";
-    top: calc(10px + 0.5em - 32px / 2);
-}
-li.project:after {
-    content: "🛠";
-    top: calc(10px + 0.5em - 32px / 2);
-}
-li.fun:after {
-    content: "🎉";
-    top: calc(10px + 0.5em - 32px / 2);
-}
+li.milestone:after, label.milestone:after {content: "👏";}
+li.project:after, label.project:after {content: "🛠";}
+li.fun:after, label.fun:after {content: "🎉";}
 
 /* Fade line at beginning and end */
-li:first-of-type:before {
-    background: linear-gradient(rgba(0,0,0,0), rgba(0,0,0,1));
-}
-li:last-of-type:before {
-    background: linear-gradient(rgba(0,0,0,1), rgba(0,0,0,0));
-}
+li:first-of-type:before {background: linear-gradient(rgba(0,0,0,0), rgba(0,0,0,1));}
+li:last-of-type:before {background: linear-gradient(rgba(0,0,0,1), rgba(0,0,0,0));}
 li:first-of-type:after, li:last-of-type:after {
     height: 0;
     width: 0;
     border: 0;
 }
 
-/* "Show _" toggles for the timeline entries */
 
-input.timeline-toggle {
+
+/* "Show _" toggles for the timeline entries */
+section#toggle {
+    display: flex;
+    flex-direction: row;
+}
+section#toggle input {
     display: none;
 }
-
-input.timeline-toggle + label {
-    font-size: 20px;
-    display: inline-flex;
-    align-items: center;
-    margin-right: 30px;
+section#toggle::selection, section#toggle label::selection {
+    color: none;
+    background: none;
+}
+section#toggle section {
+    padding-right: 30px;
     padding-top: 10px;
     padding-bottom: 10px;
 }
-input.timeline-toggle + label:before {
+section#toggle label {
+    display: inline-flex;
+    align-items: center;
+}
+section#toggle input + label:before {
     content: "";
     width: 15px;
     height: 15px;
     border: 1px solid black;
     border-radius: 50%;
-    margin-right: 5px;
-    display: inline-block;
+    margin-right: 10px;
+
+    background: white;
     transition: .3s;
     -webkit-transition: .3s;
 }
-input.timeline-toggle:checked + label:before {
+section#toggle input:checked + label:before {
     background: black;
     transition: .3s;
     -webkit-transition: .3s;
 }
-
-/* Links */
-
-a {
-    transition: color .3s;
-    -webkit-transition: color .3s;
-}
-a, a:visited, a:active {
-    color: black;
-}
-a:hover {
-    color: rgba(0,0,0,0.7);
+section#toggle input + label:after {
+    margin-left: 5px;
 }
 
-/* Small screens:
-   widen main section,
-   shrink corner picture and fonts,
-   adjust position of timeline
-*/
-@media only screen and (max-width: 600px) {
-    main {
-        width: 70%;
-        margin-left: 20%;
-    }
 
-    nav img#profile {
-        max-width: 70%;
-        margin: 0 15%;
-        margin-top: 20px;
-    }
 
-    main h1 {
-        font-size: 40px;
+/* Small screens */
+@media only screen and (max-width: 800px) {
+    body {
+        width: 85vw;
+        margin-left: 10vw;
+        margin-top: 5vh;
+        flex-direction: column;
     }
-
-    li, input.timeline-toggle + label {
-        font-size: 18px;
+    section#toggle {
+        flex-direction: column;
+        padding-top: 10px;
     }
-    input.timeline-toggle + label {
+    section#toggle section {
+        padding-right: 0;
         padding-top: 5px;
         padding-bottom: 5px;
-    }
-
-    li.year {
-        font-size: 30px;
-    }
-
-    li:before {
-        left: calc(-100% / 7 + -1px / 2);
-        /* Image is centered in left column i.e. at 10% of page width */
-        /* 100% is the entire width of the timeline i.e. 70% of page width, so 100%/7 = 10% of page width */
-        /* Half of left column width + half of line width */
-    }
-    li:after {
-        left: calc(-100% / 7 + -32px / 2);
     }
 }
