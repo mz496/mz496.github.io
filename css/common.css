@@ -19,7 +19,7 @@ h1 {
     display: inline-block;
     margin: 0;
     color: #222;
-    background: linear-gradient(0deg, transparent 40%, rgba(255, 255, 255, 0.6) 40%), linear-gradient(0deg, #FAF5D2 40%, transparent 40%);
+    background: linear-gradient(0deg, #FAF4AF 50%, transparent 50%);
 }
 main {
   position: relative;
@@ -112,4 +112,10 @@ li.no-emoji-item:after {
     body {font-size: 20px;}
     h1 {font-size: 40px;}
     h2 {font-size: 32px;}
+}
+
+@media only screen and (min-width: 1080px) {
+    body {font-size: 22px;}
+    h1 {font-size: 64px;}
+    h2 {font-size: 52px;}
 }
