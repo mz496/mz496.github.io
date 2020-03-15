@@ -139,8 +139,9 @@
     <script>
         for (const type of ["milestone","project","fun"]) {
             document.getElementById("toggle-"+type).addEventListener("change", function() {
+                const listItemsOfType = document.querySelectorAll("li." + type);
                 if (this.checked) {
-                    document.querySelectorAll("."+type).forEach((elem) => {
+                    listItemsOfType.forEach((elem) => {
                         elem.style.opacity = "1";
                         elem.style.maxHeight = "inherit";
                         elem.style.paddingTop = "10px";
@@ -148,7 +149,7 @@
                     });
                 }
                 else {
-                    document.querySelectorAll("li."+type).forEach((elem) => {
+                    listItemsOfType.forEach((elem) => {
                         elem.style.opacity = "0";
                         elem.style.maxHeight = "0";
                         elem.style.padding = "0";
