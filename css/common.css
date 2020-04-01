@@ -85,9 +85,8 @@ li:after {
     line-height: 0.1em;
     /* Position content vertically: Half diameter */
     padding-top: calc(1.8em/2);
-    text-align: left;
-    /* Position content horizontally: Half diameter - half 1em */
-    padding-left: calc(1.8em/2 - 1em/2);
+    /* Position content horizontally */
+    text-align: center;
     /* Align with li text: Top padding + half of li line-height - half diameter */
     top: calc(0.5em + 1.15em/2 - 1.8em/2);
     /* Ensure measurement includes border */
