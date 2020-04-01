@@ -39,10 +39,10 @@ a {
     -webkit-transition: color .3s;
 }
 a, a:visited, a:active {
-    color: black;
+    color: inherit;
 }
 a:hover {
-    color: rgba(0,0,0,0.6);
+    color: rgba(0,0,0,0.5);
 }
 
 /* Timeline and home emoji list */
