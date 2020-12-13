@@ -1,9 +1,9 @@
 ---
 title: Timeline archive
 description: Timeline from my old website, 2012-2020
-date: 2020-11-29
+date: 2020-12-13
 tags:
-  - personal development
+  - personal-development
 layout: layouts/post.njk
 ---
 

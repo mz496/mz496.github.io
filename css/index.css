@@ -22,10 +22,22 @@ body {
 p:last-child {
   margin-bottom: 0;
 }
+/*
 p,
 .tmpl-post li,
 img {
-  max-width: 37.5em; /* 600px /16 */
+  max-width: 37.5em;  600px /16 
+}
+*/
+header, main, img, footer {
+  margin: 0 auto;
+  max-width: 37.5em;
+}
+img {
+  max-width: 35em;
+}
+span.description, time {
+  color: var(--gray);
 }
 p,
 .tmpl-post li {
@@ -50,13 +62,6 @@ header:after {
   content: "";
   display: table;
   clear: both;
-}
-table {
-  margin: 1em 0;
-}
-table td,
-table th {
-  padding-right: 1em;
 }
 
 pre,
@@ -223,4 +228,25 @@ a[href].direct-link:focus:visited,
 :hover > a[href].direct-link,
 :hover > a[href].direct-link:visited {
   color: #aaa;
+}
+
+/* Post footer */
+hr.post-footer {
+  border: none;
+  height: 3em;
+}
+table.post-footer {
+  margin-top: 1em;
+  margin-bottom: 1em;
+  width: 100%;
+}
+table.post-footer td {
+  padding: 0;
+  width: 50%;
+}
+table.post-footer tr :nth-child(1) {
+  text-align: left;
+}
+table.post-footer tr :nth-child(2) {
+  text-align: right;
 }

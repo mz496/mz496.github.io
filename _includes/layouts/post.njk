@@ -3,13 +3,24 @@ layout: layouts/base.njk
 templateClass: tmpl-post
 ---
 <h1>{{ title }}</h1>
+<span class="description">{{ description }} • </span>
+<time datetime="{{ date | htmlDateString }}">{{ date | readableDate }}</time>
 
 {{ content | safe }}
 
-<hr>
-<ul>
-  {%- set nextPost = collections.posts | getNextCollectionItem(page) %}
-  {%- if nextPost %}<li>Next: <a href="{{ nextPost.url | url }}">{{ nextPost.data.title }}</a></li>{% endif %}
-  {%- set previousPost = collections.posts | getPreviousCollectionItem(page) %}
-  {%- if previousPost %}<li>Previous: <a href="{{ previousPost.url | url }}">{{ previousPost.data.title }}</a></li>{% endif %}
-</ul>
+<hr class="post-footer">
+Let me know your thoughts on <a href="https://twitter.com/mz496_">Twitter!</a>
+
+<table class="post-footer">
+<tr>
+<td>
+{%- set previousPost = collections.posts | getPreviousCollectionItem(page) %}
+{%- if previousPost %}Previous: <a href="{{ previousPost.url | url }}">{{ previousPost.data.title }}</a>{% endif %}
+</td>
+<td>
+{%- set nextPost = collections.posts | getNextCollectionItem(page) %}
+{%- if nextPost %}Next: <a href="{{ nextPost.url | url }}">{{ nextPost.data.title }}</a>{% endif %}
+</td>
+</tr>
+</table>
+

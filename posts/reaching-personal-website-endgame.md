@@ -1,9 +1,9 @@
 ---
 title: Reaching personal website endgame
 description: A journey through eight websites in thirteen years
-date: 2020-11-29
+date: 2020-12-13
 tags:
-  - personal development
+  - personal-development
 layout: layouts/post.njk
 ---
 
@@ -15,7 +15,7 @@ The final evolution of this post reads very much like a paper trail of finding m
 
 ## 2007: anon internet contributor, part 1
 
-In 2007, I started a blog about current events and the juiciest tips and secrets for an online Flash hangout called [Club Penguin](https://en.wikipedia.org/wiki/Club_Penguin). This started out as a fun experiment with friends at school, with whom I would hang out physically and virtually, but it quickly became more than that. Aside from my becoming unusually obsessed with Club Penguin, I was still amazed my audience could grow so much just from search traffic -- 23,000 hits in ten weeks was more than my tween brain could process :)
+In 2007, I started a blog about current events and the juiciest tips and secrets for an online Flash hangout called [Club Penguin](https://en.wikipedia.org/wiki/Club_Penguin). This started out as a fun experiment with friends at school, with whom I would hang out physically and virtually, but it quickly became more than that. Aside from my becoming unusually obsessed with Club Penguin, I was still amazed my audience could grow so much just from organic search traffic -- 23,000 hits in ten weeks.
 
 I did burn out after just those ten weeks, but not before building out a series of articles totaling several thousand words and making three to five posts a week. Keeping up with trends is *hard* even if you may have a lead in the market.
 
@@ -33,7 +33,7 @@ At the same time, I maintained an accompanying blog where I took requests and pr
 
 ![2012 website](../../img/2012-website.png)
 
-Funnily enough, sometime in 2018, Ray Mak finally saw my tributes. I wonder if it was like seeing an X-ray of yourself for the first time.
+Fun fact: sometime in 2018, Ray Mak finally saw my tributes. I wonder if it was like seeing an X-ray of yourself for the first time.
 
 ![Ray Mak comment](../../img/ray-mak-comment.png)
 
@@ -96,8 +96,9 @@ Why a full circle to a blog only now? I don't think I understood the staying pow
 After deciding I want to gain a vast wealth of experiences and lean into stories, I should just write them as stories, not one-liners waiting to be expanded into stories. I also decided to stop boxing myself into a particular category all the time. (That's my Generation Z speaking.)
 
 Any decent long-term undertaking comes with tenets to maintain focus. Here are those for my website going forward:
-* **Write with structure and intention.** Whether it's "something I figured out so you don't have to, future Googler" or some lesson I learned, I mostly aim to structure my ideas better. I write for myself only in that I have no schedule commitments or promises of service to anyone. But this space is public for a reason -- I want it to be a space that people can effectively learn from and meaningfully interact with if they want to.
-* **The story and conversation are foremost.** I want to take advantage of my two favorite things about the internet: maintaining easily accessible records and fostering connections in a world where physical distance doesn't matter as much anymore. Also, I'm a general believer of the (now ancient in internet years) [1000 True Fans](https://kk.org/thetechnium/1000-true-fans/) theory.
+* **Write with structure and intention.** Whether it's "something I figured out so you don't have to, future Googler" or some lesson I learned, I mostly aim to structure my ideas better. I write for myself only in that I have no schedule commitments or promises of service to anyone. But this space is public for a reason -- I want it to be a space that people can learn from and get excited with me in!
+* [**Writing for "everybody" is actually writing for nobody.**](https://jvns.ca/blog/2020/12/10/day-24--a-short-talk-about-blogging-myths/)
+* **The story and conversation are foremost.** I want to take advantage of my two favorite things about the internet: maintaining easily accessible records and fostering connections in a world where physical distance doesn't matter as much anymore. To avoid siloing myself away like I did in 2013-2015, I'm intentionally avoiding comment integration on the site itself. Instead, I'm going to aggressively promote my [Twitter](https://twitter.com/mz496_), which at the moment is completely empty :)
 * **If I'm not learning or experiencing something worth structuring and sharing every month, I'm stagnating.** I want to keep consistent tabs on my progress; I'd still have to see whether this is sustainable.
 * **There is no end date.** I want a way to look back and relive my learnings five or ten years from now, which is what I appreciate about a lot of other blogs I've seen.
 
