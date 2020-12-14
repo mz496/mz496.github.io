@@ -1,4 +1,5 @@
 :root {
+  --indigo: #364fc7;
   --red: #C5004A;
   --darkred: #7F0036;
   --lightgray: #e0e0e0;
@@ -146,7 +147,6 @@ pre {
 }
 .nav-item-active {
   font-weight: 700;
-  text-decoration: underline;
 }
 
 /* Posts list */
@@ -172,6 +172,10 @@ pre {
 .postlist-date {
   word-spacing: -0.5px;
 }
+.postlist-tags {
+  padding-left: 1em;
+  display: block;
+}
 .postlist-link {
   display: inline-block;
   padding: 0.25em 0.1875em; /* 4px 3px /16 */
@@ -193,7 +197,7 @@ pre {
   font-size: 0.625em; /* 10px /16 */
   padding: 2px 4px;
   margin-left: 0.8em; /* 8px /10 */
-  background-color: var(--red);
+  background-color: var(--indigo);
   color: var(--white);
   border-radius: 0.25em; /* 3px /12 */
   text-decoration: none;

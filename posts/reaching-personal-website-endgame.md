@@ -89,7 +89,7 @@ I've archived the entire timeline up to March 2020 as [a separate post](../timel
 
 ## 2020-: a blog
 
-Why a full circle to a blog only now? I don't think I understood the staying power of a simple content-first blog without a specific higher purpose, no matter who you are.
+Why a full circle to a blog only now? I don't think I understood the staying power of a simple content-first blog without a specific higher purpose. Like a new car that loses thousands of dollars in value as soon as you drive it out of the lot, every time I reworked my website, it would inevitably lose relevance after my next big life milestone. While those external milestones are fewer and farther between now that I've graduated college, I've realized I need to create my own milestones. This is how I keep track of them.
 
 ![Don't need to constantly reinvent if you stop trying to invent](../../img/reinvent-meme.jpg)
 

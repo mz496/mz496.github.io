@@ -14,5 +14,5 @@ This space is mostly to share stories and exciting things I've seen and learned.
 To that end, I'd love to chat on [Twitter!](https://twitter.com/mz496_)
 
 # …me:
-Software engineer by trade ([LinkedIn](https://linkedin.com/in/mz496)). Sometimes building more software on the side ([GitHub](https://github.com/mz496)), sometimes making instrumental covers of pop songs ([YouTube](https://youtube.com/c/mattzhu)), sometimes producing music ([SoundCloud](https://soundcloud.com/blueticksound)), sometimes doodling on a whim ([Instagram](https://instagram.com/mz496)), sometimes reading ([Goodreads](https://www.goodreads.com/user/show/125473298-matthew-zhu)). I like trying to understand as many perspectives as possible.
+Software engineer by trade ([LinkedIn](https://linkedin.com/in/mz496)). Sometimes building more software on the side ([GitHub](https://github.com/mz496)), sometimes making instrumental covers of pop songs ([YouTube](https://youtube.com/c/mattzhu)), sometimes producing music ([SoundCloud](https://soundcloud.com/blueticksound)), sometimes doodling on a whim ([Instagram](https://instagram.com/mz496)), sometimes reading ([Goodreads](https://www.goodreads.com/user/show/125473298-matthew-zhu)). Occasionally social gaming, watching thrillers, traveling, making physical gadgets and trinkets. I like trying to understand as many perspectives as possible.
 
