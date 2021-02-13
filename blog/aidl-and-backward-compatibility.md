@@ -101,13 +101,15 @@ public interface IClientInterface extends IInterface {
 }
 ```
 
-I promise it makes more sense when you look into the real compiled code and trace it by hand!
-
 Since the [Android SDK docs on AIDL](https://developer.android.com/guide/components/aidl) already describe how to use this generated code, I'll draw attention to these two points:
-* In the diagram below, I'm attempting to illustrate how a client SDK plays two roles: one to expose an interface for clients to build against, and one for the service to build against to supply implementation. I hope it's clear enough!
+* A client SDK plays two roles: expose an interface for clients (to compile with) and the host to agree upon (build against to supply implementation). The backward incompatibilities I'm describing arise from differing versions on the host (S) and the "client" (itself a service, S2).
 * Each interface method gets a transaction ID depending on its order in the file. This is why there are issues if you change the original order of the methods.
 
-Below is an example of how reordering methods causes issues.
+Here's an example of what happens in a normal case:
+
+![Happy case AIDL](../../img/aidl-happy.png)
+
+And here's an example of what happens when a client gets a different version with methods reordered in the .aidl file:
 
 ![Reordering AIDL methods](../../img/aidl-reordering.png)
 
