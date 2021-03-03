@@ -7,11 +7,9 @@ tags:
 layout: layouts/post.njk
 ---
 
-Over the years, I've bounced back and forth on what I want out of a personal website.
+Over the years, I've bounced back and forth on what I want out of a personal website. I also have no idea how to set the tone properly, but this is probably the place to do it.
 
 I recently saw an [interesting post by Jean Yang](https://jxyzabc.blogspot.com/2019/01/the-evolution-of-what-i-call-work.html) where she goes through a week snapshotted at different points in time, from undergrad to PhD to starting a company. I figured I'd give it a try on my online presence, which spans 2007-2020, where I'm currently writing my first blog post on my shiny new website! That is, my ninth (!) shiny new website.
-
-The final evolution of this post reads very much like a paper trail of finding my place in the internet world, almost a *Bildungsroman* of this Generation Z-er, if you will. I think this also speaks to trends as a whole as someone who caught the tail end of the zany Geocities/Myspace/LiveJournal era and transitioning into the hyper-personal Facebook/Instagram/Twitter/influencer era.
 
 ## 2007: anon internet contributor, part 1
 
