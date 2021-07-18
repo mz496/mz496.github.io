@@ -3,7 +3,7 @@ title: Getting frequency data from sound files with the Web Audio API
 description: A tiny example
 date: 2021-07-18
 tags:
-  - personal-development
+  - code
 layout: layouts/post.njk
 ---
 
@@ -18,17 +18,26 @@ All that said, I do think the [MDN docs](https://developer.mozilla.org/en-US/doc
 Here's our plan:
 
 ## Setup bits
-* Create things in the DOM to hold the result of the future visualization. (I've chosen to use a bunch of `div` elements nested in one large `div`.)
-* On page load, get the input source. (I chose an `<audio>` element, although this could also be the [microphone](https://calebgannon.com/2021/01/09/spectrogram-with-three-js-and-glsl-shaders/) or the [audio stream from a `<video>` element.](https://developer.mozilla.org/en-US/docs/Web/API/AudioContext/createMediaStreamSource#example))
+* Create things in the DOM to hold the result of the future visualization. (I've chosen to use a bunch of `div` elements nested in one large `div`. [L38-L45.](https://github.com/mz496/mz496.github.io/blob/6c5bdd5/js/spectrogram.js#L38-L45))
+```
+<audio controls src="/files/spectrogram-input.mp3"></audio>
+<div id="spectrogram">
+  <div id="bin-0"></div>
+  <div id="bin-1"></div>
+  (programmatically generated...)
+</div>
+```
+
+* On page load, get the input source. (I chose an `<audio>` element, although this could also be the [microphone](https://calebgannon.com/2021/01/09/spectrogram-with-three-js-and-glsl-shaders/) or the [audio stream from a `<video>` element.](https://developer.mozilla.org/en-US/docs/Web/API/AudioContext/createMediaStreamSource#example) [L37-L54.](https://github.com/mz496/mz496.github.io/blob/6c5bdd5/js/spectrogram.js#L37-L54))
 
 ## Web Audio API bits
-* Create [AudioContext](https://developer.mozilla.org/en-US/docs/Web/API/AudioContext).
-* Create an [AnalyserNode](https://developer.mozilla.org/en-US/docs/Web/API/AnalyserNode) effect. This is like a no-op effect, i.e. the output signal and input signal are the same.
-* Connect the sources to the effects, and the effects to the destination.
+* Create [AudioContext](https://developer.mozilla.org/en-US/docs/Web/API/AudioContext). [L8-L9.](https://github.com/mz496/mz496.github.io/blob/6c5bdd5/js/spectrogram.js#L8-L9)
+* Create an [AnalyserNode](https://developer.mozilla.org/en-US/docs/Web/API/AnalyserNode) effect. This is like a no-op effect, i.e. the output signal and input signal are the same. [L10-L12.](https://github.com/mz496/mz496.github.io/blob/6c5bdd5/js/spectrogram.js#L10-L12)
+* Connect the sources to the effects, and the effects to the destination. [L13-L17.](https://github.com/mz496/mz496.github.io/blob/6c5bdd5/js/spectrogram.js#L13-L17)
 
 ## Processing bits
-* On an interval, pull data out of the analyser node as an array of 8-bit numbers with `getByteFrequencyData`.
-* Once you have the array, visualize it. (I've chosen to output a bunch of ASCII block-drawing characters █ according to the value in the array.)
+* On an interval, pull data out of the analyser node as an array of 8-bit numbers with `getByteFrequencyData`. [L21,](https://github.com/mz496/mz496.github.io/blob/6c5bdd5/js/spectrogram.js#L21) [L31.](https://github.com/mz496/mz496.github.io/blob/6c5bdd5/js/spectrogram.js#L31)
+* Once you have the array, visualize it. (I've chosen to output a bunch of ASCII block-drawing characters █ according to the value in the array. [L22-L25.](https://github.com/mz496/mz496.github.io/blob/6c5bdd5/js/spectrogram.js#L22-L25))
 
 ## The result
 <script src="/js/spectrogram.js"></script>
