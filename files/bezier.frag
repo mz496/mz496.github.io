@@ -580,7 +580,8 @@ float cubic_bezier_dis(vec2 uv, vec2 p0, vec2 p1, vec2 p2, vec2 p3){
 		}
 	}
 
-	float d0 = 1e38;
+	float min_squared_dist = 1e38;
+    float min_t = 1e38;
 
     //compute roots with halley's method
     
@@ -595,12 +596,18 @@ float cubic_bezier_dis(vec2 uv, vec2 p0, vec2 p1, vec2 p2, vec2 p3){
 
             //compute squared distance to nearest point on curve
 			roots[i] = clamp(roots[i],0.,1.);
-			vec2 to_curve = uv - parametric_cub_bezier(roots[i],p0,p1,p2,p3);
-			d0 = min(d0,dot(to_curve,to_curve));
+            vec2 eval_root = parametric_cub_bezier(roots[i],p0,p1,p2,p3);
+			vec2 to_curve = uv - eval_root;
+            float to_curve_squared_dist = dot(to_curve,to_curve);
+            if (to_curve_squared_dist < min_squared_dist) {
+				min_squared_dist = min(min_squared_dist,to_curve_squared_dist);
+                min_t = roots[i];
+            }
 		}
 	}
 
-	return sqrt(d0);
+	return min_t;
+    //return sqrt(min_squared_dist);
 }
 
 //void mainImage(out vec4 fragColor, in vec2 fragCoord){
@@ -628,13 +635,6 @@ void main() {
 	float t0 = mod(iTime*2.+1.5,24.*3.1416);
 
 
-    /*
-	vec2 p0 = vec2(-cos(t0 * 1./2.) * .2,sin(t0 * 1./3.) * .25);
-	vec2 p1 = vec2(-cos(t0 * 2./3.) * .2,sin(t0 * 1./4.) * .1);
-	vec2 p2 = vec2(cos(t0 * 1./4.) * .1,-sin(t0 * 2./3.) * .2);
-	vec2 p3 = vec2(cos(t0 * 1./3.) * .25,-sin(t0 * 1./2.) * .1);
-    */
-
     //mouse condition copied from mattz (https://www.shadertoy.com/view/4dyyR1)
     /*if(max(iMouse.x, iMouse.y) > 20.){
         p0=vec2(-.3,-.1);
@@ -642,20 +642,40 @@ void main() {
         p2=vec2(.1,-.2);
         p3=vec2(.2,.15);
     }*/
-
+    float d0 = 1e38;
+    float d1 = 1e38;
+	
     vec2 p0 = vec2(0.3, 0.2);
     vec2 p1 = vec2(0.1, 0.5);
     vec2 p2 = vec2(0., 0.);
     vec2 p3 = vec2(-0.1, 0.1);
-	float d0 = 1e38;
-	d0 = min(d0,cubic_bezier_dis(uv,p0,p1,p2,p3));
-	float sgn = 1.;//cubic_bezier_sign(uv,p0,p1,p2,p3);
+	//d0 = min(d0,cubic_bezier_dis(uv,p0,p1,p2,p3));
+    t0 = cubic_bezier_dis(uv,p0,p1,p2,p3);
+    vec2 eval_t0 = parametric_cub_bezier(t0,p0,p1,p2,p3);
+    vec2 to_t0 = uv - eval_t0;
+    d0 = min(d0,sqrt(dot(to_t0,to_t0)));
     
+	float sgn1 = cubic_bezier_sign(uv,p0,p1,p2,p3);
+    d1 = min(d1,distance(p0,uv) - dot_size);
+	d1 = min(d1,distance(p1,uv) - dot_size);
+	d1 = min(d1,distance(p2,uv) - dot_size);
+	d1 = min(d1,distance(p3,uv) - dot_size);
+    
+    /*
     vec2 p4 = vec2(-0.1, 0.1);
     vec2 p5 = vec2(-0.2, 0.2);
-    vec2 p6 = vec2(-0.4, -0.5);
-    vec2 p7 = vec2(-0.3, -0.4);
+    vec2 p6 = vec2(-0.3, -0.4);
+    vec2 p7 = vec2(-0.5, -0.1);
     d0 = min(d0,cubic_bezier_dis(uv,p4,p5,p6,p7));
+    float sgn2 = cubic_bezier_sign(uv,p4,p5,p6,p7);
+    d1 = min(d1,distance(p4,uv) - dot_size);
+	d1 = min(d1,distance(p5,uv) - dot_size);
+	d1 = min(d1,distance(p6,uv) - dot_size);
+	d1 = min(d1,distance(p7,uv) - dot_size);
+    */
+    
+    float sgn;
+    sgn = sgn1;
     
 	//iq's sd color scheme
 	vec3 col = vec3(1.0) - sgn*vec3(0.1,0.4,0.7);
@@ -663,27 +683,7 @@ void main() {
 	col *= 0.8 + 0.2*cos(480.0*d0);
 	col = mix(col, vec3(1.0), 1.0-smoothstep(0.0,0.005,abs(d0)));
 
-	float d1 = 1e38;
-	d1 = min(d1,distance(p0,uv) - dot_size);
-	d1 = min(d1,distance(p1,uv) - dot_size);
-	d1 = min(d1,distance(p2,uv) - dot_size);
-	d1 = min(d1,distance(p3,uv) - dot_size);
-    d1 = min(d1,distance(p4,uv) - dot_size);
-	d1 = min(d1,distance(p5,uv) - dot_size);
-	d1 = min(d1,distance(p6,uv) - dot_size);
-	d1 = min(d1,distance(p7,uv) - dot_size);
 	vec3 colPts = mix(point_col,col,smoothstep(0.,border,d1));
 
 	gl_FragColor = vec4(colPts,1);
 }
-
-
-/*void main() {
-    vec2 st = gl_FragCoord.xy/u_resolution.xy;
-    st.x *= u_resolution.x/u_resolution.y;
-
-    vec3 color = vec3(0.);
-    color = vec3(st.x,st.y,abs(sin(u_time)));
-
-    gl_FragColor = vec4(color,1.0);
-}*/
