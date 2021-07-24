@@ -616,8 +616,8 @@ vec3 hsv2rgb(vec3 c) {
     return c.z * mix(K.xxx, clamp(p - K.xxx, 0.0, 1.0), c.y);
 }
 
-vec4 color(float t0, float d0) {
-    return vec4(hsv2rgb(vec3(t0,1,1)),1);
+vec4 color(float t, float d) {
+    return vec4(hsv2rgb(vec3(t,1,1)),t-19.*d);
 }
 
 //void mainImage(out vec4 fragColor, in vec2 fragCoord){
@@ -642,7 +642,7 @@ void main() {
 	uv *= zoom;
 	mouse *= zoom;
 
-	float t0 = mod(iTime*2.+1.5,24.*3.1416);
+	//float t0 = mod(iTime*2.+1.5,24.*3.1416);
 
 
     //mouse condition copied from mattz (https://www.shadertoy.com/view/4dyyR1)
@@ -664,32 +664,36 @@ void main() {
     vec2 p2 = vec2(0., 0.);
     vec2 p3 = vec2(-0.1, 0.1);
 	//d0 = min(d0,cubic_bezier_dis(uv,p0,p1,p2,p3));
-    t0 = cubic_bezier_dis(uv,p0,p1,p2,p3);
+    float t0 = cubic_bezier_dis(uv,p0,p1,p2,p3);
     vec2 eval_t0 = parametric_cub_bezier(t0,p0,p1,p2,p3);
     vec2 to_t0 = uv - eval_t0;
     d0 = min(d0,sqrt(dot(to_t0,to_t0)));
     
-	float sgn1 = cubic_bezier_sign(uv,p0,p1,p2,p3);
+	float sgn0 = cubic_bezier_sign(uv,p0,p1,p2,p3);
     dots = min(dots,distance(p0,uv) - dot_size);
 	dots = min(dots,distance(p1,uv) - dot_size);
     dots = min(dots,distance(p2,uv) - dot_size);
 	dots = min(dots,distance(p3,uv) - dot_size);
     
-    /*
+    
     vec2 p4 = vec2(-0.1, 0.1);
     vec2 p5 = vec2(-0.2, 0.2);
     vec2 p6 = vec2(-0.3, -0.4);
     vec2 p7 = vec2(-0.5, -0.1);
-    d0 = min(d0,cubic_bezier_dis(uv,p4,p5,p6,p7));
-    float sgn2 = cubic_bezier_sign(uv,p4,p5,p6,p7);
-    d1 = min(d1,distance(p4,uv) - dot_size);
-	d1 = min(d1,distance(p5,uv) - dot_size);
-	d1 = min(d1,distance(p6,uv) - dot_size);
-	d1 = min(d1,distance(p7,uv) - dot_size);
-    */
+    float t1 = cubic_bezier_dis(uv,p4,p5,p6,p7);
+    vec2 eval_t1 = parametric_cub_bezier(t1,p4,p5,p6,p7);
+    vec2 to_t1 = uv - eval_t1;
+    d0 = min(d0,sqrt(dot(to_t1,to_t1)));
+    
+	float sgn1 = cubic_bezier_sign(uv,p4,p5,p6,p7);
+    dots = min(dots,distance(p4,uv) - dot_size);
+	dots = min(dots,distance(p5,uv) - dot_size);
+    dots = min(dots,distance(p6,uv) - dot_size);
+	dots = min(dots,distance(p7,uv) - dot_size);
+    
     
     float sgn;
-    sgn = sgn1;
+    sgn = sgn0;
     
 	//iq's sd color scheme
     // Color regions as a function of t, d
@@ -699,9 +703,9 @@ void main() {
     // Color a shadow around the curve
     //col *= 1.0 - exp(-8.0 * d0);
     // Color the contour
-	col *= 0.8 + 0.2*cos(480.0*d0);
+	//col *= 0.8 + 0.2*cos(480.0*d0);
     // Color in the curve itself using a stepdown from white at small values of d0
-	col = mix(col, vec4(1.0), 1.0-smoothstep(0.0,0.005,abs(d0)));
+	//col = mix(col, vec4(1.0), 1.0-smoothstep(0.0,0.005,abs(d0)));
 
 	vec4 colWithDots = mix(point_col,col,smoothstep(0.,border,dots));
 
