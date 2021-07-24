@@ -610,6 +610,16 @@ float cubic_bezier_dis(vec2 uv, vec2 p0, vec2 p1, vec2 p2, vec2 p3){
     //return sqrt(min_squared_dist);
 }
 
+vec3 hsv2rgb(vec3 c) {
+    vec4 K = vec4(1.0, 2.0 / 3.0, 1.0 / 3.0, 3.0);
+    vec3 p = abs(fract(c.xxx + K.xyz) * 6.0 - K.www);
+    return c.z * mix(K.xxx, clamp(p - K.xxx, 0.0, 1.0), c.y);
+}
+
+vec3 color(float t0, float d0) {
+    return hsv2rgb(vec3(t0,1,1));
+}
+
 //void mainImage(out vec4 fragColor, in vec2 fragCoord){
 void main() {
     
@@ -642,8 +652,12 @@ void main() {
         p2=vec2(.1,-.2);
         p3=vec2(.2,.15);
     }*/
+    
+    // M = 0.2
+    // f(d, t): rgba(hsv2rgb(360*t), 1.-d)
+
     float d0 = 1e38;
-    float d1 = 1e38;
+    float dots = 1e38;
 	
     vec2 p0 = vec2(0.3, 0.2);
     vec2 p1 = vec2(0.1, 0.5);
@@ -656,10 +670,10 @@ void main() {
     d0 = min(d0,sqrt(dot(to_t0,to_t0)));
     
 	float sgn1 = cubic_bezier_sign(uv,p0,p1,p2,p3);
-    d1 = min(d1,distance(p0,uv) - dot_size);
-	d1 = min(d1,distance(p1,uv) - dot_size);
-	d1 = min(d1,distance(p2,uv) - dot_size);
-	d1 = min(d1,distance(p3,uv) - dot_size);
+    dots = min(dots,distance(p0,uv) - dot_size);
+	dots = min(dots,distance(p1,uv) - dot_size);
+    dots = min(dots,distance(p2,uv) - dot_size);
+	dots = min(dots,distance(p3,uv) - dot_size);
     
     /*
     vec2 p4 = vec2(-0.1, 0.1);
@@ -678,12 +692,18 @@ void main() {
     sgn = sgn1;
     
 	//iq's sd color scheme
-	vec3 col = vec3(1.0) - sgn*vec3(0.1,0.4,0.7);
-	col *= 1.0 - exp(-8.0 * d0);
+    // Color regions as a function of t, d
+    vec3 col = color(t0, d0);
+    // Color the +/- regions differently
+	//vec3 col = vec3(1.0) - sgn*vec3(0.1,0.4,0.7);
+    // Color a shadow around the curve
+    //col *= 1.0 - exp(-8.0 * d0);
+    // Color the contour
 	col *= 0.8 + 0.2*cos(480.0*d0);
+    // Color in the curve itself using a stepdown from white at small values of d0
 	col = mix(col, vec3(1.0), 1.0-smoothstep(0.0,0.005,abs(d0)));
 
-	vec3 colPts = mix(point_col,col,smoothstep(0.,border,d1));
+	vec3 colWithDots = mix(point_col,col,smoothstep(0.,border,dots));
 
-	gl_FragColor = vec4(colPts,1);
+	gl_FragColor = vec4(colWithDots,1);
 }
