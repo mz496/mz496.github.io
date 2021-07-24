@@ -19,7 +19,7 @@ https://www.shadertoy.com/view/lsByRG
 const float eps = .000005;
 const float zoom = 1.;
 const float dot_size=.005;
-const vec3 point_col=vec3(1,1,0);
+const vec4 point_col=vec4(1,1,0,1);
 const int halley_iterations = 8;
 
 //lagrange positive real root upper bound
@@ -616,8 +616,8 @@ vec3 hsv2rgb(vec3 c) {
     return c.z * mix(K.xxx, clamp(p - K.xxx, 0.0, 1.0), c.y);
 }
 
-vec3 color(float t0, float d0) {
-    return hsv2rgb(vec3(t0,1,1));
+vec4 color(float t0, float d0) {
+    return vec4(hsv2rgb(vec3(t0,1,1)),1);
 }
 
 //void mainImage(out vec4 fragColor, in vec2 fragCoord){
@@ -693,7 +693,7 @@ void main() {
     
 	//iq's sd color scheme
     // Color regions as a function of t, d
-    vec3 col = color(t0, d0);
+    vec4 col = color(t0, d0);
     // Color the +/- regions differently
 	//vec3 col = vec3(1.0) - sgn*vec3(0.1,0.4,0.7);
     // Color a shadow around the curve
@@ -701,9 +701,9 @@ void main() {
     // Color the contour
 	col *= 0.8 + 0.2*cos(480.0*d0);
     // Color in the curve itself using a stepdown from white at small values of d0
-	col = mix(col, vec3(1.0), 1.0-smoothstep(0.0,0.005,abs(d0)));
+	col = mix(col, vec4(1.0), 1.0-smoothstep(0.0,0.005,abs(d0)));
 
-	vec3 colWithDots = mix(point_col,col,smoothstep(0.,border,dots));
+	vec4 colWithDots = mix(point_col,col,smoothstep(0.,border,dots));
 
-	gl_FragColor = vec4(colWithDots,1);
+	gl_FragColor = colWithDots;
 }
