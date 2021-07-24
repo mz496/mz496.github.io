@@ -616,8 +616,57 @@ vec3 hsv2rgb(vec3 c) {
     return c.z * mix(K.xxx, clamp(p - K.xxx, 0.0, 1.0), c.y);
 }
 
-vec4 color(float t, float d) {
-    return vec4(hsv2rgb(vec3(t,1,1)),t-19.*d);
+float hue2rgb(float f1, float f2, float hue) {
+    if (hue < 0.0)
+        hue += 1.0;
+    else if (hue > 1.0)
+        hue -= 1.0;
+    float res;
+    if ((6.0 * hue) < 1.0)
+        res = f1 + (f2 - f1) * 6.0 * hue;
+    else if ((2.0 * hue) < 1.0)
+        res = f2;
+    else if ((3.0 * hue) < 2.0)
+        res = f1 + (f2 - f1) * ((2.0 / 3.0) - hue) * 6.0;
+    else
+        res = f1;
+    return res;
+}
+
+vec3 hsl2rgb(vec3 hsl) {
+    vec3 rgb;
+    
+    if (hsl.y == 0.0) {
+        rgb = vec3(hsl.z); // Luminance
+    } else {
+        float f2;
+        
+        if (hsl.z < 0.5)
+            f2 = hsl.z * (1.0 + hsl.y);
+        else
+            f2 = hsl.z + hsl.y - hsl.y * hsl.z;
+            
+        float f1 = 2.0 * hsl.z - f2;
+        
+        rgb.r = hue2rgb(f1, f2, hsl.x + (1.0/3.0));
+        rgb.g = hue2rgb(f1, f2, hsl.x);
+        rgb.b = hue2rgb(f1, f2, hsl.x - (1.0/3.0));
+    }   
+    return rgb;
+}
+
+vec3 hsl2rgb(float h, float s, float l) {
+    return hsl2rgb(vec3(h, s, l));
+}
+
+
+vec4 color(float t, float d, float sgn) {
+    float alpha = clamp(t-19.*d, 0.0, 1.0);
+    if (sgn > 0.) {
+    	return vec4(hsv2rgb(vec3(0,0,1)),alpha);
+    } else {
+        return vec4(hsv2rgb(vec3(0.5,0.5,0.5)),alpha);
+    }
 }
 
 //void mainImage(out vec4 fragColor, in vec2 fragCoord){
@@ -675,7 +724,7 @@ void main() {
     dots = min(dots,distance(p2,uv) - dot_size);
 	dots = min(dots,distance(p3,uv) - dot_size);
     
-    
+    /*
     vec2 p4 = vec2(-0.1, 0.1);
     vec2 p5 = vec2(-0.2, 0.2);
     vec2 p6 = vec2(-0.3, -0.4);
@@ -690,14 +739,30 @@ void main() {
 	dots = min(dots,distance(p5,uv) - dot_size);
     dots = min(dots,distance(p6,uv) - dot_size);
 	dots = min(dots,distance(p7,uv) - dot_size);
+    */
     
     
     float sgn;
     sgn = sgn0;
     
+    float h1 = 0.992;
+    float h2 = 0.97;
+    float s = .7;
+    float l = .7;
+    float D = 0.3;
+    
+    vec4 col = vec4(hsl2rgb(vec3(h1,s,0.7)),1);
+    
 	//iq's sd color scheme
     // Color regions as a function of t, d
-    vec4 col = color(t0, d0);
+    //col = color(t0, d0, sgn0);
+    // f(0) = (h1+h2)/2, f(D) = h2, f(-D) = h1
+    // hue = d*(h2-h1)/(2D) + (h1+h2)/2
+    if (sgn > 0.) {
+        col = vec4(hsl2rgb(vec3(h1,s,mix(0.75,0.7,1.-exp(-10.*d0)))),1);
+    } else {
+        col = vec4(hsl2rgb(vec3(h2,s,mix(0.7,0.75,1.-exp(-10.*d0)))),1);
+    }
     // Color the +/- regions differently
 	//vec3 col = vec3(1.0) - sgn*vec3(0.1,0.4,0.7);
     // Color a shadow around the curve
@@ -706,8 +771,8 @@ void main() {
 	//col *= 0.8 + 0.2*cos(480.0*d0);
     // Color in the curve itself using a stepdown from white at small values of d0
 	//col = mix(col, vec4(1.0), 1.0-smoothstep(0.0,0.005,abs(d0)));
+	// Color in dots
+    //col = mix(point_col,col,smoothstep(0.,border,dots));
 
-	vec4 colWithDots = mix(point_col,col,smoothstep(0.,border,dots));
-
-	gl_FragColor = colWithDots;
+	gl_FragColor = col;
 }
