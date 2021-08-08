@@ -184,7 +184,7 @@ int solve_cubic(vec3 coeffs, inout vec3 r){
 		float v = (-q - z) / 2.0;
 		u = sign(u)*pow(abs(u),1.0/3.0);
 		v = sign(v)*pow(abs(v),1.0/3.0);
-		r[0] = offset + u + v;	
+		r[0] = offset + u + v;
 
 		//Single newton iteration to account for cancellation
 		float f = ((r[0] + a) * r[0] + b) * r[0] + c;
@@ -417,7 +417,7 @@ float cubic_bezier_dis(vec2 uv, vec2 p0, vec2 p1, vec2 p2, vec2 p3){
 	vec2 a2 = (3. * p0 - 6. * p1 + 3. * p2);
 	vec2 a1 = (-3. * p0 + 3. * p1);
 	vec2 a0 = p0 - uv;
-    
+
     //compute polynomial describing distance to current pixel dependent on a parameter t
 	float bc6 = dot(a3,a3);
 	float bc5 = 2.*dot(a3,a2);
@@ -433,7 +433,7 @@ float cubic_bezier_dis(vec2 uv, vec2 p0, vec2 p1, vec2 p2, vec2 p3){
 	bc2 /= bc6;
 	bc1 /= bc6;
 	bc0 /= bc6;
-    
+
     //compute derivatives of this polynomial
 
 	float b0 = bc1 / 6.;
@@ -461,7 +461,7 @@ float cubic_bezier_dis(vec2 uv, vec2 p0, vec2 p1, vec2 p2, vec2 p3){
 	vec3 roots = vec3(1e38);
 
 	int num_roots = 0;
-    
+
 	//compute root isolating intervals by roots of derivative and outer root bounds
     //only roots going form - to + considered, because only those result in a minimum
 	if(num_roots_drv==4){
@@ -536,7 +536,7 @@ float cubic_bezier_dis(vec2 uv, vec2 p0, vec2 p1, vec2 p2, vec2 p3){
 			a[0]=lb;
 			b[0]=ub;
 		}
-        
+
         //further subdivide intervals to guarantee convergence of halley's method
 		//by using roots of further derivatives
 		vec3 roots_snd_drv=vec3(1e38);
@@ -584,7 +584,7 @@ float cubic_bezier_dis(vec2 uv, vec2 p0, vec2 p1, vec2 p2, vec2 p3){
     float min_t = 1e38;
 
     //compute roots with halley's method
-    
+
 	for(int i=0;i<3;i++){
 		if(i < num_roots){
 			roots[i] = .5 * (a[i] + b[i]);
@@ -592,7 +592,7 @@ float cubic_bezier_dis(vec2 uv, vec2 p0, vec2 p1, vec2 p2, vec2 p3){
             for(int j=0;j<halley_iterations;j++){
 				roots[i] = halley_iteration5(b0,b1,b2,b3,b4,roots[i]);
             }
-			
+
 
             //compute squared distance to nearest point on curve
 			roots[i] = clamp(roots[i],0.,1.);
@@ -635,23 +635,23 @@ float hue2rgb(float f1, float f2, float hue) {
 
 vec3 hsl2rgb(vec3 hsl) {
     vec3 rgb;
-    
+
     if (hsl.y == 0.0) {
         rgb = vec3(hsl.z); // Luminance
     } else {
         float f2;
-        
+
         if (hsl.z < 0.5)
             f2 = hsl.z * (1.0 + hsl.y);
         else
             f2 = hsl.z + hsl.y - hsl.y * hsl.z;
-            
+
         float f1 = 2.0 * hsl.z - f2;
-        
+
         rgb.r = hue2rgb(f1, f2, hsl.x + (1.0/3.0));
         rgb.g = hue2rgb(f1, f2, hsl.x);
         rgb.b = hue2rgb(f1, f2, hsl.x - (1.0/3.0));
-    }   
+    }
     return rgb;
 }
 
@@ -671,12 +671,12 @@ vec4 color(float t, float d, float sgn) {
 
 //void mainImage(out vec4 fragColor, in vec2 fragCoord){
 void main() {
-    
+
     vec4 fragCoord = gl_FragCoord;
     vec2 iResolution = u_resolution;
     vec2 iMouse = u_mouse;
     float iTime = u_time;
-    
+
 	float border=2./iResolution.x;
 
 	vec2 uv = fragCoord.xy / iResolution.xy;
@@ -701,29 +701,34 @@ void main() {
         p2=vec2(.1,-.2);
         p3=vec2(.2,.15);
     }*/
-    
+
     // M = 0.2
     // f(d, t): rgba(hsv2rgb(360*t), 1.-d)
 
+    float layers[2];
+
     float d0 = 1e38;
     float dots = 1e38;
-	
+
     vec2 p0 = vec2(0.3, 0.2);
     vec2 p1 = vec2(0.1, 0.5);
     vec2 p2 = vec2(0., 0.);
     vec2 p3 = vec2(-0.1, 0.1);
 	//d0 = min(d0,cubic_bezier_dis(uv,p0,p1,p2,p3));
+    // What value of 0<=t<=1 is the closest point on the bezier?
     float t0 = cubic_bezier_dis(uv,p0,p1,p2,p3);
+    // What is the point you get when you plug t into the bezier?
     vec2 eval_t0 = parametric_cub_bezier(t0,p0,p1,p2,p3);
+    // Vector from current frag point to eval_t0; distance to point on bezier with param t
     vec2 to_t0 = uv - eval_t0;
     d0 = min(d0,sqrt(dot(to_t0,to_t0)));
-    
+
 	float sgn0 = cubic_bezier_sign(uv,p0,p1,p2,p3);
     dots = min(dots,distance(p0,uv) - dot_size);
 	dots = min(dots,distance(p1,uv) - dot_size);
     dots = min(dots,distance(p2,uv) - dot_size);
 	dots = min(dots,distance(p3,uv) - dot_size);
-    
+
     /*
     vec2 p4 = vec2(-0.1, 0.1);
     vec2 p5 = vec2(-0.2, 0.2);
@@ -733,36 +738,57 @@ void main() {
     vec2 eval_t1 = parametric_cub_bezier(t1,p4,p5,p6,p7);
     vec2 to_t1 = uv - eval_t1;
     d0 = min(d0,sqrt(dot(to_t1,to_t1)));
-    
+
 	float sgn1 = cubic_bezier_sign(uv,p4,p5,p6,p7);
     dots = min(dots,distance(p4,uv) - dot_size);
 	dots = min(dots,distance(p5,uv) - dot_size);
     dots = min(dots,distance(p6,uv) - dot_size);
 	dots = min(dots,distance(p7,uv) - dot_size);
     */
-    
-    
+
+    /*
+    vec2 p8 = vec2(-0.4,0.5);
+    vec2 p9 = vec2(-0.1,0.2);
+    vec2 p10 = vec2(-0.310,-0.050);
+    vec2 p11 = vec2(0.110,-0.410);
+    float t2 = cubic_bezier_dis(uv,p8,p9,p10,p11);
+    vec2 eval_t2 = parametric_cub_bezier(t2,p8,p9,p10,p11);
+    vec2 to_t2 = uv - eval_t2;
+    float d2 = sqrt(dot(to_t2,to_t2));
+
+
+    dots = min(dots, distance(p8,uv) - dot_size);
+    dots = min(dots, distance(p9,uv) - dot_size);
+    dots = min(dots, distance(p10,uv) - dot_size);
+    dots = min(dots, distance(p11,uv) - dot_size);
+	*/
+
     float sgn;
     sgn = sgn0;
-    
+
     float h1 = 0.992;
-    float h2 = 0.97;
+    float h2 = 0.042;
+    float h3 = 0.5;
     float s = .7;
     float l = .7;
-    float D = 0.3;
-    
-    vec4 col = vec4(hsl2rgb(vec3(h1,s,0.7)),1);
-    
+    float D = .1;
+
+    vec4 col; // = vec4(hsl2rgb(vec3(h1,s,0.7)),1);
+
 	//iq's sd color scheme
     // Color regions as a function of t, d
     //col = color(t0, d0, sgn0);
     // f(0) = (h1+h2)/2, f(D) = h2, f(-D) = h1
     // hue = d*(h2-h1)/(2D) + (h1+h2)/2
     if (sgn > 0.) {
-        col = vec4(hsl2rgb(vec3(h1,s,mix(0.75,0.7,1.-exp(-10.*d0)))),1);
+        //float hue = clamp(d0*(h1-h2)/(2.*D) + (h1+h2)/2., h2, h1);
+        // (d=0,a=.5) (d=D,a=1)
+        col = vec4(hsl2rgb(vec3(h2,s,l)),(1./(2.*D)) * d0 + 0.5);
+        //col = vec4(hsl2rgb(vec3(h1,s,mix(0.75,0.7,1.-exp(-10.*d0)))),1);
     } else {
-        col = vec4(hsl2rgb(vec3(h2,s,mix(0.7,0.75,1.-exp(-10.*d0)))),1);
+    	col = vec4(hsl2rgb(vec3(h2,s,l)),(-1./(2.*D)) * d0 + 0.5);
     }
+
     // Color the +/- regions differently
 	//vec3 col = vec3(1.0) - sgn*vec3(0.1,0.4,0.7);
     // Color a shadow around the curve
@@ -772,7 +798,7 @@ void main() {
     // Color in the curve itself using a stepdown from white at small values of d0
 	//col = mix(col, vec4(1.0), 1.0-smoothstep(0.0,0.005,abs(d0)));
 	// Color in dots
-    //col = mix(point_col,col,smoothstep(0.,border,dots));
+    col = mix(point_col,col,smoothstep(0.,border,dots));
 
 	gl_FragColor = col;
 }
