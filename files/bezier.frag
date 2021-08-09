@@ -721,6 +721,11 @@ void main() {
     vec2 eval_t0 = parametric_cub_bezier(t0,p0,p1,p2,p3);
     // Vector from current frag point to eval_t0; distance to point on bezier with param t
     vec2 to_t0 = uv - eval_t0;
+    vec2 uv_p3 = p3 - uv;
+    vec2 uv_p3_norm = uv_p3 / sqrt(dot(uv_p3,uv_p3));
+    vec2 p2_p3 = p3 - p2;
+    vec2 p2_p3_norm = p2_p3 / sqrt(dot(p2_p3,p2_p3));
+    float cos_angle_to_p2_p3 = dot(uv_p3_norm,p2_p3_norm);
     d0 = min(d0,sqrt(dot(to_t0,to_t0)));
 
 	float sgn0 = cubic_bezier_sign(uv,p0,p1,p2,p3);
@@ -764,7 +769,17 @@ void main() {
 	*/
 
     float sgn;
-    sgn = sgn0;
+
+    if (sgn0 > 0. && cos_angle_to_p2_p3 < 0.984) {// || (sgn0 > 0. && sgn1 > 0.)) {
+
+    //if (sgn0 > 0. && sgn1 < 0. && t0 < 1.) {
+    //if (sgn0 > 0. && sgn1 > 0.) {
+    //if (sgn0 < 0. && sgn1 < 0.) {
+    //if (sgn0 < 0. && sgn1 > 0.) {
+        sgn = 1.;
+    } else {
+        sgn = -1.;
+    }
 
     float h1 = 0.992;
     float h2 = 0.042;
