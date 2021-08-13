@@ -661,13 +661,8 @@ vec3 hsl2rgb(float h, float s, float l) {
 }
 
 
-vec4 color(float t, float d, float sgn) {
-    float alpha = clamp(t-19.*d, 0.0, 1.0);
-    if (sgn > 0.) {
-    	return vec4(hsv2rgb(vec3(0,0,1)),alpha);
-    } else {
-        return vec4(hsv2rgb(vec3(0.5,0.5,0.5)),alpha);
-    }
+float ramp(float d, float t, float D) {
+    return (1./(2.*(t*D))) * d + 0.5;
 }
 
 //void mainImage(out vec4 fragColor, in vec2 fragCoord){
@@ -706,7 +701,6 @@ void main() {
     // M = 0.2
     // f(d, t): rgba(hsv2rgb(360*t), 1.-d)
 
-    float layers[2];
 
     float d0 = 1e38;
     float dots = 1e38;
@@ -714,7 +708,7 @@ void main() {
     vec2 p0 = vec2(0.3, 0.2);
     vec2 p1 = vec2(0.1, 0.5);
     vec2 p2 = vec2(0., 0.);
-    vec2 p3 = vec2(-0.1, 0.1);
+    vec2 p3 = vec2(-0.1,0.1);
 	//d0 = min(d0,cubic_bezier_dis(uv,p0,p1,p2,p3));
     // What value of 0<=t<=1 is the closest point on the bezier?
     float t0 = cubic_bezier_dis(uv,p0,p1,p2,p3);
@@ -724,19 +718,29 @@ void main() {
     vec2 to_t0 = uv - eval_t0;
     vec2 p3_uv = uv - p3;
     vec2 p3_uv_norm = p3_uv / sqrt(dot(p3_uv,p3_uv));
-    // TODO p3_p2
     vec2 p3_p2 = p2 - p3;
     vec2 p3_p2_norm = p3_p2 / sqrt(dot(p3_p2,p3_p2));
-    float cos_angle_to_p2_p3 = dot(p3_uv_norm,p3_p2_norm);
+    float angle_p3_uv = atan(p3_uv_norm.y,p3_uv_norm.x);
+    float angle_p3_p2 = atan(p3_p2_norm.y,p3_p2_norm.x);
+    float bezier_sgn0 = cubic_bezier_sign(uv,p0,p1,p2,p3);
+    float sgn0;
+    if (bezier_sgn0 > 0. && angle_p3_p2 < angle_p3_uv && angle_p3_uv < angle_p3_p2 + PI) {
+        sgn0 = 1.;
+    } else {
+        sgn0 = -1.;
+    }
     d0 = min(d0,sqrt(dot(to_t0,to_t0)));
 
-	float sgn0 = cubic_bezier_sign(uv,p0,p1,p2,p3);
     dots = min(dots,distance(p0,uv) - dot_size);
 	dots = min(dots,distance(p1,uv) - dot_size);
     dots = min(dots,distance(p2,uv) - dot_size);
 	dots = min(dots,distance(p3,uv) - dot_size);
 
-    /*
+
+
+
+
+
     vec2 p4 = vec2(-0.1, 0.1);
     vec2 p5 = vec2(-0.2, 0.2);
     vec2 p6 = vec2(-0.3, -0.4);
@@ -751,7 +755,11 @@ void main() {
 	dots = min(dots,distance(p5,uv) - dot_size);
     dots = min(dots,distance(p6,uv) - dot_size);
 	dots = min(dots,distance(p7,uv) - dot_size);
-    */
+
+
+
+
+
 
     /*
     vec2 p8 = vec2(-0.4,0.5);
@@ -772,9 +780,8 @@ void main() {
 
     float sgn;
 
-    float angle_p3_uv = atan(p3_uv_norm.y,p3_uv_norm.x);
-    float angle_p3_p2 = atan(p3_p2_norm.y,p3_p2_norm.x);
-    if (sgn0 > 0. && angle_p3_p2 < angle_p3_uv && angle_p3_uv < angle_p3_p2 + PI) {// || (sgn0 > 0. && sgn1 > 0.)) {
+
+    if (sgn0 > 0.) {// || (sgn0 > 0. && sgn1 > 0.)) {
 
     //if (sgn0 > 0. && sgn1 < 0. && t0 < 1.) {
     //if (sgn0 > 0. && sgn1 > 0.) {
@@ -792,21 +799,16 @@ void main() {
     float l = .7;
     float D = .1;
 
-    vec4 col; // = vec4(hsl2rgb(vec3(h1,s,0.7)),1);
+    vec4 col = vec4(hsl2rgb(vec3(h2,s,l)),ramp(d0,t0,sgn*D));
 
 	//iq's sd color scheme
     // Color regions as a function of t, d
     //col = color(t0, d0, sgn0);
     // f(0) = (h1+h2)/2, f(D) = h2, f(-D) = h1
     // hue = d*(h2-h1)/(2D) + (h1+h2)/2
-    if (sgn > 0.) {
         //float hue = clamp(d0*(h1-h2)/(2.*D) + (h1+h2)/2., h2, h1);
         // (d=0,a=.5) (d=D,a=1)
-        col = vec4(hsl2rgb(vec3(h2,s,l)),(1./(2.*D)) * d0 + 0.5);
         //col = vec4(hsl2rgb(vec3(h1,s,mix(0.75,0.7,1.-exp(-10.*d0)))),1);
-    } else {
-    	col = vec4(hsl2rgb(vec3(h2,s,l)),(-1./(2.*D)) * d0 + 0.5);
-    }
 
     // Color the +/- regions differently
 	//vec3 col = vec3(1.0) - sgn*vec3(0.1,0.4,0.7);
