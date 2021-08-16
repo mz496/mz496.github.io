@@ -702,7 +702,7 @@ void main() {
     // f(d, t): rgba(hsv2rgb(360*t), 1.-d)
 
 
-    float d0 = 1e38;
+    float d = 1e38;
     float dots = 1e38;
 
     vec2 p0 = vec2(0.3, 0.2);
@@ -729,7 +729,7 @@ void main() {
     } else {
         sgn0 = -1.;
     }
-    d0 = min(d0,sqrt(dot(to_t0,to_t0)));
+    float d0 = sqrt(dot(to_t0,to_t0));
 
     dots = min(dots,distance(p0,uv) - dot_size);
 	dots = min(dots,distance(p1,uv) - dot_size);
@@ -761,7 +761,7 @@ void main() {
     } else {
         sgn1 = -1.;
     }
-    d0 = min(d0,sqrt(dot(to_t1,to_t1)));
+    float d1 = sqrt(dot(to_t1,to_t1));
 
     dots = min(dots,distance(p4,uv) - dot_size);
 	dots = min(dots,distance(p5,uv) - dot_size);
@@ -811,7 +811,8 @@ void main() {
     float l = .7;
     float D = .1;
 
-    vec4 col = vec4(hsl2rgb(vec3(h2,s,l)),ramp(d0,t0,sgn*D));
+    d = min(min(d,d0),d1);
+    vec4 col = vec4(hsl2rgb(vec3(h2,s,l)),ramp(d,t0,sgn*D));
 
 	//iq's sd color scheme
     // Color regions as a function of t, d
