@@ -724,7 +724,6 @@ void main() {
     // f(d, t): rgba(hsv2rgb(360*t), 1.-d)
 
 
-    float d = 1e38;
     float dots = 1e38;
 
     vec2 p0 = vec2(0.3, 0.2);
@@ -780,29 +779,28 @@ void main() {
     dots = min(dots, distance(p11,uv) - dot_size);
 	*/
 
-    float sgn;
-
-
-    if (sgn0 > 0. || sgn1 > 0.) {// || (sgn0 > 0. && sgn1 > 0.)) {
-
-    //if (sgn0 > 0. && sgn1 < 0. && t0 < 1.) {
-    //if (sgn0 > 0. && sgn1 > 0.) {
-    //if (sgn0 < 0. && sgn1 < 0.) {
-    //if (sgn0 < 0. && sgn1 > 0.) {
-        sgn = 1.;
-    } else {
-        sgn = -1.;
-    }
-
     float h1 = 0.992;
-    float h2 = 0.754;
+    float h2 = 0.322;
     float h3 = 0.5;
     float s = .7;
     float l = .7;
     float D = .1;
 
-    d = min(min(d,d0),d1);
-    vec4 col = vec4(hsl2rgb(vec3(h2,s,l)),ramp(d,t0,sgn*D));
+    float d = min(min(1e38,d0),d1);
+    float sgn;
+    if (sgn0 > 0. || sgn1 > 0.) {
+        sgn = 1.;
+    } else {
+        sgn = -1.;
+    }
+    float t;
+    if (t1 > 0. && d1 < D) {
+        t = 0.5 + t1/2.;
+    } else {
+        t = t0/2.;
+    }
+
+    vec4 col = vec4(hsl2rgb(vec3(h2,s,l)),ramp(d,t,sgn*D));
 
 	//iq's sd color scheme
     // Color regions as a function of t, d
@@ -822,7 +820,7 @@ void main() {
     // Color in the curve itself using a stepdown from white at small values of d0
 	//col = mix(col, vec4(1.0), 1.0-smoothstep(0.0,0.005,abs(d0)));
 	// Color in dots
-    col = mix(point_col,col,smoothstep(0.,border,dots));
+    //col = mix(point_col,col,smoothstep(0.,border,dots));
 
 	gl_FragColor = col;
 }
