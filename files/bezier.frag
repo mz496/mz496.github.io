@@ -665,7 +665,8 @@ float ramp(float d, float t, float D) {
     return (1./(2.*(t*D))) * d + 0.5;
 }
 
-void make_bezier(vec2 uv, vec2 p0, vec2 p1, vec2 p2, vec2 p3, out float t, out float d, out float sgn) {
+void make_bezier(vec2 uv, vec2 p0, vec2 p1, vec2 p2, vec2 p3,
+                 out float t, out float d, out float sgn, inout float dots) {
     // What value of 0<=t<=1 is the closest point on the bezier?
     t = cubic_bezier_dis(uv,p0,p1,p2,p3);
     // What is the point you get when you plug t into the bezier?
@@ -685,6 +686,10 @@ void make_bezier(vec2 uv, vec2 p0, vec2 p1, vec2 p2, vec2 p3, out float t, out f
         sgn = -1.;
     }
     d = sqrt(dot(to_t0,to_t0));
+    dots = min(dots,distance(p0,uv) - dot_size);
+	dots = min(dots,distance(p1,uv) - dot_size);
+    dots = min(dots,distance(p2,uv) - dot_size);
+	dots = min(dots,distance(p3,uv) - dot_size);
 }
 
 //void mainImage(out vec4 fragColor, in vec2 fragCoord){
@@ -733,11 +738,7 @@ void main() {
     float t0;
     float d0;
     float sgn0;
-	make_bezier(uv, p0, p1, p2, p3, t0, d0, sgn0);
-    dots = min(dots,distance(p0,uv) - dot_size);
-	dots = min(dots,distance(p1,uv) - dot_size);
-    dots = min(dots,distance(p2,uv) - dot_size);
-	dots = min(dots,distance(p3,uv) - dot_size);
+	make_bezier(uv, p0, p1, p2, p3, t0, d0, sgn0, dots);
 
 
 
@@ -751,11 +752,7 @@ void main() {
     float t1;
     float d1;
     float sgn1;
-	make_bezier(uv, p4, p5, p6, p7, t1, d1, sgn1);
-    dots = min(dots,distance(p4,uv) - dot_size);
-	dots = min(dots,distance(p5,uv) - dot_size);
-    dots = min(dots,distance(p6,uv) - dot_size);
-	dots = min(dots,distance(p7,uv) - dot_size);
+	make_bezier(uv, p4, p5, p6, p7, t1, d1, sgn1, dots);
 
 
 
