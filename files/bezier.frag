@@ -661,8 +661,11 @@ vec3 hsl2rgb(float h, float s, float l) {
 }
 
 
-float ramp(float d, float t, float D) {
-    return (1./(2.*(t*D))) * d + 0.5;
+float ramp(float d, float t, float sgn, float D) {
+    /*if (t == 0. && sgn > 0.) {
+        return 1.;
+    }*/
+    return clamp((1./(2.*(t*sgn*D))) * d + 0.5, 0., 1.);
 }
 
 void make_bezier(vec2 uv, vec2 p0, vec2 p1, vec2 p2, vec2 p3,
@@ -690,6 +693,15 @@ void make_bezier(vec2 uv, vec2 p0, vec2 p1, vec2 p2, vec2 p3,
 	dots = min(dots,distance(p1,uv) - dot_size);
     dots = min(dots,distance(p2,uv) - dot_size);
 	dots = min(dots,distance(p3,uv) - dot_size);
+}
+
+vec4 layer(vec4 a, vec4 b) {
+    vec3 Ca = a.rgb;
+    vec3 Cb = b.rgb;
+    vec3 Co = Ca + Cb * (1. - a.a);
+    float ao = a.a + b.a * (1. - a.a);
+    return vec4(Co.rgb, ao);
+    //return foreground * foreground.a + background * (1.0 - foreground.a);
 }
 
 //void mainImage(out vec4 fragColor, in vec2 fragCoord){
@@ -759,24 +771,7 @@ void main() {
 
 
 
-    /*
-    vec2 p8 = vec2(-0.4,0.5);
-    vec2 p9 = vec2(-0.1,0.2);
-    vec2 p10 = vec2(-0.310,-0.050);
-    vec2 p11 = vec2(0.110,-0.410);
-    float t2 = cubic_bezier_dis(uv,p8,p9,p10,p11);
-    vec2 eval_t2 = parametric_cub_bezier(t2,p8,p9,p10,p11);
-    vec2 to_t2 = uv - eval_t2;
-    float d2 = sqrt(dot(to_t2,to_t2));
-
-
-    dots = min(dots, distance(p8,uv) - dot_size);
-    dots = min(dots, distance(p9,uv) - dot_size);
-    dots = min(dots, distance(p10,uv) - dot_size);
-    dots = min(dots, distance(p11,uv) - dot_size);
-	*/
-
-    float h1 = 0.992;
+    float h1 = 0.600;
     float h2 = 0.322;
     float h3 = 0.5;
     float s = .7;
@@ -797,7 +792,8 @@ void main() {
         t = t0/2.;
     }
 
-    vec4 col = vec4(hsl2rgb(vec3(h2,s,l)),ramp(d,t,sgn*D));
+    vec4 col = vec4(hsl2rgb(vec3(h2,s,l)),ramp(d,t,sgn,D));
+    vec4 colB = vec4(hsl2rgb(vec3(h1,s,l)),.7);
 
 	//iq's sd color scheme
     // Color regions as a function of t, d
@@ -819,5 +815,6 @@ void main() {
 	// Color in dots
     //col = mix(point_col,col,smoothstep(0.,border,dots));
 
-	gl_FragColor = col;
+    //gl_FragColor = col;
+	gl_FragColor = layer(col, colB);
 }
