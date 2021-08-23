@@ -698,8 +698,8 @@ void make_bezier(vec2 uv, vec2 p0, vec2 p1, vec2 p2, vec2 p3,
 vec4 layer(vec4 a, vec4 b) {
     vec3 Ca = a.rgb;
     vec3 Cb = b.rgb;
-    vec3 Co = Ca + Cb * (1. - a.a);
     float ao = a.a + b.a * (1. - a.a);
+    vec3 Co = (Ca * a.a + Cb * (1. - a.a));
     return vec4(Co.rgb, ao);
     //return foreground * foreground.a + background * (1.0 - foreground.a);
 }
@@ -771,8 +771,8 @@ void main() {
 
 
 
-    float h1 = 0.600;
-    float h2 = 0.322;
+    float h1 = 0.928;
+    float h2 = 0.154;
     float h3 = 0.5;
     float s = .7;
     float l = .7;
@@ -793,7 +793,7 @@ void main() {
     }
 
     vec4 col = vec4(hsl2rgb(vec3(h2,s,l)),ramp(d,t,sgn,D));
-    vec4 colB = vec4(hsl2rgb(vec3(h1,s,l)),.7);
+    vec4 colB = vec4(hsl2rgb(vec3(h1,s,l)),0.984);
 
 	//iq's sd color scheme
     // Color regions as a function of t, d
