@@ -665,9 +665,7 @@ float ramp(float d, float t, float sgn, float D) {
     /*if (t == 0. && sgn > 0.) {
         return 1.;
     }*/
-    if (sgn < 0.) {
-        return 0.;
-    }
+
     return clamp(-(1./(2.*(t*sgn*D))) * d + 0.5, 0., 1.);
 }
 
@@ -746,9 +744,9 @@ void main() {
 
     float dots = 1e38;
 
-    vec2 p0 = vec2(0.3, 0.2);
+    vec2 p0 = vec2(0.430,0.450);
     vec2 p1 = vec2(0.1, 0.5);
-    vec2 p2 = vec2(0.150,-0.020);
+    vec2 p2 = vec2(0.320,0.180);
     vec2 p3 = vec2(-0.150,0.060);
     float t0;
     float d0;
@@ -759,7 +757,7 @@ void main() {
 
 
 
-
+    /*
     vec2 p4 = p3;
     vec2 p5 = p4 + (p3-p2);
     vec2 p6 = vec2(-0.3, -0.4);
@@ -768,7 +766,7 @@ void main() {
     float d1;
     float sgn1;
 	make_bezier(uv, p4, p5, p6, p7, t1, d1, sgn1, dots);
-
+    */
 
 
 
@@ -781,19 +779,21 @@ void main() {
     float l = .7;
     float D = 0.212;
 
-    float d = min(min(1e38,d0),d1);
+    //float d = min(min(1e38,d0),d1);
+    float d = min(1e38,d0);
     float sgn;
-    if (sgn0 > 0. || sgn1 > 0.) {
+    if (sgn0 > 0.) {// || sgn1 > 0.) {
         sgn = 1.;
     } else {
         sgn = -1.;
     }
-    float t;
+    float t = t0;
+    /*
     if (t1 > 0. && d1 < D) {
         t = 0.5 + t1/2.;
     } else {
         t = t0/2.;
-    }
+    }*/
 
     vec4 col = vec4(hsl2rgb(vec3(h2,s,l)),ramp(d,t,sgn,D));
     vec4 colB = vec4(hsl2rgb(vec3(h1,s,l)),0.984);
@@ -816,7 +816,7 @@ void main() {
     // Color in the curve itself using a stepdown from white at small values of d0
 	//col = mix(col, vec4(1.0), 1.0-smoothstep(0.0,0.005,abs(d0)));
 	// Color in dots
-    col = mix(point_col,col,smoothstep(0.,border,dots));
+    //col = mix(point_col,col,smoothstep(0.,border,dots));
 
     //gl_FragColor = col;
 	gl_FragColor = layer(col, colB);
