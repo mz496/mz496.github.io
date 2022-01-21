@@ -1,10 +1,13 @@
-<ul class="postlist">
+<ul>
 {% for post in postslist | reverse %}
-  <li>
-    <span class="postlist-content">
-    <time class="postlist-date" datetime="{{ post.date | htmlDateString }}">{{ post.date | readableDate }}</time>
-    <a href="{{ post.url | url }}" class="postlist-link">{% if post.data.title %}{{ post.data.title }}{% else %}<code>{{ post.url }}</code>{% endif %}</a>
-    </span>
+  <li class="spaced-sm paragraph-line-height">
+    <time datetime="{{ post.date | htmlDateString }}" class="deemphasized">
+      {{ post.date | readableDate }}
+    </time>
+    <a href="{{ post.url | url }}" class="bold">
+      {% if post.data.title %}{{ post.data.title }}
+      {% else %}<code>{{ post.url }}</code>{% endif %}
+    </a>
   </li>
 {% endfor %}
 </ul>

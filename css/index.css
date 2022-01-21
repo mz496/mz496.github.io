@@ -27,7 +27,7 @@ p:last-child {
 p,
 .tmpl-post li,
 img {
-  max-width: 37.5em;  600px /16 
+  max-width: 37.5em;  600px /16
 }
 */
 header, main, img, footer {
@@ -40,8 +40,7 @@ img {
 span.description {
   color: var(--darkgray);
 }
-p,
-.tmpl-post li {
+p, .paragraph-line-height {
   line-height: 1.45;
 }
 a[href] {
@@ -150,39 +149,22 @@ pre {
 }
 
 /* Posts list */
-.postlist {
+ul, ol, li {
+  padding-left: 0;
   list-style: none;
-  padding: 0;
+  list-style-position: outside;
 }
-.postlist-item {
-  counter-increment: start-from -1;
-  padding-bottom: 1em;
+.spaced-sm {
+  margin: 0.25em 0;
 }
-.postlist-item:before {
-  display: inline-block;
-  pointer-events: none;
-  content: "" counter(start-from, decimal-leading-zero) ". ";
-  line-height: 100%;
-  text-align: right;
+.spaced-lg {
+  margin: 0.75em 0;
 }
-.postlist-item:before {
-  font-size: 0.8125em; /* 13px /16 */
-  color: var(--darkgray);
-}
-.postlist-extra-info {
-  padding: 0.25em 1.6875em; /* 1.5em + 3/16 like postlist-link */
-  display: block;
-}
-.postlist-link {
-  display: inline-block;
-  padding: 0.25em 0.1875em; /* 4px 3px /16 */
-}
-.postlist-item-active .postlist-link {
-  font-weight: bold;
-}
-.tmpl-home .postlist-link {
-  font-size: 1.1875em; /* 19px /16 */
+.bold {
   font-weight: 700;
+}
+.block {
+  display: block;
 }
 
 
