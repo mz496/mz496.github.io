@@ -23,13 +23,6 @@ body {
 p:last-child {
   margin-bottom: 0;
 }
-/*
-p,
-.tmpl-post li,
-img {
-  max-width: 37.5em;  600px /16
-}
-*/
 header, main, img, footer {
   margin: 0 auto;
   max-width: 37.5em;
@@ -40,7 +33,7 @@ img {
 span.description {
   color: var(--darkgray);
 }
-p, .paragraph-line-height {
+body {
   line-height: 1.45;
 }
 a[href] {
@@ -148,8 +141,8 @@ pre {
   font-weight: 700;
 }
 
-/* Posts list */
-ul, ol, li {
+/* Various styling classes */
+.reset-list {
   padding-left: 0;
   list-style: none;
   list-style-position: outside;

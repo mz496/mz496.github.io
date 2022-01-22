@@ -1,6 +1,6 @@
-<ul>
+<ul class="reset-list">
 {% for post in postslist | reverse %}
-  <li class="spaced-sm paragraph-line-height">
+  <li class="spaced-sm">
     <time datetime="{{ post.date | htmlDateString }}" class="deemphasized">
       {{ post.date | readableDate }}
     </time>

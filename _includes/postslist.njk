@@ -1,6 +1,6 @@
-<ol reversed style="counter-reset: start-from {{ (postslistCounter or postslist.length) + 1 }}">
+<ul class="reset-list">
 {% for post in postslist | reverse %}
-  <li class="spaced-lg paragraph-line-height">
+  <li class="spaced-lg">
     <span class="block">
     <a href="{{ post.url | url }}" class="bold">
       {% if post.data.title %}{{ post.data.title }}
@@ -23,4 +23,4 @@
     </span>
   </li>
 {% endfor %}
-</ol>
+</ul>
