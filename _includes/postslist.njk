@@ -12,7 +12,7 @@
     {{ post.data.description }}
     </span>
 
-    <span class="block">
+    <span class="block deemphasized">
     <time datetime="{{ post.date | htmlDateString }}">{{ post.date | readableDate }}</time> •
     {% for tag in post.data.tags %}
       {%- if collections.tagList.indexOf(tag) != -1 -%}

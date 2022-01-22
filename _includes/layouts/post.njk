@@ -4,19 +4,21 @@ templateClass: tmpl-post
 ---
 <h1>{{ title }}</h1>
 
-<p class="description">
+<p class="deemphasized">
 {{ description }}
 </p>
 
-<p>
+<p class="deemphasized">
 <time datetime="{{ date | htmlDateString }}">{{ date | readableDate }}</time> •
-<i>tagged:</i>{% for tag in tags %}
+{{ content | readingTime }} read •
+{% for tag in tags %}
   {%- if collections.tagList.indexOf(tag) != -1 -%}
   {% set tagUrl %}/tags/{{ tag }}/{% endset %}
   <a href="{{ tagUrl | url }}" class="post-tag">{{ tag }}</a>
   {%- endif -%}
 {% endfor %}
 </p>
+<br />
 
 {{ content | safe }}
 

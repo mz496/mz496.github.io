@@ -30,9 +30,6 @@ header, main, img, footer {
 img {
   max-width: 35em;
 }
-span.description {
-  color: var(--darkgray);
-}
 body {
   line-height: 1.45;
 }
@@ -155,6 +152,9 @@ pre {
 }
 .bold {
   font-weight: 700;
+}
+.deemphasized {
+  opacity: 0.6;
 }
 .block {
   display: block;
