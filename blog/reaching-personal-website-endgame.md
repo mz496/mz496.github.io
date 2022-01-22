@@ -83,8 +83,6 @@ I thought hard about the timeline contents. My initial heuristic was part ~flex~
 
 In 2019, I started to lean more toward, "What's a good conversation starter? What makes a good story?" Most people, myself included, answer "tell me about yourself" for the average audience with generic facts: age, location (+history), occupation (+history), family. Beyond those are oddly specific facts that may seem "quirky" but are still relatively common: "I like cloudy weather over sunny weather", "I can solve a Rubik's cube" -- both of which I've used in the past. (Also, I hadn't lived in California yet at the time...) The best oddly specific facts are the ones that lead into interesting stories, as writers, film directors, and Humans of New York have known for ages. If I had to tell my story, I always prefer to slice deep to find those kinds of facts.
 
-I've archived the entire timeline up to March 2020 as [a separate post](../timeline-archive) since I still find it interesting to browse through.
-
 ## 2020-: a blog
 
 Why a full circle to a blog only now? I don't think I understood the staying power of a simple content-first blog without a specific higher purpose. Like a new car that loses thousands of dollars in value as soon as you drive it out of the lot, every time I reworked my website, it would inevitably lose relevance after my next big life milestone. While those external milestones are fewer and farther between now that I've graduated college, I've realized I need to create my own milestones. This is how I keep track of them.
