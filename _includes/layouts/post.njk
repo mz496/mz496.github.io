@@ -5,12 +5,12 @@ templateClass: tmpl-post
 <h1>{{ title }}</h1>
 
 <p class="description">
-{{ description }} •
-<time datetime="{{ date | htmlDateString }}">{{ date | readableDate }}</time>
+{{ description }}
 </p>
 
 <p>
-<i>tags:</i>{% for tag in tags %}
+<time datetime="{{ date | htmlDateString }}">{{ date | readableDate }}</time> •
+<i>tagged:</i>{% for tag in tags %}
   {%- if collections.tagList.indexOf(tag) != -1 -%}
   {% set tagUrl %}/tags/{{ tag }}/{% endset %}
   <a href="{{ tagUrl | url }}" class="post-tag">{{ tag }}</a>
@@ -35,4 +35,3 @@ Let me know your thoughts on <a href="https://twitter.com/mz496_">Twitter!</a>
 </td>
 </tr>
 </table>
-
