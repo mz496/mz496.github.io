@@ -4,11 +4,11 @@ templateClass: tmpl-post
 ---
 <h1>{{ title }}</h1>
 
-<p class="deemphasized">
+<p class="gray-5">
 {{ description }}
 </p>
 
-<p class="deemphasized">
+<p class="gray-5">
 <time datetime="{{ date | htmlDateString }}">{{ date | readableDate }}</time> •
 {{ content | readingTime }} read •
 {% for tag in tags %}
@@ -22,18 +22,10 @@ templateClass: tmpl-post
 
 {{ content | safe }}
 
-<hr class="post-footer">
-Let me know your thoughts on <a href="https://twitter.com/mz496_">Twitter!</a>
-
-<table class="post-footer">
+<br />
+<table class="gray-5 two-sided">
 <tr>
-<td>
-{%- set previousPost = collections.posts | getPreviousCollectionItem(page) %}
-{%- if previousPost %}Previous: <a href="{{ previousPost.url | url }}">{{ previousPost.data.title }}</a>{% endif %}
-</td>
-<td>
-{%- set nextPost = collections.posts | getNextCollectionItem(page) %}
-{%- if nextPost %}Next: <a href="{{ nextPost.url | url }}">{{ nextPost.data.title }}</a>{% endif %}
-</td>
+<td></td>
+<td></td>
 </tr>
 </table>
