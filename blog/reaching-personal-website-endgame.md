@@ -88,14 +88,3 @@ In 2019, I started to lean more toward, "What's a good conversation starter? Wha
 Why a full circle to a blog only now? I don't think I understood the staying power of a simple content-first blog without a specific higher purpose. Like a new car that loses thousands of dollars in value as soon as you drive it out of the lot, every time I reworked my website, it would inevitably lose relevance after my next big life milestone. While those external milestones are fewer and farther between now that I've graduated college, I've realized I need to create my own milestones. This is how I keep track of them.
 
 ![Don't need to constantly reinvent if you stop trying to invent](../../img/reinvent-meme.jpg)
-
-After deciding I want to gain a vast wealth of experiences and lean into stories, I should just write them as stories, not one-liners waiting to be expanded into stories. I also decided to stop boxing myself into a particular category all the time. (That's my Generation Z speaking.)
-
-Any decent long-term undertaking comes with tenets to maintain focus. Here are those for my website going forward:
-* **Write with structure and intention.** Whether it's "something I figured out so you don't have to, future Googler" or some lesson I learned, I mostly aim to structure my ideas better. I write for myself only in that I have no schedule commitments or promises of service to anyone. But this space is public for a reason -- I want it to be a space that people can learn from and get excited with me in!
-* [**Writing for "everybody" is actually writing for nobody.**](https://jvns.ca/blog/2020/12/10/day-24--a-short-talk-about-blogging-myths/)
-* **The story and conversation are foremost.** I want to take advantage of my two favorite things about the internet: maintaining easily accessible records and fostering connections in a world where physical distance doesn't matter as much anymore. To avoid siloing myself away like I did in 2013-2015, I'm intentionally avoiding comment integration on the site itself. Instead, I'm going to aggressively promote my [Twitter](https://twitter.com/mz496_), which at the moment is completely empty :)
-* **If I'm not learning or experiencing something worth structuring and sharing every month, I'm stagnating.** I want to keep consistent tabs on my progress; I'd still have to see whether this is sustainable.
-* **There is no end date.** I want a way to look back and relive my learnings five or ten years from now, which is what I appreciate about a lot of other blogs I've seen.
-
-Looking forward to this! 🙌
