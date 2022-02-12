@@ -112,15 +112,6 @@ pre {
   list-style: none;
   list-style-position: outside;
 }
-.spaced-sm {
-  margin: 0.25em 0;
-}
-.spaced-lg {
-  margin: 0.75em 0;
-}
-.bold {
-  font-weight: 700;
-}
 .block {
   display: block;
 }
