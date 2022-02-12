@@ -112,6 +112,14 @@ pre {
   list-style: none;
   list-style-position: outside;
 }
+.date-table > li {
+  display: flex;
+  gap: 1rem;
+  flex-direction: row;
+}
+.date-table > li > time {
+  flex-shrink: 0;
+}
 .block {
   display: block;
 }

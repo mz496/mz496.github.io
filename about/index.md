@@ -19,4 +19,3 @@ Software engineer by trade ([LinkedIn](https://linkedin.com/in/mz496)). Sometime
 
 * mattz496 at gmail
 * [Twitter](https://twitter.com/mz496_)
-

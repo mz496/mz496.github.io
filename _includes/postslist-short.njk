@@ -1,6 +1,7 @@
+<ul class="date-table reset-list">
 {% for post in postslist | reverse %}
-  <div class="my-1" style="display: flex; flex-direction: row; gap: 1rem">
-    <time style="width: 6rem; text-align: right; flex-shrink: 0; align-self: start" datetime="{{ post.date | htmlDateString }}" class="text-muted">
+  <li class="my-1">
+    <time style="width: 6rem; text-align: right;" datetime="{{ post.date | htmlDateString }}" class="text-muted">
       {{ post.date | readableDate }}
     </time>
     <span>
@@ -14,5 +15,6 @@
         {{ post.data.description }}
       </div>
     </span>
-  </div>
+  </li>
 {% endfor %}
+</ul>

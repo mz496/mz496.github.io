@@ -3,7 +3,6 @@ layout: layouts/home.njk
 ---
 
 {% set postslist = collections.posts | head(-10) %}
-{% set postslistCounter = collections.posts | length %}
 {% include "postslist-short.njk" %}
 
 <p>More posts can be found in <a href="{{ '/blog/' | url }}">the archive</a>.</p>
