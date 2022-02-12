@@ -17,24 +17,26 @@
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
-
       gtag('config', 'G-H70DRKX1K6');
     </script>
   </head>
   <body>
     <header>
-      <h1 class=""><a href="{{ '/' | url }}">{{ metadata.title }}</a></h1>
+      <a href="{{ '/' | url }}"
+      class="text-decoration-none">
+        {{ metadata.title }}
+      </a>
 
       {#- Read more about `eleventy-navigation` at https://www.11ty.dev/docs/plugins/navigation/ #}
-      <ul class="nav">
       {%- for entry in collections.all | eleventyNavigation %}
-        <li class="nav-item{% if entry.url == page.url %} nav-item-active{% endif %}"><a href="{{ entry.url | url }}">{{ entry.title }}</a></li>
+        <a href="{{ entry.url | url }}"
+        class="text-decoration-none{% if entry.url == page.url %} fw-bold{% endif %}">
+          {{ entry.title }}
+        </a>
       {%- endfor %}
-      </ul>
     </header>
 
     <main{% if templateClass %} class="{{ templateClass }}"{% endif %}>
-
       {{ content | safe }}
     </main>
 

@@ -106,27 +106,6 @@ pre {
   background-color: #902f2f;
 }
 
-/* Header */
-
-
-/* Nav */
-.nav {
-  padding: 0;
-  list-style: none;
-  float: left;
-  margin-left: 1em;
-}
-.nav-item {
-  display: inline-block;
-  margin-right: 1em;
-}
-.nav-item a[href]:not(:hover) {
-  text-decoration: none;
-}
-.nav-item-active {
-  font-weight: 700;
-}
-
 /* Various styling classes */
 .reset-list {
   padding-left: 0;
@@ -141,9 +120,6 @@ pre {
 }
 .bold {
   font-weight: 700;
-}
-.gray-5 {
-  color: var(--gray-5);
 }
 .block {
   display: block;
