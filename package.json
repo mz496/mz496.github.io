@@ -30,7 +30,5 @@
   },
   "main": ".eleventy.js",
   "keywords": [],
-  "dependencies": {
-    "eleventy-plugin-reading-time": "^0.0.1"
-  }
+  "dependencies": {}
 }

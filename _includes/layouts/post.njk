@@ -2,13 +2,10 @@
 layout: layouts/base.njk
 templateClass: tmpl-post
 ---
-<div class="mt-4 mb-4">
-  <h1 class="text-center fw-bold">{{ title }}</h1>
+<div class="mt-5 mb-5">
+  <time class="text-muted" datetime="{{ date | htmlDateString }}">{{ date | readableDate }}</time>
+  <h1 class="fw-bold">{{ title }}</h1>
 
-  <p class="text-center text-muted">
-    <time datetime="{{ date | htmlDateString }}">{{ date | readableDate }}</time> •
-    {{ content | readingTime }} read
-  </p>
 </div>
 
 {{ content | safe }}
