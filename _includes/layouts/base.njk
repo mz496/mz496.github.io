@@ -21,16 +21,16 @@
     </script>
   </head>
   <body>
-    <header>
+    <header style="display: flex; gap: 2rem">
       <a href="{{ '/' | url }}"
-      class="text-decoration-none">
+      class="my-4 text-decoration-none">
         {{ metadata.title }}
       </a>
 
       {#- Read more about `eleventy-navigation` at https://www.11ty.dev/docs/plugins/navigation/ #}
       {%- for entry in collections.all | eleventyNavigation %}
         <a href="{{ entry.url | url }}"
-        class="text-decoration-none{% if entry.url == page.url %} fw-bold{% endif %}">
+        class="my-4 text-decoration-none{% if entry.url == page.url %} fw-bold{% endif %}">
           {{ entry.title }}
         </a>
       {%- endfor %}
