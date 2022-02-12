@@ -1,13 +1,18 @@
-<ul class="reset-list">
 {% for post in postslist | reverse %}
-  <li class="my-1">
-    <time datetime="{{ post.date | htmlDateString }}" class="text-muted">
+  <div class="my-1" style="display: flex; flex-direction: row; gap: 1rem">
+    <time style="width: 6rem; text-align: right; flex-shrink: 0; align-self: start" datetime="{{ post.date | htmlDateString }}" class="text-muted">
       {{ post.date | readableDate }}
     </time>
-    <a href="{{ post.url | url }}" class="fw-bold">
-      {% if post.data.title %}{{ post.data.title }}
-      {% else %}<code>{{ post.url }}</code>{% endif %}
-    </a>
-  </li>
+    <span>
+      <div>
+        <a href="{{ post.url | url }}" class="fw-bold">
+          {% if post.data.title %}{{ post.data.title }}
+          {% else %}<code>{{ post.url }}</code>{% endif %}
+        </a>
+      </div>
+      <div>
+        {{ post.data.description }}
+      </div>
+    </span>
+  </div>
 {% endfor %}
-</ul>
