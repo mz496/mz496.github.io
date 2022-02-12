@@ -169,19 +169,3 @@ a[href].direct-link:focus:visited,
 :hover > a[href].direct-link:visited {
   color: #aaa;
 }
-
-table.two-sided {
-  margin-top: 1em;
-  margin-bottom: 1em;
-  width: 100%;
-}
-table.two-sided td {
-  padding: 0;
-  width: 50%;
-}
-table.two-sided tr :nth-child(1) {
-  text-align: left;
-}
-table.two-sided tr :nth-child(2) {
-  text-align: right;
-}
