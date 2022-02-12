@@ -19,7 +19,7 @@ Here's our plan:
 
 ## Setup bits
 * Create things in the DOM to hold the result of the future visualization. (I've chosen to use a bunch of `div` elements nested in one large `div`. [L38-L45.](https://github.com/mz496/mz496.github.io/blob/6c5bdd5/js/spectrogram.js#L38-L45))
-```
+```html
 <audio controls src="/files/spectrogram-input.mp3"></audio>
 <div id="spectrogram">
   <div id="bin-0"></div>
