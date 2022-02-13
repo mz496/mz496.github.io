@@ -109,6 +109,7 @@ pre {
 /* Various styling classes */
 .reset-list {
   padding-left: 0;
+  margin-bottom: 0;
   list-style: none;
   list-style-position: outside;
 }
