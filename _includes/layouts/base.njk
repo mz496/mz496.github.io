@@ -30,7 +30,7 @@
       {#- Read more about `eleventy-navigation` at https://www.11ty.dev/docs/plugins/navigation/ #}
       {%- for entry in collections.all | eleventyNavigation %}
         <a href="{{ entry.url | url }}"
-        class="my-4 text-decoration-none{% if entry.url == page.url %} fw-bold{% endif %}">
+        class="my-4 text-decoration-none{% if page.url.startsWith(entry.url) %} fw-bold{% endif %}">
           {{ entry.title }}
         </a>
       {%- endfor %}
