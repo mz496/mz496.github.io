@@ -1,0 +1,27 @@
+---
+permalink: /projects/
+layout: layouts/home.njk
+title: Projects
+eleventyNavigation:
+  key: Projects
+  order: 3
+projects:
+  MAO Timers:
+    url: https://mz496.github.io/mao-timers
+    time: 2014
+    description: JavaScript timers for high school math competitions
+---
+
+<ul class="date-table reset-list">
+{% for name, data in projects %}
+  <li class="my-1">
+    <time style="width: 6rem; text-align: right;" datetime="{{ data.time | htmlDateString }}" class="text-muted">
+      {{ data.time }}
+    </time>
+    <span>
+      <div><a href="{{ data.url | url }}" class="fw-bold">{{ name }}</a></div>
+      <div>{{ data.description }}</div>
+    </span>
+  </li>
+{% endfor %}
+</ul>
