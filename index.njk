@@ -8,4 +8,4 @@ layout: layouts/home.njk
 
 <p>What I've been thinking about (more in <a href="{{ '/blog/' | url }}">the archive</a>):</p>
 {% set postslist = collections.posts | head(-3) %}
-{% include "postslist-short.njk" %}
+{% include "postlist.njk" %}
