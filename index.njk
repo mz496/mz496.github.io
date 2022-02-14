@@ -2,7 +2,10 @@
 layout: layouts/home.njk
 ---
 
-{% set postslist = collections.posts | head(-10) %}
-{% include "postslist-short.njk" %}
+<p>Hi, I'm Matthew, builder of computer/audiovisual things.</p>
 
-<p>More posts can be found in <a href="{{ '/blog/' | url }}">the archive</a>.</p>
+<p><a href="{{ '/projects/' | url }}">What I've been working on.</a></p>
+
+<p>What I've been thinking about (more in <a href="{{ '/blog/' | url }}">the archive</a>):</p>
+{% set postslist = collections.posts | head(-3) %}
+{% include "postslist-short.njk" %}
