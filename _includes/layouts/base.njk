@@ -21,7 +21,7 @@
     </script>
   </head>
   <body>
-    <header style="display: flex; align-items: center; gap: 2rem">
+    <header class="px-4" style="display: flex; align-items: center; gap: 2rem">
       <a href="{{ '/' | url }}"
       class="py-4 text-decoration-none">
         {{ metadata.title }}
@@ -41,7 +41,7 @@
 
     </header>
 
-    <main{% if templateClass %} class="{{ templateClass }}"{% endif %}>
+    <main class="px-4{% if templateClass %} {{ templateClass }}{% endif %}">
       {{ content | safe }}
     </main>
 
