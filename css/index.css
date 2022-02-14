@@ -3,6 +3,7 @@
   --red: #C5004A;
   --darkred: #7F0036;
   --gray-5: #ADB5BD;
+  --gray-6: #868E96;
   --gray-8: #343A40;
   --navy: #17050F;
   --blue: #082840;
@@ -34,6 +35,12 @@ body {
 }
 a[href] {
   color: var(--gray-8);
+}
+a[href]:hover {
+  color: var(--gray-6);
+}
+a[href]:hover > svg {
+  fill: var(--gray-6);
 }
 main {
   padding-left: 1rem;
