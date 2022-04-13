@@ -16,4 +16,4 @@ Set your Prettier package path accordingly.
 
 My repo has a bunch of subdirectories with different Prettier versions alongside my local installation:
 
-![Setting Prettier version in IntelliJ/WebStorm](../../files/setting-prettier-version-in-intellij.png)
+![Setting Prettier version in IntelliJ/WebStorm](/static/img/setting-prettier-version-in-intellij.png)

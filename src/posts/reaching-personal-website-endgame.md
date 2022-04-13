@@ -16,7 +16,7 @@ In 2007, I started a blog about current events and the juiciest tips and secrets
 
 I did burn out after just those ten weeks, but not before building out a series of articles totaling several thousand words and making three to five posts a week. Keeping up with trends is *hard* even if you may have a lead in the market.
 
-![2007 website](../../img/2007-website.png)
+![2007 website](/static/img/2007-website.png)
 
 Fun fact: I accidentally deleted the entire blog at some point during those ten weeks. I was able to undelete it within a day or so with an email to WordPress support though, with as much professionalism as a panicked tween could muster (read: I write in full sentences but end each of them with "!!!"). I, for one, am forever indebted to soft-delete.
 
@@ -28,11 +28,11 @@ I did, along with a few more transcriptions of YouTube piano covers on sheet mus
 
 At the same time, I maintained an accompanying blog where I took requests and produced around forty instrumental renditions of pop music and soundtracks, both original arrangements and transcriptions. The whole endeavor lasted about a year and a half before schoolwork took priority. I also felt similar pressures trying to keep up with the latest new songs as I did with my last project.
 
-![2012 website](../../img/2012-website.png)
+![2012 website](/static/img/2012-website.png)
 
 Fun fact: sometime in 2018, Ray Mak finally saw my tributes. I wonder if it was like seeing an X-ray of yourself for the first time.
 
-![Ray Mak comment](../../img/ray-mak-comment.png)
+![Ray Mak comment](/static/img/ray-mak-comment.png)
 
 ## 2013-2015: a confusing hodgepodge of tidbits becoming less and less anon
 
@@ -40,15 +40,15 @@ In 2013-2014, I was deep into my high school's local region/state competitions w
 
 What *did* come out of it was a small collection of problems I thought were cool, especially ones that the [Florida Student Association of Mathematics](https://flsam.org/) specifically created for their ARML/PUMaC/HMMT qualifiers, and some techniques I learned along the way. Writing up the solutions helped me internalize them better.
 
-![2013 math website](../../img/2013-website-math.png)
+![2013 math website](/static/img/2013-website-math.png)
 
 On the side, I had written down things I "discovered" (meaning I couldn't find the answer on Google elsewhere) or at least ways to make my life easier doing math. I figured since they weren't competition problems, I would use a separate blog:
 
-![2013 discovery website](../../img/2013-website-google-savior.png)
+![2013 discovery website](/static/img/2013-website-google-savior.png)
 
 When I started university in late 2014, I tried to merge the two. I think this was the first time I used my real name on the internet, too. At this point, it didn't really cohere anymore, being the grab-bag of high school and university things that it was. I recognized this by cheesily naming the merged blog "incomplete graph" after the fact that I enjoy making connections between things, but there's still so much to be discovered.
 
-![2015 merged website](../../img/2015-website-cs.png)
+![2015 merged website](/static/img/2015-website-cs.png)
 
 All of these projects differed from 2007 and 2012 in that I didn't explicitly market myself. I got a few keyword hits from Google to my "discoveries" blog, but I was very much disconnected from other communities like [AoPS](https://artofproblemsolving.com/community) where the conversation was really happening.
 
@@ -58,17 +58,17 @@ Backtrack slightly to March 2014: I had built [a simple static stopwatch web app
 
 In 2015, armed with the knowledge of how simple it is to create a static website, I decided I needed a full-on, bona fide website for myself. No more of this juvenile blog business; personal homepages were what all the "legit" people were doing, right? Mostly, though, I wanted to connect up all my side projects, like the web app I built in 2014. It was a single page I threw together in an afternoon.
 
-![2015 website redesign](../../img/2015-website.png)
+![2015 website redesign](/static/img/2015-website.png)
 
 I was very proud of "Drag me," which modulated the hue of the background.
 
 In 2016, my website started to cross over into portfolio territory as I saw the Projects section turn into a wall of text. Most of my projects were also in front-end web development at that point because of the low barrier to entry, so it made sense to have my site visually in line with my purported skill. I drew design inspiration primarily from one portfolio that I can't find anymore.
 
-![2016 website redesign](../../img/2016-website.png)
+![2016 website redesign](/static/img/2016-website.png)
 
 I don't know whether this helped get anyone's attention, but I doubt it. During peak student job-hunt season, one internship interviewer told me at the start of our interview that the entire homepage was broken though, which I traced to a commit I had made two weeks prior. Good to know *someone* visits the links in my resume!
 
-![Commit log for breaking change](../../img/website-commits.png)
+![Commit log for breaking change](/static/img/website-commits.png)
 
 ## 2018-2020: a curated timeline
 
@@ -76,7 +76,7 @@ During my last semester of university, Fall 2017, I started investing more in th
 
 For this redesign in 2018, I drew heavily from the trend toward dark, bold, slab or heavy-set serif headings along with (usually) sans-serif body text, which looks vaguely like something out of a magazine. I also tightly integrated emoji into the design, which I probably picked up as another trend somewhere. My bet is [Medium](https://medium.com), where I also got this magazine vibe.
 
-![2018 timeline redesign](../../img/2018-timeline.png)
+![2018 timeline redesign](/static/img/2018-timeline.png)
 
 I thought hard about the timeline contents. My initial heuristic was part ~flex~, part shoutout column: add every Cool Thing™ I ever did and every formative experience I could remember, including all the people who contributed along the way. While Cool Things™ were harder to come by, formative experiences quickly grew cumbersome and unbounded. If I thought hard enough, couldn't literally *anything* could contribute to who I was at the time? Case in point: everything described in this post. So after the first iteration, I would start retroactively adding things from the past as I realized later on that yes, actually, this event did shape me in some significant way.
 
@@ -86,4 +86,4 @@ In 2019, I started to lean more toward, "What's a good conversation starter? Wha
 
 Why a full circle to a blog only now? I don't think I understood the staying power of a simple content-first blog without a specific higher purpose. Like a new car that loses thousands of dollars in value as soon as you drive it out of the lot, every time I reworked my website, it would inevitably lose relevance after my next big life milestone. While those external milestones are fewer and farther between now that I've graduated college, I've realized I need to create my own milestones. This is how I keep track of them.
 
-![Don't need to constantly reinvent if you stop trying to invent](../../img/reinvent-meme.jpg)
+![Don't need to constantly reinvent if you stop trying to invent](/static/img/reinvent-meme.jpg)

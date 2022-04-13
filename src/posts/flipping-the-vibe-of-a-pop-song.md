@@ -13,9 +13,9 @@ In this post, I'm breaking down each part individually and recording what influe
 
 Here's what I got to start with. From top to bottom: drums, bass, vocal, guitars, synths, and FX.
 
-![Original stems](../../files/queen-remix/stems.png)
+![Original stems](/static/img/queen-stems.png)
 
-This is what they sound like together: https://youtu.be/vq31zumfU9s?t=13
+[This is what they sound like together.](https://youtu.be/vq31zumfU9s?t=13)
 
 # What if…
 
@@ -37,7 +37,7 @@ These are the parts of my remix. From top to bottom:
 * Pink: FX
 * Purple: vocal chops
 
-![Full project file screenshot](../../files/queen-remix/project-full.png)
+![Full project file screenshot](/static/img/queen-project-full.png)
 
 This is what they sound like together:
 
@@ -51,9 +51,9 @@ Another example of these chords is in [Ariana Grande's No Tears Left To Cry arou
 
 Here's a snippet from the verse-to-prechorus transition:
 
-![Keys chords](../../files/queen-remix/keys.png)
+![Keys chords](/static/img/queen-keys.png)
 
-<audio controls src="../../files/queen-remix/keys.mp3"></audio>
+<audio controls src="/static/files/queen-keys.mp3"></audio>
 
 # The drums
 
@@ -65,9 +65,9 @@ The cowbells were loosely inspired by [C2C's remix of Stevie Wonder - Superstiti
 
 Here's a snippet from the prechorus buildup to the chorus/drop:
 
-![Drums](../../files/queen-remix/drums.png)
+![Drums](/static/img/queen-drums.png)
 
-<audio controls src="../../files/queen-remix/drums.mp3"></audio>
+<audio controls src="/static/files/queen-drums.mp3"></audio>
 
 # The chorus vocals
 
@@ -75,9 +75,9 @@ I left most if not all of the verse vocals untouched, and mostly focused on the 
 
 Here's a snippet from the chorus:
 
-![Vocal chops](../../files/queen-remix/ovox.png)
+![Vocal chops](/static/img/queen-ovox.png)
 
-<audio controls src="../../files/queen-remix/ovox.mp3"></audio>
+<audio controls src="/static/files/queen-ovox.mp3"></audio>
 
 # The undistorted guitars
 
@@ -85,9 +85,9 @@ I chopped up the original sample to make a slightly different guitar melody, jus
 
 Here's a snippet from the prechorus:
 
-![Undistorted guitars](../../files/queen-remix/guitar.png)
+![Undistorted guitars](/static/img/queen-guitar.png)
 
-<audio controls src="../../files/queen-remix/guitars.mp3"></audio>
+<audio controls src="/static/files/queen-guitars.mp3"></audio>
 
 # Vocal chops and FX
 
@@ -97,9 +97,9 @@ The record scratch (1:03 in the remix), tape stop effect (0:58 in the remix), an
 
 Here's a snippet from the prechorus buildup to the chorus/drop, out of context though:
 
-![Vocal chops](../../files/queen-remix/chops.png)
+![Vocal chops](/static/img/queen-chops.png)
 
-<audio controls src="../../files/queen-remix/chops.mp3"></audio>
+<audio controls src="/static/files/queen-chops.mp3"></audio>
 
 # And that's it!
 

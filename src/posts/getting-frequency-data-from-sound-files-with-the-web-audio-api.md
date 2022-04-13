@@ -39,11 +39,11 @@ Here's our plan:
 * Once you have the array, visualize it. (I've chosen to output a bunch of ASCII block-drawing characters █ according to the value in the array. [L22-L25.](https://github.com/mz496/mz496.github.io/blob/6c5bdd5/js/spectrogram.js#L22-L25))
 
 ## The result
-<script src="/js/spectrogram.js"></script>
+<script src="/static/files/spectrogram.js"></script>
 
 Audio input:
 
-<audio controls src="/files/spectrogram-input.mp3"></audio>
+<audio controls src="/static/files/spectrogram-input.mp3"></audio>
 
 <div id="spectrogram" style="font-family: monospace; font-size: 2pt; overflow-x: scroll"></div>
 

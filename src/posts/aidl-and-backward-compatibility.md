@@ -18,7 +18,7 @@ Let's first make sure we're on the same page regarding what AIDL is according to
 
 One common pattern I saw in my time hacking away on an Android Open Source Project (AOSP)-based device is that this usually lends itself pretty well to team boundaries, similar to microservices in the web world. For example, a team might own one service *S* (APKs) and its associated client library (AARs). The client library is then compiled with other services *S2*, *S3*, etc. that would use AIDL under the hood to talk to the service.
 
-![AIDL intro](../../img/aidl-intro.png)
+![AIDL intro](/static/img/aidl-intro.png)
 
 One question that immediately arises: **How does AIDL handle backward incompatible changes?** This is of particular interest if backward incompatibilities affect other teams, as it did while I was working on one tiny sliver of a ~100-strong apps & services team.
 
@@ -106,11 +106,11 @@ Since the [Android SDK docs on AIDL](https://developer.android.com/guide/compone
 
 Here's an example of what happens in a normal case:
 
-![Happy case AIDL](../../img/aidl-happy.png)
+![Happy case AIDL](/static/img/aidl-happy.png)
 
 And here's an example of what happens when a client gets a different version with methods reordered in the .aidl file:
 
-![Reordering AIDL methods](../../img/aidl-reordering.png)
+![Reordering AIDL methods](/static/img/aidl-reordering.png)
 
 ## What happens if you do release a backward incompatible change?
 
@@ -125,11 +125,12 @@ I personally debugged two of these silent failure modes, which I'll describe bel
 I'm sure one could reason about other failure modes, but I'll just focus on what I had personal experience with.
 
 ### Silent failure mode 1: Your client expects results for E but actually gets results for A
+
 Around November 2019, as a service owner, I made what I thought was a backward-compatible change to my service and client SDK. Except it wasn't; I inserted a new interface method into the middle of the AIDL file. This caused a client to suddenly start receiving null for a service implementation that never returns null.
 
 The generalized case is when a client method gets interpreted differently on the service because the transaction IDs have been reassigned. In my case, the **E**xpected client method `E()` had no arguments, but the **A**ctual method call received on the service was `A(arg0)`, which had one argument. Even though I had explicitly written a client-side check in the SDK to never call `A(arg0)` with a null `arg0`, the service still received it with a null `arg0`. This broke service-side assumptions and returned invalid results.
 
-![Adding methods to AIDL interface](../../img/aidl-adding.png)
+![Adding methods to AIDL interface](/static/img/aidl-adding.png)
 
 To see how that was possible at the code level, let's add back some context to the compiled AIDL interface:
 ```java
@@ -168,7 +169,7 @@ This time, I was the client, and an upstream dependency removed an AIDL method. 
 
 I don't fully understand [the default behavior of onTransact according to the Binder documentation](https://developer.android.com/reference/android/os/Binder#onTransact(int,%20android.os.Parcel,%20android.os.Parcel,%20int)), but one thing was clear: Android internals even affect the way traditional backward incompatibilities fail!
 
-![Deleting methods from AIDL interface](../../img/aidl-deleting.png)
+![Deleting methods from AIDL interface](/static/img/aidl-deleting.png)
 
 To see how this happened at the code level, it's also in the first snippet in these lines, almost unassuming enough to be an afterthought. A transaction ID that has no match will fall through to this case:
 ```java
