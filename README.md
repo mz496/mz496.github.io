@@ -1,78 +1,60 @@
-# eleventy-base-blog
+# Neat Starter
 
-A starter repository showing how to build a blog with the [Eleventy](https://github.com/11ty/eleventy) static site generator.
+Starter Template for **N**etlify CMS, **E**leventy, **A**lpine JS & **T**ailwind CSS
 
-[![Build Status](https://travis-ci.org/11ty/eleventy-base-blog.svg?branch=master)](https://travis-ci.org/11ty/eleventy-base-blog)
+## Live Demo
 
-## Demos
+[https://neat-starter.netlify.app/](https://neat-starter.netlify.app/)
 
-* [Netlify](https://eleventy-base-blog.netlify.com/)
-* [GitHub Pages](https://11ty.github.io/eleventy-base-blog/)
-* [Remix on Glitch](https://glitch.com/~11ty-eleventy-base-blog)
+### Technologies used:
 
-## Deploy this to your own site
+- [Netlify CMS](https://www.netlifycms.org/)
+- [Eleventy](https://www.11ty.dev/)
+- [Alpine.js](https://github.com/alpinejs/alpine)
+- [Tailwind CSS](https://tailwindcss.com/)
 
-These builders are amazing—try them out to get your own Eleventy site in a few clicks!
+| ![image](https://user-images.githubusercontent.com/1884712/93762662-a62e4700-fc2d-11ea-9b2c-fda9f503402b.png) |
+| ------------------------------------------------------------------------------------------------------------- |
 
-* [Get your own Eleventy web site on Netlify](https://app.netlify.com/start/deploy?repository=https://github.com/11ty/eleventy-base-blog)
-* [Get your own Eleventy web site on Vercel](https://vercel.com/import/project?template=11ty%2Feleventy-base-blog)
+
+<a href="https://app.netlify.com/start/deploy?repository=https://github.com/surjithctly/neat-starter&amp;stack=cms"><img src="https://www.netlify.com/img/deploy/button.svg" alt="Deploy to Netlify" /></a>
 
 ## Getting Started
 
-### 1. Clone this Repository
+Detailed instructions are available in my blog. [Check it out](https://blog.surjithctly.in/neat-stack-create-a-static-website-with-netlify-cms-eleventy-alpinejs-and-tailwindcss)
+
+### 1\. Clone this Repository
 
 ```
-git clone https://github.com/11ty/eleventy-base-blog.git my-blog-name
+git clone https://github.com/surjithctly/neat-starter.git
 ```
 
-
-### 2. Navigate to the directory
+### 2\. Navigate to the directory
 
 ```
-cd my-blog-name
+cd neat-starter
 ```
 
-Specifically have a look at `.eleventy.js` to see if you want to configure any Eleventy options differently.
-
-### 3. Install dependencies
+### 3\. Install dependencies
 
 ```
 npm install
 ```
 
-### 4. Edit _data/metadata.json
+### 4\. Build the project to generate the first CSS
 
-### 5. Run Eleventy
+This step is only required the very first time.
 
 ```
-npx eleventy
-```
-
-Or build and host locally for local development
-```
-npx eleventy --serve
+npm run build
 ```
 
-Or build automatically when a template changes:
+### 5\. Run Eleventy
+
 ```
-npx eleventy --watch
+npm run start
 ```
 
-Or in debug mode:
-```
-DEBUG=* npx eleventy
-```
+## Author
 
-### Implementation Notes
-
-* `about/index.md` shows how to add a content page.
-* `posts/` has the blog posts but really they can live in any directory. They need only the `post` tag to be added to this collection.
-* Add the `nav` tag to add a template to the top level site navigation. For example, this is in use on `index.njk` and `about/index.md`.
-* Content can be any template format (blog posts needn’t be markdown, for example). Configure your supported templates in `.eleventy.js` -> `templateFormats`.
-	* Because `css` and `png` are listed in `templateFormats` but are not supported template types, any files with these extensions will be copied without modification to the output (while keeping the same directory structure).
-* The blog post feed template is in `feed/feed.njk`. This is also a good example of using a global data files in that it uses `_data/metadata.json`.
-* This example uses three layouts:
-  * `_includes/layouts/base.njk`: the top level HTML structure
-  * `_includes/layouts/home.njk`: the home page template (wrapped into `base.njk`)
-  * `_includes/layouts/post.njk`: the blog post template (wrapped into `base.njk`)
-* `_includes/postlist.njk` is a Nunjucks include and is a reusable component used to display a list of all the posts. `index.njk` has an example of how to use it.
+Surjith S M ( [@surjithctly](https://surjithctly.in/) )
