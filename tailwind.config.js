@@ -6,6 +6,18 @@ module.exports = {
     },
     extend: {
       colors: {},
+      typography: {
+        DEFAULT: {
+          css: {
+            'code::before': {
+              content: '""',
+            },
+            'code::after': {
+              content: '""',
+            },
+          },
+        },
+      },
     },
   },
   variants: {},
