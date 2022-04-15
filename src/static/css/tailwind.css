@@ -5,7 +5,7 @@
 /*Your Custom CSS Goes here*/
 
 h1 {
-  @apply text-4xl mb-3 text-center lg:text-7xl;
+  @apply pt-8 text-center;
 }
 
 h3 {
