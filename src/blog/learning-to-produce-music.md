@@ -1,6 +1,6 @@
 ---
 title: Learning to produce music
-description: Because you're only new once
+description: Things I learned over the last year of self-teaching music production
 date: 2021-02-26
 tags:
   - post

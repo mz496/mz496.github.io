@@ -1,6 +1,6 @@
 ---
 title: Setting the Prettier version in IntelliJ/WebStorm
-description:
+description: tl;dr Preferences > Languages & Frameworks > JavaScript > Prettier
 date: 2022-02-04
 tags:
   - post

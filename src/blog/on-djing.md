@@ -1,6 +1,6 @@
 ---
 title: On DJing
-description: Attempts and discoveries
+description: Attempts and discoveries while making a DJ set in Ableton
 date: 2021-12-13
 tags:
   - post

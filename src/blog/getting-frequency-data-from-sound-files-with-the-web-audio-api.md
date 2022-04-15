@@ -1,6 +1,6 @@
 ---
-title: Getting frequency data from sound files with the Web Audio API
-description: A tiny example
+title: Getting frequency data from sound files in JavaScript
+description: A tiny example on how to use the Web Audio API
 date: 2021-07-18
 tags:
   - post

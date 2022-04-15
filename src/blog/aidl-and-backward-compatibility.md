@@ -1,6 +1,6 @@
 ---
 title: AIDL and backward incompatibility
-description: Warning, silent failures ahead
+description: Pitfalls when updating AIDL client/service interfaces for Android
 date: 2020-12-21
 tags:
   - post
