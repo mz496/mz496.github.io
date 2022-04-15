@@ -1,0 +1,100 @@
+---
+projects:
+  Remix of Felix Cartal, Elohim - Nothing Good Comes Easy:
+    url: https://soundcloud.com/blueticksound/felix-cartal-feat-elohim-nothing-good-comes-easy-blue-tick-remix
+    urls:
+      Blog post (Making house music (of some kind)): /blog/making-house-music-of-some-kind/
+    time: 2022
+  Remix of NOTD, The Band Camino - Never A Good Time:
+    url: https://soundcloud.com/blueticksound/notd-the-band-camino-never-a-good-time-blue-tick-remix
+    time: 2021
+  EDM DJ set:
+    url: https://soundcloud.com/blueticksound/dreamworld-open-aux-contest-blue-tick
+    urls:
+      Blog post (On DJing): /blog/on-djing/
+    time: 2021
+  Mixing & mastering Young Dynasty - Raining Down:
+    url: https://open.spotify.com/track/1uiDpZOPS49X8h3sldZM2y?si=23167e99c3014deb
+    time: 2021
+  Mixing & mastering Young Dynasty - Above the Hate:
+    url: https://open.spotify.com/track/1Ew1DvwkQTTOC8hLGIhPWD?si=161ef3f9a0be44d7
+    time: 2021
+  Remix of Seeb, K Camp, Tim North, Marty James - Run It Up:
+    url: https://soundcloud.com/blueticksound/seeb-k-camp-tim-north-marty-james-run-it-up-blue-tick-remix
+    time: 2021
+    description: That time I listened to too much nu-disco and played with Serum for the first time
+  Remix of Emma Holzer - Queen:
+    url: https://soundcloud.com/blueticksound/emma-holzer-queen-blue-tick-remix
+    urls:
+      Blog post (Flipping the vibe of a pop song): /blog/flipping-the-vibe-of-a-pop-song/
+    time: 2021
+  Remix of Young Dynasty - Ketosis:
+    url: https://soundcloud.com/blueticksound/young-dynasty-ketosis-blue-tick-remix
+    time: 2021
+    description: That time I found a trap sample pack and went hog-wild
+  Stripe:
+    url: https://stripe.com
+    time: 2021–
+    description: Working on developer infrastructure
+  Remix of Jonas Aden - Tell Me A Lie:
+    url: https://soundcloud.com/blueticksound/jonas-aden-tell-me-a-lie-blue-tick-remix
+    time: 2019
+    description: That time I jumped into a contest with a deadline one week away, armed with my first MIDI controller and FL Studio
+  Amazon Astro:
+    url: https://www.amazon.com/Introducing-Amazon-Astro/dp/B078NSDFSB
+    time: 2019–2020
+    description: When you say "Astro" and the device turns to face you, I worked on device software to control that
+  Pop music instrumental covers:
+    url: https://soundcloud.com/blueticksound/sets/instrumental-covers
+    time: 2018–2019
+  Amazon Alexa Cloud Services:
+    url: https://developer.amazon.com/en-US/docs/alexa/alexa-voice-service/get-started-with-alexa-voice-service.html
+    time: 2018–2019
+    description: When you say "Alexa" and your Alexa-enabled device knows what to do, I worked on the software running on faraway computers that take your intention and translate it to action
+  Sketching from life:
+    time: 2018–
+    urls:
+      Paris: https://www.instagram.com/p/Bkq7MeVlaQ1/
+      Bologna: https://www.instagram.com/p/BkxzLhdlyDK/
+      Florence: https://www.instagram.com/p/Bk6QCJqlTpQ/
+      Rome: https://www.instagram.com/p/Bk_DkPTFVII/
+      Budapest: https://www.instagram.com/p/Bk_YmZKlazu/
+      Prague: https://www.instagram.com/p/BlcCuqRHGRR/
+      Amsterdam: https://www.instagram.com/p/Blj7cMCDUhn/
+      London: https://www.instagram.com/p/Bl3oTbhAoO7/
+      Seattle: https://www.instagram.com/p/COPURT-DZim/
+      Los Angeles: https://www.instagram.com/p/CRaccAbj1jV/
+      Orlando: https://www.instagram.com/p/CYLL7EOtd_J/
+      Napa: https://www.instagram.com/p/CbmEhE-OI43/
+  Mashing up pop songs:
+    url: https://www.youtube.com/channel/UCA_pPuTJTPlFbVj5WcgNkYA/videos
+    time: 2017
+  Math competition tests for high school students:
+    time: 2016–2019
+    urls:
+      A test on math-based programming (downloads a file): https://floridamao.org/FAMATSite/PublicPages/TestArchive.aspx?TDID=9792
+      A test on geometry (downloads a file): https://floridamao.org/FAMATSite/PublicPages/TestArchive.aspx?TDID=9837
+      A test on triangles: https://mualphatheta.org/sites/default/files/2019_Theta_Triangles.pdf
+  Mellon College of Science logo:
+    url: https://www.facebook.com/cmuscience/posts/914896098581454
+    time: 2015
+    description: That time I designed a logo printed on 400 shirts for tie-dye
+  Dayta:
+    url: https://mz496.github.io/dayta
+    time: 2015
+    description: Various date calculators (built when AngularJS 1.x was cool)
+  Lights Out:
+    url: http://mz496.github.io/lights-out
+    time: 2014
+    description: Code-golf-y implementation using HTML checkboxes
+  Planetarium:
+    url: http://mz496.github.io/planetarium
+    time: 2014
+    description: Orbital animation where an Earth year is 10 seconds, respecting Kepler's laws
+  Math competition timers:
+    url: https://mz496.github.io/mao-timers
+    time: 2014
+    description: Timers for high school math competitions as part of MAΘ
+  Pop music transcriptions:
+    url: https://www.youtube.com/c/MattZhu/videos
+    time: 2012–2013

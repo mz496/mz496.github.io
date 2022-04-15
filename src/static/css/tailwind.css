@@ -1,0 +1,24 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/*Your Custom CSS Goes here*/
+
+h1 {
+  @apply pt-8 text-center;
+}
+
+h3 {
+  @apply text-2xl font-bold mb-3;
+}
+
+code {
+  @apply bg-gray-100 text-blue-800 p-1;
+}
+
+/* Syntax Highlighting*/
+
+body :not(pre) > code[class*="language-"],
+body pre[class*="language-"] {
+  @apply bg-gray-800;
+}

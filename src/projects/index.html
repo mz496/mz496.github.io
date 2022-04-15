@@ -1,0 +1,42 @@
+---
+title: Projects
+description: All projects I've contributed to that live on the internet, 2012-2022
+layout: default
+---
+
+<div class="container max-w-3xl px-6">
+  <h1 class="font-bold text-5xl lg:text-7xl">{{title}}</h1>
+  <article class="prose lg:prose-xl my-8 mx-auto">
+    <p>Here's a selection of stuff I've contributed to that also lives on the internet, tagged and sorted by the time I started:</p>
+    <div class="grid grid-cols-5 gap-6">
+    {% for name, data in projects.projects %}
+      <div class="text-right">
+        <time>
+          {{ data.time }}
+        </time>
+      </div>
+      <div class="col-span-4">
+        {% if data.url %}<a href="{{ data.url | url }}">{{ name }}</a>
+        {% else %}<span>{{ name }}</span>
+        {% endif %}
+
+        <div>{{ data.description }}</div>
+
+        {% if data.urls %}
+        <ul>
+        {% for subheading, subUrl in data.urls %}
+          <li><a href="{{ subUrl | url }}">{{ subheading }}</a></li>
+        {% endfor %}
+        </ul>
+        {% endif %}
+      </div>
+    {% endfor %}
+    </div>
+  </article>
+</div>
+
+
+
+
+
+</section>

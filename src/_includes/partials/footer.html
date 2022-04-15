@@ -1,0 +1,9 @@
+
+<footer class="{{ 'hidden' if path == 'home' }} bottom-0 text-center w-full py-4">
+    <small class="text-gray-500">
+        Thanks for stopping by!
+        {% for link in links.links %}
+        • <a href="{{link.url}}" target="_blank" class="underline">{{link.title}}</a>
+        {% endfor %}
+    </small>
+</footer>
