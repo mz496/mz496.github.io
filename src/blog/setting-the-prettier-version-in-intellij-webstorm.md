@@ -3,6 +3,7 @@ title: Setting the Prettier version in IntelliJ/WebStorm
 description:
 date: 2022-02-04
 tags:
+  - post
   - code
 ---
 

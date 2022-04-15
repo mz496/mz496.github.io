@@ -3,6 +3,7 @@ title: Getting frequency data from sound files with the Web Audio API
 description: A tiny example
 date: 2021-07-18
 tags:
+  - post
   - code
 ---
 

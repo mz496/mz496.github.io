@@ -3,6 +3,7 @@ title: Making house music (of some kind)
 description: Where I finally understand why house music is so repetitive
 date: 2022-03-26
 tags:
+  - post
   - music
 ---
 

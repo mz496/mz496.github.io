@@ -3,6 +3,7 @@ title: Migrating scribbles to GitHub issues
 description: The power of plaintext
 date: 2022-01-21
 tags:
+  - post
   - records
 ---
 

@@ -3,6 +3,7 @@ title: On DJing
 description: Attempts and discoveries
 date: 2021-12-13
 tags:
+  - post
   - music
 ---
 

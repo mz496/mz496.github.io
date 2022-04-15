@@ -3,6 +3,7 @@ title: Flipping the vibe of a pop song
 description: Remixing Emma Holzer - Queen
 date: 2021-11-19
 tags:
+  - post
   - music
 ---
 

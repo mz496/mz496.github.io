@@ -3,6 +3,7 @@ title: AIDL and backward incompatibility
 description: Warning, silent failures ahead
 date: 2020-12-21
 tags:
+  - post
   - code
 ---
 

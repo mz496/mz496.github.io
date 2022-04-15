@@ -3,6 +3,7 @@ title: Reaching personal website endgame
 description: A journey through eight websites in thirteen years
 date: 2020-12-13
 tags:
+  - post
   - records
 ---
 

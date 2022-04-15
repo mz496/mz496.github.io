@@ -3,6 +3,7 @@ title: Learning to produce music
 description: Because you're only new once
 date: 2021-02-26
 tags:
+  - post
   - music
 ---
 
