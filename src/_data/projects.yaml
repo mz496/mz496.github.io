@@ -1,5 +1,11 @@
 ---
 projects:
+  2023 MIT Mystery Hunt registration:
+    url: https://mitmh2023.com
+    time: 2022
+  Remix of Distant Matter - Four Leaf Clover:
+    url: https://soundcloud.com/blueticksound/distant-matter-four-leaf-clover-blue-tick-remix
+    time: 2022
   Remix of Felix Cartal, Elohim - Nothing Good Comes Easy:
     url: https://soundcloud.com/blueticksound/felix-cartal-feat-elohim-nothing-good-comes-easy-blue-tick-remix
     urls:
@@ -34,8 +40,8 @@ projects:
     description: That time I found a trap sample pack and went hog-wild
   Stripe:
     url: https://stripe.com
-    time: 2021–
-    description: Working on developer infrastructure
+    time: 2021–2022
+    description: Worked on that internal version of Heroku that lets developers deploy and monitor microservices
   Remix of Jonas Aden - Tell Me A Lie:
     url: https://soundcloud.com/blueticksound/jonas-aden-tell-me-a-lie-blue-tick-remix
     time: 2019
@@ -66,6 +72,7 @@ projects:
       Los Angeles: https://www.instagram.com/p/CRaccAbj1jV/
       Orlando: https://www.instagram.com/p/CYLL7EOtd_J/
       Napa: https://www.instagram.com/p/CbmEhE-OI43/
+      Mexico City: https://www.instagram.com/p/Ch7mqNRgsEm/
   Mashing up pop songs:
     url: https://www.youtube.com/channel/UCA_pPuTJTPlFbVj5WcgNkYA/videos
     time: 2017
