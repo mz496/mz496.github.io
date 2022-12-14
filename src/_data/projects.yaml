@@ -38,25 +38,13 @@ projects:
     url: https://soundcloud.com/blueticksound/young-dynasty-ketosis-blue-tick-remix
     time: 2021
     description: That time I found a trap sample pack and went hog-wild
-  Stripe:
-    url: https://stripe.com
-    time: 2021–2022
-    description: Worked on that internal version of Heroku that lets developers deploy and monitor microservices
   Remix of Jonas Aden - Tell Me A Lie:
     url: https://soundcloud.com/blueticksound/jonas-aden-tell-me-a-lie-blue-tick-remix
     time: 2019
     description: That time I jumped into a contest with a deadline one week away, armed with my first MIDI controller and FL Studio
-  Amazon Astro:
-    url: https://www.amazon.com/Introducing-Amazon-Astro/dp/B078NSDFSB
-    time: 2019–2020
-    description: When you say "Astro" and the device turns to face you, I worked on device software to control that
   Pop music instrumental covers:
     url: https://soundcloud.com/blueticksound/sets/instrumental-covers
     time: 2018–2019
-  Amazon Alexa Cloud Services:
-    url: https://developer.amazon.com/en-US/docs/alexa/alexa-voice-service/get-started-with-alexa-voice-service.html
-    time: 2018–2019
-    description: When you say "Alexa" and your Alexa-enabled device knows what to do, I worked on the software running on faraway computers that take your intention and translate it to action
   Sketching from life:
     time: 2018–
     urls:
