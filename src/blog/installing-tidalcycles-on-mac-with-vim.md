@@ -18,7 +18,7 @@ This is an extremely bare-bones guide to installing TidalCycles on an M1 Mac wit
 - Alias sclang for convenience in `~/.zshrc`: add line `alias sclang="/Applications/SuperCollider.app/Contents/MacOS/sclang"` (h/t [The Leo Zone, retrieved 2023-06-29](https://theleo.zone/posts/tidal-cycles-setup/))
 - Checkpoint: try `sclang` from terminal to make sure it works and prints out some SuperDirt stuff
 - Install [vim-tidal](https://github.com/tidalcycles/vim-tidal) using plugin manager/installation method of choice
-    - Tnstall tmux if not already installed, a prerequisite here (but you'll run into this later when tmux isn't found anyway)
+    - Install tmux if not already installed, a prerequisite here (but you'll run into this later when tmux isn't found anyway)
 - Clone vim-tidal locally as well and run `make` from the repo root to establish symlinks
 - Create a [tmuxinator](https://github.com/tmuxinator/tmuxinator) project to start up `vim`, `sclang`, `tidal` all at once:
     - `tmuxinator new music`
