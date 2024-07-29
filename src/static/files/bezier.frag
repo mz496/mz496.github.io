@@ -661,12 +661,26 @@ vec3 hsl2rgb(float h, float s, float l) {
 }
 
 
-float ramp(float d, float t, float sgn, float D) {
+// Imagine the parametrized curve stretched straight horizontally from 0 to 1.
+// This returns the alpha value based on a linear ramp:
+// t = parameter from 0 to 1
+// d = signed perpendicular distance from curve. Past the dispersion value we are just at 0.
+// sgn = which side of the curve we are on (-1 or 1)
+// dispersion = the max absolute value (must be between 0 and 1 because it's an alpha value)
+float ramp(float d, float t, float sgn, float dispersion) {
     /*if (t == 0. && sgn > 0.) {
         return 1.;
     }*/
 
-    return clamp(-(1./(2.*(t*sgn*D))) * d + 0.5, 0., 1.);
+    // For intuition:
+    // d/dispersion is a normalizing factor; so the spread cannot go past "dispersion" distance
+    // x is traveling perpendicularly away from the curve
+    float x = clamp(d/dispersion, 0., 1.);
+    float easedX = sin(x*PI/2.);
+    // if you fix t to some value:
+    // - when we're on the curve (d=0) the alpha is always 0.5
+    // - at easedX=t, alpha is 0 (on sgn=+1 side) or 1 (on sgn=-1 side)
+    return clamp(-0.5 * sgn * easedX/t + 0.5, 0., 1.);
 }
 
 // t = What value of 0<=t<=1 is the closest point on the bezier?
@@ -692,7 +706,6 @@ void make_bezier(vec2 uv, vec2 p0, vec2 p1, vec2 p2, vec2 p3,
     } else {
         sgn = -1.;
     }
-    // 
     d = sqrt(dot(to_t0,to_t0));
     dots = min(dots,distance(p0,uv) - dot_size);
 	dots = min(dots,distance(p1,uv) - dot_size);
@@ -754,20 +767,16 @@ vec4 halfplane(vec2 uv, vec2 p0, vec2 p1, vec2 p2, vec2 p3, float border, vec3 h
     //col *= 1.0 - exp(-8.0 * d0);
     // Color the contour
 	//col *= 0.8 + 0.2*cos(480.0*d0);
+    
+    
+    // 2024-07-28: useful for debugging
     // Color in the curve itself using a stepdown from white at small values of d0
-	colA = mix(colA, vec4(1.0), 1.0-smoothstep(0.0,0.005,abs(d0)));
+	//colA = mix(colA, vec4(1.0), 1.0-smoothstep(0.0,0.005,abs(d0)));
 	// Color in dots
-    colA = mix(point_col,colA,smoothstep(0.,border,dots));
+    //colA = mix(point_col,colA,smoothstep(0.,border,dots));
     
     
     return colA;
-    // 2024-07-28: Still useful? trying to blend some stuff together
-    //vec3 Ca = colA.rgb;
-    //vec3 Cb = colB.rgb;
-    //float ao = a.a + b.a * (1. - a.a);
-    //vec3 Co = (Ca * a.a + Cb * (1. - a.a));
-    //return vec4(Co.rgb, ao);
-    //return foreground * foreground.a + background * (1.0 - foreground.a);
 }
 
 vec4 layer(vec4 fg, vec4 bg) {
