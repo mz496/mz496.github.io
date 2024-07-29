@@ -701,7 +701,7 @@ void make_bezier(vec2 uv, vec2 p0, vec2 p1, vec2 p2, vec2 p3,
 }
 
 // Using uv point, draw in a cubic bezier halfplane with points p0-p3, with colA as that color
-vec4 layer(vec2 uv, vec2 p0, vec2 p1, vec2 p2, vec2 p3, float border, vec3 hsl, float dispersion) {
+vec4 halfplane(vec2 uv, vec2 p0, vec2 p1, vec2 p2, vec2 p3, float border, vec3 hsl, float dispersion) {
     
 
     float dots = 1e38;
@@ -770,6 +770,18 @@ vec4 layer(vec2 uv, vec2 p0, vec2 p1, vec2 p2, vec2 p3, float border, vec3 hsl, 
     //return foreground * foreground.a + background * (1.0 - foreground.a);
 }
 
+vec4 layer(vec4 fg, vec4 bg) {
+    //return bg;
+    //return fg * fg.a + bg * (1.0 - bg.a);
+    vec3 Ca = fg.rgb;
+    vec3 Cb = bg.rgb;
+	float alphaA = fg.a;
+    float alphaB = bg.a;
+    float alphaO = alphaA + alphaB * (1.-alphaA);
+    vec3 Co = (Ca * alphaA + Cb * alphaB * (1.-alphaA)) / alphaO;
+    return vec4(Co.rgb, alphaO);
+}
+
 //void mainImage(out vec4 fragColor, in vec2 fragCoord){
 void main() {
 
@@ -831,11 +843,14 @@ void main() {
         t = t0/2.;
     }*/
 
-    vec3 hsl = vec3(h2,s,l);
-    vec4 colB = vec4(hsl2rgb(vec3(h1,s,l)),0.984);
+    vec3 hsl2 = vec3(h2,s,l);
+    vec3 hsl1 = vec3(h1,s,l);
     vec4 colC = vec4(hsl2rgb(vec3(h3,s,l)),0.984);
 
 
     //gl_FragColor = col;
-	gl_FragColor = layer(uv, p0, p1, p2, p3, border, hsl, D);
+	vec4 hp1 = halfplane(uv, p0, p1, p2, p3, border, hsl2, D);
+    vec4 hp2 = halfplane(uv, p0+vec2(0,0.4), p1+vec2(0,0.5), p2+vec2(0,0.4), p3+vec2(0,0.5), border, hsl1, D);
+    vec4 finalColor = layer(hp1, hp2);
+    gl_FragColor = finalColor;
 }
