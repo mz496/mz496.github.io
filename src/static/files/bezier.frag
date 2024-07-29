@@ -669,9 +669,12 @@ float ramp(float d, float t, float sgn, float D) {
     return clamp(-(1./(2.*(t*sgn*D))) * d + 0.5, 0., 1.);
 }
 
+// t = What value of 0<=t<=1 is the closest point on the bezier?
+// d = Distance to bezier for t
+// sgn = Which side of the bezier we're on
+// dots = really large number for drawing dots with
 void make_bezier(vec2 uv, vec2 p0, vec2 p1, vec2 p2, vec2 p3,
                  out float t, out float d, out float sgn, inout float dots) {
-    // What value of 0<=t<=1 is the closest point on the bezier?
     t = cubic_bezier_dis(uv,p0,p1,p2,p3);
     // What is the point you get when you plug t into the bezier?
     vec2 eval_t0 = parametric_cub_bezier(t,p0,p1,p2,p3);
@@ -689,6 +692,7 @@ void make_bezier(vec2 uv, vec2 p0, vec2 p1, vec2 p2, vec2 p3,
     } else {
         sgn = -1.;
     }
+    // 
     d = sqrt(dot(to_t0,to_t0));
     dots = min(dots,distance(p0,uv) - dot_size);
 	dots = min(dots,distance(p1,uv) - dot_size);
@@ -696,12 +700,73 @@ void make_bezier(vec2 uv, vec2 p0, vec2 p1, vec2 p2, vec2 p3,
 	dots = min(dots,distance(p3,uv) - dot_size);
 }
 
-vec4 layer(vec4 a, vec4 b) {
-    vec3 Ca = a.rgb;
-    vec3 Cb = b.rgb;
-    float ao = a.a + b.a * (1. - a.a);
-    vec3 Co = (Ca * a.a + Cb * (1. - a.a));
-    return vec4(Co.rgb, ao);
+// Using uv point, draw in a cubic bezier halfplane with points p0-p3, with colA as that color
+vec4 layer(vec2 uv, vec2 p0, vec2 p1, vec2 p2, vec2 p3, float border, vec3 hsl, float dispersion) {
+    
+
+    float dots = 1e38;
+
+    float t0;
+    float d0;
+    float sgn0;
+	make_bezier(uv, p0, p1, p2, p3, t0, d0, sgn0, dots);
+
+
+
+    float d = min(1e38,d0);
+    float sgn;
+    if (sgn0 > 0.) {// || sgn1 > 0.) {
+        sgn = 1.;
+    } else {
+        sgn = -1.;
+    }
+    float t = t0;
+    vec4 colA = vec4(hsl2rgb(hsl),ramp(d,t,sgn,dispersion));
+
+
+    /*
+    vec2 p4 = p3;
+    vec2 p5 = p4 + (p3-p2);
+    vec2 p6 = vec2(-0.3, -0.4);
+    vec2 p7 = vec2(-0.400,-0.330);
+    float t1;
+    float d1;
+    float sgn1;
+	make_bezier(uv, p4, p5, p6, p7, t1, d1, sgn1, dots);
+    */
+
+
+
+
+
+	//iq's sd color scheme
+    // Color regions as a function of t, d
+    //col = color(t0, d0, sgn0);
+    // f(0) = (h1+h2)/2, f(D) = h2, f(-D) = h1
+    // hue = d*(h2-h1)/(2D) + (h1+h2)/2
+        //float hue = clamp(d0*(h1-h2)/(2.*D) + (h1+h2)/2., h2, h1);
+        // (d=0,a=.5) (d=D,a=1)
+        //col = vec4(hsl2rgb(vec3(h1,s,mix(0.75,0.7,1.-exp(-10.*d0)))),1);
+
+    // Color the +/- regions differently
+	//vec3 col = vec3(1.0) - sgn*vec3(0.1,0.4,0.7);
+    // Color a shadow around the curve
+    //col *= 1.0 - exp(-8.0 * d0);
+    // Color the contour
+	//col *= 0.8 + 0.2*cos(480.0*d0);
+    // Color in the curve itself using a stepdown from white at small values of d0
+	colA = mix(colA, vec4(1.0), 1.0-smoothstep(0.0,0.005,abs(d0)));
+	// Color in dots
+    colA = mix(point_col,colA,smoothstep(0.,border,dots));
+    
+    
+    return colA;
+    // 2024-07-28: Still useful? trying to blend some stuff together
+    //vec3 Ca = colA.rgb;
+    //vec3 Cb = colB.rgb;
+    //float ao = a.a + b.a * (1. - a.a);
+    //vec3 Co = (Ca * a.a + Cb * (1. - a.a));
+    //return vec4(Co.rgb, ao);
     //return foreground * foreground.a + background * (1.0 - foreground.a);
 }
 
@@ -740,54 +805,25 @@ void main() {
 
     // M = 0.2
     // f(d, t): rgba(hsv2rgb(360*t), 1.-d)
-
-
-    float dots = 1e38;
-
+    
+    
     vec2 p0 = vec2(0.430,0.450);
     vec2 p1 = vec2(0.1, 0.5);
     vec2 p2 = vec2(0.320,0.180);
     vec2 p3 = vec2(-0.150,0.060);
-    float t0;
-    float d0;
-    float sgn0;
-	make_bezier(uv, p0, p1, p2, p3, t0, d0, sgn0, dots);
-
-
-
-
-
-    /*
-    vec2 p4 = p3;
-    vec2 p5 = p4 + (p3-p2);
-    vec2 p6 = vec2(-0.3, -0.4);
-    vec2 p7 = vec2(-0.400,-0.330);
-    float t1;
-    float d1;
-    float sgn1;
-	make_bezier(uv, p4, p5, p6, p7, t1, d1, sgn1, dots);
-    */
-
-
-
-
+    
 
     float h1 = 0.928;
     float h2 = 0.154;
     float h3 = 0.5;
     float s = .7;
     float l = .7;
-    float D = 0.212;
+    
+    // Dispersion constant
+    float D = 0.22;
 
     //float d = min(min(1e38,d0),d1);
-    float d = min(1e38,d0);
-    float sgn;
-    if (sgn0 > 0.) {// || sgn1 > 0.) {
-        sgn = 1.;
-    } else {
-        sgn = -1.;
-    }
-    float t = t0;
+    
     /*
     if (t1 > 0. && d1 < D) {
         t = 0.5 + t1/2.;
@@ -795,29 +831,11 @@ void main() {
         t = t0/2.;
     }*/
 
-    vec4 col = vec4(hsl2rgb(vec3(h2,s,l)),ramp(d,t,sgn,D));
+    vec3 hsl = vec3(h2,s,l);
     vec4 colB = vec4(hsl2rgb(vec3(h1,s,l)),0.984);
+    vec4 colC = vec4(hsl2rgb(vec3(h3,s,l)),0.984);
 
-	//iq's sd color scheme
-    // Color regions as a function of t, d
-    //col = color(t0, d0, sgn0);
-    // f(0) = (h1+h2)/2, f(D) = h2, f(-D) = h1
-    // hue = d*(h2-h1)/(2D) + (h1+h2)/2
-        //float hue = clamp(d0*(h1-h2)/(2.*D) + (h1+h2)/2., h2, h1);
-        // (d=0,a=.5) (d=D,a=1)
-        //col = vec4(hsl2rgb(vec3(h1,s,mix(0.75,0.7,1.-exp(-10.*d0)))),1);
-
-    // Color the +/- regions differently
-	//vec3 col = vec3(1.0) - sgn*vec3(0.1,0.4,0.7);
-    // Color a shadow around the curve
-    //col *= 1.0 - exp(-8.0 * d0);
-    // Color the contour
-	//col *= 0.8 + 0.2*cos(480.0*d0);
-    // Color in the curve itself using a stepdown from white at small values of d0
-	//col = mix(col, vec4(1.0), 1.0-smoothstep(0.0,0.005,abs(d0)));
-	// Color in dots
-    //col = mix(point_col,col,smoothstep(0.,border,dots));
 
     //gl_FragColor = col;
-	gl_FragColor = layer(col, colB);
+	gl_FragColor = layer(uv, p0, p1, p2, p3, border, hsl, D);
 }
