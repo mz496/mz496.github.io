@@ -779,16 +779,17 @@ vec4 halfplane(vec2 uv, vec2 p0, vec2 p1, vec2 p2, vec2 p3, float border, vec3 h
     return colA;
 }
 
+// https://www.w3.org/TR/compositing-1/#porterduffcompositingoperators
+// https://stackoverflow.com/a/11163848/3488026
+
 vec4 source_over(vec4 fg, vec4 bg) {
-    //return bg;
-    //return fg * fg.a + bg * (1.0 - bg.a);
     vec3 Ca = fg.rgb;
     vec3 Cb = bg.rgb;
 	float alphaA = fg.a;
     float alphaB = bg.a;
     float alphaO = alphaA + alphaB * (1.-alphaA);
     vec3 Co = (Ca * alphaA + Cb * alphaB * (1.-alphaA));
-    return vec4(Co.rgb, alphaO);
+    return vec4(Co.rgb/alphaO, alphaO);
 }
 
 vec4 source_atop(vec4 fg, vec4 bg) {
@@ -798,7 +799,29 @@ vec4 source_atop(vec4 fg, vec4 bg) {
     float alphaB = bg.a;
     float alphaO = alphaA * alphaB + alphaB * (1.-alphaA);
     vec3 Co = (Ca * alphaA * alphaB + Cb * alphaB * (1.-alphaA));
-    return vec4(Co.rgb, alphaO);
+    return vec4(Co.rgb/alphaO, alphaO);
+}
+
+vec4 multiply(vec4 fg, vec4 bg) {
+    vec3 Ca = fg.rgb;
+    vec3 Cb = bg.rgb;
+    float alphaA = fg.a;
+    float alphaB = bg.a;
+    float alphaO = alphaA + alphaB - alphaA*alphaB;
+    vec3 B = Ca * Cb;
+    vec3 Comultiplied = alphaA * (1.-alphaB) * Ca + alphaA * alphaB * B + (1.-alphaA) * alphaB * Cb;
+    return vec4(Comultiplied/alphaO, alphaO);
+}
+
+vec4 screen(vec4 fg, vec4 bg) {
+    vec3 Ca = fg.rgb;
+    vec3 Cb = bg.rgb;
+    float alphaA = fg.a;
+    float alphaB = bg.a;
+	float alphaO = alphaA + alphaB - alphaA*alphaB;
+    vec3 B = Cb + Ca - (Ca * Cb);
+    vec3 Comultiplied = alphaA * (1.-alphaB) * Ca + alphaA * alphaB * B + (1.-alphaA) * alphaB * Cb;
+    return vec4(Comultiplied/alphaO, alphaO);
 }
 
 //void mainImage(out vec4 fragColor, in vec2 fragCoord){
@@ -870,7 +893,7 @@ void main() {
     //gl_FragColor = col;
 	vec4 hp1 = halfplane(uv, p0, p1, p2, p3, border, hsl2, D);
     vec4 hp2 = halfplane(uv, p0+vec2(0.090,-0.170), p1+vec2(-0.040,-0.050), p2+vec2(-0.130,0.380), p3+vec2(-0.210,0.260), border, hsl1, D);
-    vec4 finalColor = source_atop(hp1, hp2);
+    vec4 finalColor = screen(hp1, hp2);
     gl_FragColor = finalColor;
 }
 
