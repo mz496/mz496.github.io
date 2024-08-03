@@ -701,7 +701,7 @@ void make_bezier(vec2 uv, vec2 p0, vec2 p1, vec2 p2, vec2 p3,
     float angle_p3_uv = atan(p3_uv_norm.y,p3_uv_norm.x);
     float angle_p3_p2 = atan(p3_p2_norm.y,p3_p2_norm.x);
     float bezier_sgn0 = cubic_bezier_sign(uv,p0,p1,p2,p3);
-    if (bezier_sgn0 > 0. && angle_p3_p2 < angle_p3_uv + eps && angle_p3_uv < angle_p3_p2 + PI) {
+    if (bezier_sgn0 > 0.) { // && angle_p3_p2 < angle_p3_uv + eps && angle_p3_uv < angle_p3_p2 + PI) {
         sgn = 1.;
     } else {
         sgn = -1.;
@@ -859,7 +859,7 @@ void main() {
 
     //gl_FragColor = col;
 	vec4 hp1 = halfplane(uv, p0, p1, p2, p3, border, hsl2, D);
-    vec4 hp2 = halfplane(uv, p0+vec2(0,0.4), p1+vec2(0,0.5), p2+vec2(0,0.4), p3+vec2(0,0.5), border, hsl1, D);
+    vec4 hp2 = halfplane(uv, p0, p1+vec2(-0.040,-0.050), p2+vec2(-0.150,0.520), p3+vec2(-0.080,0.280), border, hsl1, D);
     vec4 finalColor = layer(hp1, hp2);
     gl_FragColor = finalColor;
 }
