@@ -660,6 +660,9 @@ vec3 hsl2rgb(float h, float s, float l) {
     return hsl2rgb(vec3(h, s, l));
 }
 
+float rand(vec2 co){
+    return fract(sin(dot(co, vec2(12.9898, 78.233))) * 43758.5453);
+}
 
 // Imagine the parametrized curve stretched straight horizontally from 0 to 1.
 // This returns the alpha value based on a linear ramp:
@@ -677,10 +680,20 @@ float ramp(float d, float t, float sgn, float dispersion) {
     // x is traveling perpendicularly away from the curve
     float x = clamp(d/dispersion, 0., 1.);
     float easedX = sin(x*PI/2.);
+    float randX = rand(vec2(fract(easedX), fract(easedX*2.)));
+    float computedX = 0.;
+    if (randX > easedX) {
+        computedX = 0.;
+    } else {
+        computedX = 1.;
+    }
+    
     // if you fix t to some value:
+    // past d=dispersion we are just using x, at 0 or 1
     // - when we're on the curve (d=0) the alpha is always 0.5
     // - at easedX=t, alpha is 0 (on sgn=+1 side) or 1 (on sgn=-1 side)
-    return clamp(-0.5 * sgn * easedX/t + 0.5, 0., 1.);
+
+    return clamp(-0.5 * sgn * computedX/t + 0.5, 0., 1.);
 }
 
 // t = What value of 0<=t<=1 is the closest point on the bezier?
@@ -713,8 +726,14 @@ void make_bezier(vec2 uv, vec2 p0, vec2 p1, vec2 p2, vec2 p3,
 	dots = min(dots,distance(p3,uv) - dot_size);
 }
 
+
+// dispersion value as a function of t in [0,1], scaled to not exceed max
+float dispersion(float t, float max) {
+    return t*max;
+}
+
 // Using uv point, draw in a cubic bezier halfplane with points p0-p3, with colA as that color
-vec4 halfplane(vec2 uv, vec2 p0, vec2 p1, vec2 p2, vec2 p3, float border, vec3 hsl, float dispersion) {
+vec4 halfplane(vec2 uv, vec2 p0, vec2 p1, vec2 p2, vec2 p3, float border, vec3 hsl, float dispersion_max) {
     
 
     float dots = 1e38;
@@ -734,7 +753,7 @@ vec4 halfplane(vec2 uv, vec2 p0, vec2 p1, vec2 p2, vec2 p3, float border, vec3 h
         sgn = -1.;
     }
     float t = t0;
-    vec4 colA = vec4(hsl2rgb(hsl),ramp(d,t,sgn,dispersion));
+    vec4 colA = vec4(hsl2rgb(hsl),ramp(d,t,sgn,dispersion(t,dispersion_max)));
 
 
     /*
@@ -824,6 +843,8 @@ vec4 screen(vec4 fg, vec4 bg) {
     return vec4(Comultiplied/alphaO, alphaO);
 }
 
+
+
 //void mainImage(out vec4 fragColor, in vec2 fragCoord){
 void main() {
 
@@ -873,8 +894,8 @@ void main() {
     float s = .7;
     float l = .7;
     
-    // Dispersion constant
-    float D = 0.22;
+    // Dispersion max
+    float D = 0.22;// + 0.1*sin(iTime);
 
     //float d = min(min(1e38,d0),d1);
     
@@ -893,7 +914,7 @@ void main() {
     //gl_FragColor = col;
 	vec4 hp1 = halfplane(uv, p0, p1, p2, p3, border, hsl2, D);
     vec4 hp2 = halfplane(uv, p0+vec2(0.090,-0.170), p1+vec2(-0.040,-0.050), p2+vec2(-0.130,0.380), p3+vec2(-0.210,0.260), border, hsl1, D);
-    vec4 finalColor = screen(hp1, hp2);
+    vec4 finalColor = source_over(hp1, hp2);
     gl_FragColor = finalColor;
 }
 
