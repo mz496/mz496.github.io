@@ -741,7 +741,7 @@ float ramp(vec2 uv, float d, float t, float sgn, float dispersion) {
     // - when we're on the curve (d=0) the alpha is always 0.5
     // - at easedX=t, alpha is 0 (on sgn=+1 side) or 1 (on sgn=-1 side)
 	//return computedX;
-    float computedX = clamp(-0.5 * sgn * easedX/t + 0.5, 0., 1.);
+    float computedX = -0.5 * sgn * easedX + 0.5;
     return dither(computedX, uv);
 }
 
@@ -778,7 +778,7 @@ void make_bezier(vec2 uv, vec2 p0, vec2 p1, vec2 p2, vec2 p3,
 
 // dispersion value as a function of t in [0,1], scaled to not exceed max
 float dispersion(float t, float max) {
-    return t*max;
+    return abs(sin(4.*t))*max;
 }
 
 // Using uv point, draw in a cubic bezier halfplane with points p0-p3, with colA as that color
@@ -962,7 +962,7 @@ void main() {
     float l = .7;
     
     // Dispersion max
-    float D = 0.22;// + 0.1*sin(iTime);
+    float D = 0.22 + 0.22*sin(iTime);
 
     //float d = min(min(1e38,d0),d1);
     
