@@ -9,6 +9,52 @@ uniform vec2 u_resolution;
 uniform vec2 u_mouse;
 uniform float u_time;
 
+int indexMatrix4x4[16];
+
+float indexValue(vec2 uv) {
+    int x = int(mod(uv.x, 4.));
+    int y = int(mod(uv.y, 4.));
+    int i = (x + y * 4);
+    
+    float value;
+
+    if (i == 0)      value = float(indexMatrix4x4[0]);
+    else if (i == 1) value = float(indexMatrix4x4[1]);
+    else if (i == 2) value = float(indexMatrix4x4[2]);
+    else if (i == 3) value = float(indexMatrix4x4[3]);
+    else if (i == 4) value = float(indexMatrix4x4[4]);
+    else if (i == 5) value = float(indexMatrix4x4[5]);
+    else if (i == 6) value = float(indexMatrix4x4[6]);
+    else if (i == 7) value = float(indexMatrix4x4[7]);
+    else if (i == 8) value = float(indexMatrix4x4[8]);
+    else if (i == 9) value = float(indexMatrix4x4[9]);
+    else if (i == 10) value = float(indexMatrix4x4[10]);
+    else if (i == 11) value = float(indexMatrix4x4[11]);
+    else if (i == 12) value = float(indexMatrix4x4[12]);
+    else if (i == 13) value = float(indexMatrix4x4[13]);
+    else if (i == 14) value = float(indexMatrix4x4[14]);
+    else if (i == 15) value = float(indexMatrix4x4[15]);
+
+    return value / 16.0;
+}
+/*
+float indexValue(vec2 uv) {
+    int x = int(mod(uv.x, 4.));
+    int y = int(mod(uv.y, 4.));
+    int i = (x + y * 4);
+    return float(indexMatrix4x4[i]) / 16.0;
+}
+*/
+
+// in screen coordinates
+float dither(float color, vec2 uvScreen) {
+    float closestColor = (color < 0.5) ? 0. : 1.;
+    float secondClosestColor = 1. - closestColor;
+    float d = indexValue(uvScreen);
+    float distance = abs(closestColor - color);
+    return (distance < d) ? closestColor : secondClosestColor;
+}
+
 /*
 Exact distance to cubic bezier curve by computing roots of the derivative(s)
 to isolate roots of a fifth degree polynomial and Halley's Method to compute them.
@@ -670,7 +716,7 @@ float rand(vec2 co){
 // d = signed perpendicular distance from curve. Past the dispersion value we are just at 0.
 // sgn = which side of the curve we are on (-1 or 1)
 // dispersion = the max absolute value (must be between 0 and 1 because it's an alpha value)
-float ramp(float d, float t, float sgn, float dispersion) {
+float ramp(vec2 uv, float d, float t, float sgn, float dispersion) {
     /*if (t == 0. && sgn > 0.) {
         return 1.;
     }*/
@@ -681,19 +727,22 @@ float ramp(float d, float t, float sgn, float dispersion) {
     float x = clamp(d/dispersion, 0., 1.);
     float easedX = sin(x*PI/2.);
     float randX = rand(vec2(fract(easedX), fract(easedX*2.)));
+    /*
     float computedX = 0.;
     if (randX > easedX) {
         computedX = 0.;
     } else {
         computedX = 1.;
     }
+    */
     
     // if you fix t to some value:
     // past d=dispersion we are just using x, at 0 or 1
     // - when we're on the curve (d=0) the alpha is always 0.5
     // - at easedX=t, alpha is 0 (on sgn=+1 side) or 1 (on sgn=-1 side)
-
-    return clamp(-0.5 * sgn * computedX/t + 0.5, 0., 1.);
+	//return computedX;
+    float computedX = clamp(-0.5 * sgn * easedX/t + 0.5, 0., 1.);
+    return dither(computedX, uv);
 }
 
 // t = What value of 0<=t<=1 is the closest point on the bezier?
@@ -733,7 +782,7 @@ float dispersion(float t, float max) {
 }
 
 // Using uv point, draw in a cubic bezier halfplane with points p0-p3, with colA as that color
-vec4 halfplane(vec2 uv, vec2 p0, vec2 p1, vec2 p2, vec2 p3, float border, vec3 hsl, float dispersion_max) {
+vec4 halfplane(vec2 uv, vec2 uvScreen, vec2 p0, vec2 p1, vec2 p2, vec2 p3, float border, vec3 hsl, float dispersion_max) {
     
 
     float dots = 1e38;
@@ -753,7 +802,8 @@ vec4 halfplane(vec2 uv, vec2 p0, vec2 p1, vec2 p2, vec2 p3, float border, vec3 h
         sgn = -1.;
     }
     float t = t0;
-    vec4 colA = vec4(hsl2rgb(hsl),ramp(d,t,sgn,dispersion(t,dispersion_max)));
+    vec4 colA = vec4(hsl2rgb(hsl),ramp(uvScreen,d,t,sgn,dispersion(t,dispersion_max)));
+
 
 
     /*
@@ -847,6 +897,23 @@ vec4 screen(vec4 fg, vec4 bg) {
 
 //void mainImage(out vec4 fragColor, in vec2 fragCoord){
 void main() {
+    indexMatrix4x4[0] = 0;
+    indexMatrix4x4[1] = 8;
+    indexMatrix4x4[2] = 2;
+    indexMatrix4x4[3] = 10;
+    indexMatrix4x4[4] = 12;
+    indexMatrix4x4[5] = 4;
+    indexMatrix4x4[6] = 14;
+    indexMatrix4x4[7] = 6;
+    indexMatrix4x4[8] = 3;
+    indexMatrix4x4[9] = 11;
+    indexMatrix4x4[10] = 1;
+    indexMatrix4x4[11] = 9;
+    indexMatrix4x4[12] = 15;
+    indexMatrix4x4[13] = 7;
+    indexMatrix4x4[14] = 13;
+    indexMatrix4x4[15] = 5;
+    
 
     vec4 fragCoord = gl_FragCoord;
     vec2 iResolution = u_resolution;
@@ -912,8 +979,9 @@ void main() {
 
 
     //gl_FragColor = col;
-	vec4 hp1 = halfplane(uv, p0, p1, p2, p3, border, hsl2, D);
-    vec4 hp2 = halfplane(uv, p0+vec2(0.090,-0.170), p1+vec2(-0.040,-0.050), p2+vec2(-0.130,0.380), p3+vec2(-0.210,0.260), border, hsl1, D);
+    vec2 uvScreen = vec2(fragCoord.x/4., fragCoord.y/4.);
+	vec4 hp1 = halfplane(uv, uvScreen, p0, p1, p2, p3, border, hsl2, D);
+    vec4 hp2 = halfplane(uv, uvScreen, p0+vec2(0.090,-0.170), p1+vec2(-0.040,-0.050), p2+vec2(-0.130,0.380), p3+vec2(-0.210,0.260), border, hsl1, D);
     vec4 finalColor = source_over(hp1, hp2);
     gl_FragColor = finalColor;
 }
