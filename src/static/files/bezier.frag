@@ -713,7 +713,7 @@ float rand(vec2 co){
 // Imagine the parametrized curve stretched straight horizontally from 0 to 1.
 // This returns the alpha value based on a linear ramp:
 // t = parameter from 0 to 1
-// d = signed perpendicular distance from curve. Past the dispersion value we are just at 0.
+// d = signed perpendicular distance from curve. Past the dispersion value we are just at 0 or 1.
 // sgn = which side of the curve we are on (-1 or 1)
 // dispersion = the max absolute value (must be between 0 and 1 because it's an alpha value)
 float ramp(vec2 uv, float d, float t, float sgn, float dispersion) {
@@ -739,9 +739,8 @@ float ramp(vec2 uv, float d, float t, float sgn, float dispersion) {
     // if you fix t to some value:
     // past d=dispersion we are just using x, at 0 or 1
     // - when we're on the curve (d=0) the alpha is always 0.5
-    // - at easedX=t, alpha is 0 (on sgn=+1 side) or 1 (on sgn=-1 side)
 	//return computedX;
-    float computedX = -0.5 * sgn * easedX + 0.5;
+    float computedX = -0.5 * easedX + sgn/2.;
     return dither(computedX, uv);
 }
 
@@ -795,14 +794,8 @@ vec4 halfplane(vec2 uv, vec2 uvScreen, vec2 p0, vec2 p1, vec2 p2, vec2 p3, float
 
 
     float d = min(1e38,d0);
-    float sgn;
-    if (sgn0 > 0.) {// || sgn1 > 0.) {
-        sgn = 1.;
-    } else {
-        sgn = -1.;
-    }
     float t = t0;
-    vec4 colA = vec4(hsl2rgb(hsl),ramp(uvScreen,d,t,sgn,dispersion(t,dispersion_max)));
+    vec4 colA = vec4(hsl2rgb(hsl),ramp(uvScreen,d,t,sgn0,dispersion(t,dispersion_max)));
 
 
 
