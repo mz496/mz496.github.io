@@ -52,7 +52,8 @@ float dither(float color, vec2 uvScreen) {
     float secondClosestColor = 1. - closestColor;
     float d = indexValue(uvScreen);
     float distance = abs(closestColor - color);
-    return (distance < d) ? closestColor : secondClosestColor;
+    // Thresholding to ensure we use both 0 and 1
+    return (distance - d < 0.01) ? closestColor : secondClosestColor;
 }
 
 /*
@@ -740,7 +741,7 @@ float ramp(vec2 uv, float d, float t, float sgn, float dispersion) {
     // past d=dispersion we are just using x, at 0 or 1
     // - when we're on the curve (d=0) the alpha is always 0.5
 	//return computedX;
-    float computedX = -0.5 * easedX + sgn/2.;
+    float computedX = -0.5 * easedX + (sgn/2.);
     return dither(computedX, uv);
 }
 
@@ -777,7 +778,7 @@ void make_bezier(vec2 uv, vec2 p0, vec2 p1, vec2 p2, vec2 p3,
 
 // dispersion value as a function of t in [0,1], scaled to not exceed max
 float dispersion(float t, float max) {
-    return abs(sin(4.*t))*max;
+    return (abs(sin(t)) + 0.2)*max;
 }
 
 // Using uv point, draw in a cubic bezier halfplane with points p0-p3, with colA as that color
@@ -835,7 +836,7 @@ vec4 halfplane(vec2 uv, vec2 uvScreen, vec2 p0, vec2 p1, vec2 p2, vec2 p3, float
     // Color in the curve itself using a stepdown from white at small values of d0
 	//colA = mix(colA, vec4(1.0), 1.0-smoothstep(0.0,0.005,abs(d0)));
 	// Color in dots
-    //colA = mix(point_col,colA,smoothstep(0.,border,dots));
+    colA = mix(point_col,colA,smoothstep(0.,border,dots));
     
     
     return colA;
@@ -941,12 +942,6 @@ void main() {
     // M = 0.2
     // f(d, t): rgba(hsv2rgb(360*t), 1.-d)
     
-    
-    vec2 p0 = vec2(0.430,0.450);
-    vec2 p1 = vec2(0.1, 0.5);
-    vec2 p2 = vec2(0.320,0.180);
-    vec2 p3 = vec2(-0.150,0.060);
-    
 
     float h1 = 0.928;
     float h2 = 0.154;
@@ -954,8 +949,17 @@ void main() {
     float s = .7;
     float l = .7;
     
+    //vec3 hsl1 = vec3(h1,s,l);
+    //vec3 hsl2 = vec3(h2,s,l);
+    
+    vec3 hsl1 = vec3(0.7593676180569101, 0.990059587302755, 0.326244);
+	vec3 hsl2 = vec3(0.8304124421657885, 0.745959684857531, 0.35507750000000005);
+	vec3 hsl3 = vec3(0.9390817067842427, 0.562094517392281, 0.5392065);
+	vec3 hsl4 = vec3(0.04065451027404463, 0.8077504949007782, 0.6271979999999999);
+	vec3 hsl5 = vec3(0.10724318786274627, 0.9849698047605336, 0.5884285);
+
     // Dispersion max
-    float D = 0.22 + 0.22*sin(iTime);
+    float D = 0.22 * (1.1 + sin(iTime));
 
     //float d = min(min(1e38,d0),d1);
     
@@ -966,16 +970,20 @@ void main() {
         t = t0/2.;
     }*/
 
-    vec3 hsl2 = vec3(h2,s,l);
-    vec3 hsl1 = vec3(h1,s,l);
     vec4 colC = vec4(hsl2rgb(vec3(h3,s,l)),0.984);
 
 
     //gl_FragColor = col;
     vec2 uvScreen = vec2(fragCoord.x/4., fragCoord.y/4.);
-	vec4 hp1 = halfplane(uv, uvScreen, p0, p1, p2, p3, border, hsl2, D);
-    vec4 hp2 = halfplane(uv, uvScreen, p0+vec2(0.090,-0.170), p1+vec2(-0.040,-0.050), p2+vec2(-0.130,0.380), p3+vec2(-0.210,0.260), border, hsl1, D);
-    vec4 finalColor = source_over(hp1, hp2);
+	vec4 hp1 = halfplane(uv, uvScreen, vec2(0.720,0.230), vec2(-0.240,0.740), vec2(0.480,-0.290), vec2(-0.910,0.160), border, hsl1, D);
+    vec4 hp2 = halfplane(uv, uvScreen, vec2(0.770,-0.310), vec2(0.490,-0.100), vec2(0.170,0.380), vec2(-0.480,-0.390), border, hsl2, D);
+    vec4 hp3 = halfplane(uv, uvScreen, vec2(0.610,-0.730), vec2(0.230,-0.310), vec2(-0.500,0.340), vec2(-0.810,-0.420), border, hsl3, D);
+	vec4 hp4 = halfplane(uv, uvScreen, vec2(0.680,-0.500), vec2(0.130,-0.800), vec2(-0.500,0.340), vec2(-0.750,-0.610), border, hsl4, D);
+
+    
+    vec4 hp2OverHp1 = source_atop(hp3, source_over(hp2,hp1));
+    vec4 finalColor = source_atop(hp4,hp2OverHp1);
+    //vec4 finalColor = source_over(hp4, source_over(hp3, source_over(hp2, hp1)));
     gl_FragColor = finalColor;
 }
 
