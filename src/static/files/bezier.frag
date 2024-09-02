@@ -776,8 +776,8 @@ void make_bezier(vec2 uv, vec2 p0, vec2 p1, vec2 p2, vec2 p3,
 
 
 // dispersion value as a function of t in [0,1], scaled to not exceed max
-float dispersion(float time, float t, float max) {
-    return (abs(sin(5.*t+time/5.)) + 0.2)*max;
+float dispersion(float time, float offset, float t, float max) {
+    return (abs(sin(4.*t + time/4. + offset)) + 0.2)*max;
 }
 
 // Using uv point, draw in a cubic bezier halfplane with points p0-p3, with colA as that color
@@ -795,7 +795,7 @@ vec4 halfplane(vec2 uv, vec2 uvScreen, vec2 p0, vec2 p1, vec2 p2, vec2 p3, float
 
     float d = min(1e38,d0);
     float t = t0;
-    vec4 colA = vec4(hsl2rgb(hsl),ramp(uvScreen,d,t,sgn0,dispersion(time+offset,t,dispersion_max)));
+    vec4 colA = vec4(hsl2rgb(hsl),ramp(uvScreen,d,t,sgn0,dispersion(time,offset,t,dispersion_max)));
 
 
 
@@ -991,7 +991,7 @@ void main() {
     vec4 hp2 = halfplane(uv, vec2(fragCoord.x/4., fragCoord.y/4.), vec2(0.550,0.170), vec2(0.080,0.050), vec2(-0.300,0.290), vec2(-0.700,-0.380), border, hsl3, iTime, 6., D2);
     vec4 hp3 = halfplane(uv, vec2(fragCoord.x/4., fragCoord.y/4.), vec2(0.710,-0.390), vec2(0.070,0.030), vec2(-0.500,0.340), vec2(-0.810,-0.420), border, hsl4, iTime, 13., D);
 	vec4 hp4 = halfplane(uv, vec2(fragCoord.x/8., fragCoord.y/8.), vec2(0.770,0.120), vec2(0.170,-0.450), vec2(-0.420,0.270), vec2(-0.890,-0.620), border, hsl5, iTime, 17., D2);
-    vec4 hp5 = halfplane(uv, vec2(fragCoord.x/8., fragCoord.y/8.), vec2(0.730,-0.150), vec2(0.090,-0.680), vec2(-0.460,0.170), vec2(-0.890,-0.620), border, hsl6, iTime, 14., D2);
+    vec4 hp5 = halfplane(uv, vec2(fragCoord.x/8., fragCoord.y/8.), vec2(0.730,-0.150), vec2(0.090,-0.680), vec2(-0.460,0.170), vec2(-0.890,-0.620), border, hsl6, iTime, 13., D2);
 
 
     
