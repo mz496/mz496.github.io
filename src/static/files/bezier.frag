@@ -727,7 +727,6 @@ float ramp(vec2 uv, float d, float t, float sgn, float dispersion) {
     // x is traveling perpendicularly away from the curve
     float x = clamp(d/dispersion, 0., 1.);
     float easedX = sin(x*PI/2.);
-    float randX = rand(vec2(fract(easedX), fract(easedX*2.)));
     /*
     float computedX = 0.;
     if (randX > easedX) {
@@ -777,7 +776,7 @@ void make_bezier(vec2 uv, vec2 p0, vec2 p1, vec2 p2, vec2 p3,
 
 // dispersion value as a function of t in [0,1], scaled to not exceed max
 float dispersion(float time, float offset, float t, float max) {
-    return (abs(sin(4.*t + time/4. + offset)) + 0.4)*max;
+    return (sin(4.*t + time/4. + offset)+1.)*max;
 }
 
 // Using uv point, draw in a cubic bezier halfplane with points p0-p3, with colA as that color
@@ -969,13 +968,27 @@ void main() {
     // Dispersion max
     float D = 0.05 * (2. + sin(iTime));
     float D2 = 0.1 * (2. + cos(iTime));
+    vec2 jitter1 = vec2(0.05*sin(iTime), 0.05*cos(iTime));
+    vec2 jitter2 = vec2(0.02*cos(iTime), 0.02*sin(iTime));
 
-	vec4 hp0 = halfplane(uv, vec2(fragCoord.x/8., fragCoord.y/8.), vec2(0.520,0.320), vec2(0.120,0.280), vec2(-0.460,0.570), vec2(-0.770,0.160), border, hsl1, iTime, 1.,  0.07 * (2. + cos(iTime+PI/4.)));
-	vec4 hp1 = halfplane(uv, vec2(fragCoord.x/4., fragCoord.y/4.), vec2(0.700,0.030), vec2(-0.140,0.560), vec2(0.040,0.200), vec2(-0.580,0.080), border, hsl2, iTime, 2., 0.05 * (2. + sin(1.1*iTime+PI/4.)));
-    vec4 hp2 = halfplane(uv, vec2(fragCoord.x/8., fragCoord.y/8.), vec2(0.670,-0.170), vec2(0.310,0.530), vec2(-0.330,-0.190), vec2(-0.700,-0.380), border, hsl3, iTime, 6.,  0.05 * (2. + cos(iTime)));
-    vec4 hp3 = halfplane(uv, vec2(fragCoord.x/4., fragCoord.y/4.), vec2(0.690,0.140), vec2(0.410,-0.880), vec2(-0.310,0.780), vec2(-0.760,-0.340), border, hsl4, iTime, 13.,  0.05 * (2. + cos(1.1*iTime+PI/4.)));
-	vec4 hp4 = halfplane(uv, vec2(fragCoord.x/4., fragCoord.y/4.), vec2(0.690,0.010), vec2(0.220,-0.570), vec2(-0.330,0.340), vec2(-0.610,-0.500), border, hsl5, iTime, 17., 0.05 * (2. + sin(1.2*iTime)));
-    vec4 hp5 = halfplane(uv, vec2(fragCoord.x/8., fragCoord.y/8.), vec2(0.700,-0.350), vec2(0.090,-0.680), vec2(-0.460,0.170), vec2(-0.680,-0.690), border, hsl6, iTime, 13., 0.05 * (2. + sin(1.1*iTime+PI/4.)));
+	vec4 hp0 = halfplane(uv, vec2(fragCoord.x/8., fragCoord.y/8.), 
+                         vec2(0.520,0.320), vec2(0.120,0.280), vec2(-0.460,0.570), vec2(-0.770,0.160), 
+                         border, hsl1, iTime, 1.,  0.05 * (2. + cos(iTime+PI/4.)));
+	vec4 hp1 = halfplane(uv, vec2(fragCoord.x/4., fragCoord.y/4.), 
+                         vec2(0.700,0.030), vec2(-0.140,0.560)+jitter2, vec2(0.040,0.200), vec2(-0.580,0.080), 
+                         border, hsl2, iTime, 4., 0.05 * (2. + sin(1.1*iTime+PI/4.)));
+    vec4 hp2 = halfplane(uv, vec2(fragCoord.x/8., fragCoord.y/8.), 
+                         vec2(0.670,-0.170), vec2(0.310,0.530), vec2(-0.330,-0.190), vec2(-0.700,-0.380), 
+                         border, hsl3, iTime, 2.,  0.05 * (2. + cos(iTime)));
+    vec4 hp3 = halfplane(uv, vec2(fragCoord.x/4., fragCoord.y/4.), 
+                         vec2(0.780,0.060), vec2(0.410,-0.880), vec2(-0.310,0.780), vec2(-0.760,-0.340), 
+                         border, hsl4, iTime, 5.,  0.05 * (2. + cos(1.1*iTime+PI/4.)));
+	vec4 hp4 = halfplane(uv, vec2(fragCoord.x/4., fragCoord.y/4.), 
+                         vec2(0.690,0.010), vec2(0.220,-0.570), vec2(-0.330,0.340), vec2(-0.610,-0.500), 
+                         border, hsl5, iTime, 3., 0.05 * (2. + sin(1.2*iTime)));
+    vec4 hp5 = halfplane(uv, vec2(fragCoord.x/8., fragCoord.y/8.), 
+                         vec2(0.700,-0.350), vec2(0.090,-0.680), vec2(-0.460,0.170), vec2(-0.680,-0.690), 
+                         border, hsl6, iTime, 6., 0.05 * (2. + sin(1.1*iTime+PI/4.)));
 
 
     
