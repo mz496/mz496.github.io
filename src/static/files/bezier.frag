@@ -740,7 +740,6 @@ float ramp(vec2 uv, float d, float t, float sgn, float dispersion) {
     // if you fix t to some value:
     // past d=dispersion we are just using x, at 0 or 1
     // - when we're on the curve (d=0) the alpha is always 0.5
-	//return computedX;
     float computedX = -0.5 * easedX + (sgn/2.);
     return dither(computedX, uv);
 }
@@ -778,11 +777,11 @@ void make_bezier(vec2 uv, vec2 p0, vec2 p1, vec2 p2, vec2 p3,
 
 // dispersion value as a function of t in [0,1], scaled to not exceed max
 float dispersion(float time, float t, float max) {
-    return (abs(sin(t+time)) + 0.2)*max;
+    return (abs(sin(5.*t+time/5.)) + 0.2)*max;
 }
 
 // Using uv point, draw in a cubic bezier halfplane with points p0-p3, with colA as that color
-vec4 halfplane(vec2 uv, vec2 uvScreen, vec2 p0, vec2 p1, vec2 p2, vec2 p3, float border, vec3 hsl, float time, float dispersion_max) {
+vec4 halfplane(vec2 uv, vec2 uvScreen, vec2 p0, vec2 p1, vec2 p2, vec2 p3, float border, vec3 hsl, float time, float offset, float dispersion_max) {
     
 
     float dots = 1e38;
@@ -796,7 +795,7 @@ vec4 halfplane(vec2 uv, vec2 uvScreen, vec2 p0, vec2 p1, vec2 p2, vec2 p3, float
 
     float d = min(1e38,d0);
     float t = t0;
-    vec4 colA = vec4(hsl2rgb(hsl),ramp(uvScreen,d,t,sgn0,dispersion(time,t,dispersion_max)));
+    vec4 colA = vec4(hsl2rgb(hsl),ramp(uvScreen,d,t,sgn0,dispersion(time+offset,t,dispersion_max)));
 
 
 
@@ -968,7 +967,7 @@ void main() {
 	vec3 hsl5 = vec3(0.10724318786274627, 0.9849698047605336, 0.5884285);
 	*/
     // Dispersion max
-    float D = 0.1 * (2. + sin(iTime));
+    float D = 0.05 * (2. + sin(iTime));
     float D2 = 0.1 * (2. + cos(iTime));
 
     //float d = min(min(1e38,d0),d1);
@@ -987,14 +986,16 @@ void main() {
     float ditherResolution = pow(2.,3.);
     vec2 uvScreen = vec2(fragCoord.x/ditherResolution, fragCoord.y/ditherResolution);
     vec2 uvScreen2 = vec2(fragCoord.x/4., fragCoord.y/8.);
-	vec4 hp0 = halfplane(uv, vec2(fragCoord.x/8., fragCoord.y/8.), vec2(0.910,0.480), vec2(0.110,0.360), vec2(-0.300,0.660), vec2(-0.790,0.020), border, hsl0, iTime, D2);
-	vec4 hp1 = halfplane(uv, vec2(fragCoord.x/4., fragCoord.y/2.), vec2(0.750,0.140), vec2(0.310,0.430), vec2(-0.250,0.300), vec2(-0.860,-0.010), border, hsl1, iTime, D);
-    vec4 hp2 = halfplane(uv, vec2(fragCoord.x/4., fragCoord.y/4.), vec2(0.900,0.390), vec2(0.060,-0.140), vec2(-0.300,0.290), vec2(-0.700,-0.380), border, hsl2, iTime, D2);
-    vec4 hp3 = halfplane(uv, vec2(fragCoord.x/2., fragCoord.y/4.), vec2(0.710,-0.390), vec2(0.070,0.030), vec2(-0.500,0.340), vec2(-0.810,-0.420), border, hsl3, iTime, D);
-	vec4 hp4 = halfplane(uv, vec2(fragCoord.x/8., fragCoord.y/8.), vec2(0.770,0.120), vec2(0.170,-0.450), vec2(-0.460,0.170), vec2(-0.890,-0.620), border, hsl4, iTime, D2);
+	vec4 hp0 = halfplane(uv, vec2(fragCoord.x/8., fragCoord.y/8.), vec2(0.530,0.350), vec2(0.110,0.360), vec2(-0.410,0.560), vec2(-0.880,0.170), border, hsl1, iTime, 1., D2);
+	vec4 hp1 = halfplane(uv, vec2(fragCoord.x/4., fragCoord.y/4.), vec2(0.730,0.030), vec2(0.300,0.510), vec2(-0.250,0.300), vec2(-0.860,-0.010), border, hsl2, iTime, 2., D);
+    vec4 hp2 = halfplane(uv, vec2(fragCoord.x/4., fragCoord.y/4.), vec2(0.550,0.170), vec2(0.080,0.050), vec2(-0.300,0.290), vec2(-0.700,-0.380), border, hsl3, iTime, 6., D2);
+    vec4 hp3 = halfplane(uv, vec2(fragCoord.x/4., fragCoord.y/4.), vec2(0.710,-0.390), vec2(0.070,0.030), vec2(-0.500,0.340), vec2(-0.810,-0.420), border, hsl4, iTime, 13., D);
+	vec4 hp4 = halfplane(uv, vec2(fragCoord.x/8., fragCoord.y/8.), vec2(0.770,0.120), vec2(0.170,-0.450), vec2(-0.420,0.270), vec2(-0.890,-0.620), border, hsl5, iTime, 17., D2);
+    vec4 hp5 = halfplane(uv, vec2(fragCoord.x/8., fragCoord.y/8.), vec2(0.730,-0.150), vec2(0.090,-0.680), vec2(-0.460,0.170), vec2(-0.890,-0.620), border, hsl6, iTime, 14., D2);
+
 
     
-    vec4 finalColor = source_atop(hp4, source_atop(hp3, source_atop(hp2, source_atop(hp1, hp0))));
+    vec4 finalColor = source_atop(hp5, source_atop(hp4, source_atop(hp3, source_atop(hp2, source_atop(hp1, source_atop(hp0, vec4(hsl2rgb(hsl0),1.)))))));
     
     //vec4 finalColor = source_over(hp4, source_over(hp3, source_over(hp2, hp1)));
     gl_FragColor = finalColor;
