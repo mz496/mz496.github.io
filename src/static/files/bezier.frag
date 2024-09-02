@@ -975,7 +975,7 @@ void main() {
     vec4 hp2 = halfplane(uv, vec2(fragCoord.x/8., fragCoord.y/8.), vec2(0.670,-0.170), vec2(0.310,0.530), vec2(-0.330,-0.190), vec2(-0.700,-0.380), border, hsl3, iTime, 6.,  0.05 * (2. + cos(iTime)));
     vec4 hp3 = halfplane(uv, vec2(fragCoord.x/4., fragCoord.y/4.), vec2(0.690,0.140), vec2(0.410,-0.880), vec2(-0.310,0.780), vec2(-0.760,-0.340), border, hsl4, iTime, 13.,  0.05 * (2. + cos(1.1*iTime+PI/4.)));
 	vec4 hp4 = halfplane(uv, vec2(fragCoord.x/4., fragCoord.y/4.), vec2(0.690,0.010), vec2(0.220,-0.570), vec2(-0.330,0.340), vec2(-0.610,-0.500), border, hsl5, iTime, 17., 0.05 * (2. + sin(1.2*iTime)));
-    vec4 hp5 = halfplane(uv, vec2(fragCoord.x/8., fragCoord.y/8.), vec2(0.700,-0.350), vec2(0.090,-0.680), vec2(-0.460,0.170), vec2(-0.550,-0.590), border, hsl6, iTime, 13., 0.05 * (2. + sin(1.1*iTime+PI/4.)));
+    vec4 hp5 = halfplane(uv, vec2(fragCoord.x/8., fragCoord.y/8.), vec2(0.700,-0.350), vec2(0.090,-0.680), vec2(-0.460,0.170), vec2(-0.680,-0.690), border, hsl6, iTime, 13., 0.05 * (2. + sin(1.1*iTime+PI/4.)));
 
 
     
