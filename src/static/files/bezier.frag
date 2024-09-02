@@ -723,7 +723,7 @@ float ramp(vec2 uv, float d, float t, float sgn, float dispersion) {
     }*/
 
     // For intuition:
-    // d/dispersion is a normalizing factor; so the spread cannot go past "dispersion" distance
+    // d/dispersion is a normalizing factor; so the spread cannot go past dispersion distance
     // x is traveling perpendicularly away from the curve
     float x = clamp(d/dispersion, 0., 1.);
     float easedX = sin(x*PI/2.);
@@ -970,28 +970,12 @@ void main() {
     float D = 0.05 * (2. + sin(iTime));
     float D2 = 0.1 * (2. + cos(iTime));
 
-    //float d = min(min(1e38,d0),d1);
-    
-    /*
-    if (t1 > 0. && d1 < D) {
-        t = 0.5 + t1/2.;
-    } else {
-        t = t0/2.;
-    }*/
-
-    vec4 colC = vec4(hsl2rgb(vec3(h3,s,l)),0.984);
-
-
-    //gl_FragColor = col;
-    float ditherResolution = pow(2.,3.);
-    vec2 uvScreen = vec2(fragCoord.x/ditherResolution, fragCoord.y/ditherResolution);
-    vec2 uvScreen2 = vec2(fragCoord.x/4., fragCoord.y/8.);
-	vec4 hp0 = halfplane(uv, vec2(fragCoord.x/8., fragCoord.y/8.), vec2(0.530,0.350), vec2(0.110,0.360), vec2(-0.410,0.560), vec2(-0.880,0.170), border, hsl1, iTime, 1., D2);
-	vec4 hp1 = halfplane(uv, vec2(fragCoord.x/4., fragCoord.y/4.), vec2(0.730,0.030), vec2(0.300,0.510), vec2(-0.250,0.300), vec2(-0.860,-0.010), border, hsl2, iTime, 2., D);
-    vec4 hp2 = halfplane(uv, vec2(fragCoord.x/4., fragCoord.y/4.), vec2(0.550,0.170), vec2(0.080,0.050), vec2(-0.300,0.290), vec2(-0.700,-0.380), border, hsl3, iTime, 6., D2);
-    vec4 hp3 = halfplane(uv, vec2(fragCoord.x/4., fragCoord.y/4.), vec2(0.710,-0.390), vec2(0.070,0.030), vec2(-0.500,0.340), vec2(-0.810,-0.420), border, hsl4, iTime, 13., D);
-	vec4 hp4 = halfplane(uv, vec2(fragCoord.x/8., fragCoord.y/8.), vec2(0.770,0.120), vec2(0.170,-0.450), vec2(-0.420,0.270), vec2(-0.890,-0.620), border, hsl5, iTime, 17., D2);
-    vec4 hp5 = halfplane(uv, vec2(fragCoord.x/8., fragCoord.y/8.), vec2(0.730,-0.150), vec2(0.090,-0.680), vec2(-0.460,0.170), vec2(-0.890,-0.620), border, hsl6, iTime, 13., D2);
+	vec4 hp0 = halfplane(uv, vec2(fragCoord.x/8., fragCoord.y/8.), vec2(0.530,0.350), vec2(0.110,0.360), vec2(-0.410,0.560), vec2(-0.880,0.170), border, hsl1, iTime, 1.,  0.1 * (2. + cos(iTime+PI/4.)));
+	vec4 hp1 = halfplane(uv, vec2(fragCoord.x/4., fragCoord.y/4.), vec2(0.730,0.030), vec2(0.300,0.510), vec2(-0.250,0.300), vec2(-0.860,-0.010), border, hsl2, iTime, 2., 0.1 * (2. + sin(1.1*iTime+PI/4.)));
+    vec4 hp2 = halfplane(uv, vec2(fragCoord.x/8., fragCoord.y/8.), vec2(0.550,0.170), vec2(0.080,0.050), vec2(-0.300,0.290), vec2(-0.700,-0.380), border, hsl3, iTime, 6.,  0.05 * (2. + cos(iTime)));
+    vec4 hp3 = halfplane(uv, vec2(fragCoord.x/4., fragCoord.y/4.), vec2(0.710,-0.390), vec2(0.070,0.030), vec2(-0.500,0.340), vec2(-0.810,-0.420), border, hsl4, iTime, 13.,  0.05 * (2. + cos(1.1*iTime+PI/4.)));
+	vec4 hp4 = halfplane(uv, vec2(fragCoord.x/4., fragCoord.y/4.), vec2(0.540,0.010), vec2(0.220,-0.570), vec2(-0.330,0.340), vec2(-0.610,-0.500), border, hsl5, iTime, 17., 0.05 * (2. + sin(1.2*iTime)));
+    vec4 hp5 = halfplane(uv, vec2(fragCoord.x/8., fragCoord.y/8.), vec2(0.690,-0.230), vec2(0.090,-0.680), vec2(-0.460,0.170), vec2(-0.860,-0.850), border, hsl6, iTime, 13., 0.1 * (2. + sin(1.1*iTime+PI/4.)));
 
 
     
