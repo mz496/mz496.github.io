@@ -718,29 +718,17 @@ float rand(vec2 co){
 // sgn = which side of the curve we are on (-1 or 1)
 // dispersion = the max absolute value (must be between 0 and 1 because it's an alpha value)
 float ramp(vec2 uv, float d, float t, float sgn, float dispersion) {
-    /*if (t == 0. && sgn > 0.) {
-        return 1.;
-    }*/
-
     // For intuition:
     // d/dispersion is a normalizing factor; so the spread cannot go past dispersion distance
-    // x is traveling perpendicularly away from the curve
-    float x = clamp(d/dispersion, 0., 1.);
-    float easedX = sin(x*PI/2.);
-    /*
-    float computedX = 0.;
-    if (randX > easedX) {
-        computedX = 0.;
-    } else {
-        computedX = 1.;
-    }
-    */
+    // dNormalized is traveling perpendicularly away from the curve
+    float dNormalized = clamp(d/dispersion, 0., 1.);
+    // A curve to ease,
+    // on the +1 sgn side: (dNormalized=0,alpha=0.5) to (dNormalized=1,alpha=0)
+    // on the -1 sgn side: (dNormalized=0,alpha=0.5) to (dNormalized=1,alpha=1)
+    //float easedD = 0.5 - sgn * dNormalized/2.;
+    float easedD = -0.5 * sgn * sin(dNormalized*PI/2.) + 0.5;
     
-    // if you fix t to some value:
-    // past d=dispersion we are just using x, at 0 or 1
-    // - when we're on the curve (d=0) the alpha is always 0.5
-    float computedX = -0.5 * easedX + (sgn/2.);
-    return dither(computedX, uv);
+    return dither(sgn*easedD, uv);
 }
 
 // t = What value of 0<=t<=1 is the closest point on the bezier?
@@ -968,26 +956,28 @@ void main() {
     
     // Dispersion max
     float D = 0.05;
+    vec2 uvDither8 = vec2(fragCoord.x/16., fragCoord.y/16.);
+    vec2 uvDither4 = vec2(fragCoord.x/8., fragCoord.y/8.);
     vec2 jitter1 = vec2(0.03*sin(iTime), 0.02*cos(iTime));
     vec2 jitter2 = vec2(0.02*cos(iTime), 0.04*sin(iTime));
     vec2 jitter3 = vec2(0.02*sin(iTime+PI/4.), 0.03*cos(iTime+PI/4.));
 
-	vec4 hp0 = halfplane(uv, vec2(fragCoord.x/8., fragCoord.y/8.), 
+	vec4 hp0 = halfplane(uv, uvDither8, 
                          vec2(0.520,0.320)+jitter2, vec2(0.120,0.280), vec2(-0.460,0.570), vec2(-0.770,0.160)+jitter3, 
                          border, hsl1, iTime, 1., D * (2. + cos(iTime+PI/4.)));
-	vec4 hp1 = halfplane(uv, vec2(fragCoord.x/4., fragCoord.y/4.), 
+	vec4 hp1 = halfplane(uv, uvDither4, 
                          vec2(0.700,0.030), vec2(-0.140,0.560)+jitter2, vec2(0.040,0.200)+jitter1, vec2(-0.580,0.080), 
                          border, hsl2, iTime, 4., D * (2. + sin(1.1*iTime+PI/4.)));
-    vec4 hp2 = halfplane(uv, vec2(fragCoord.x/8., fragCoord.y/8.), 
+    vec4 hp2 = halfplane(uv, uvDither8, 
                          vec2(0.670,-0.170), vec2(0.310,0.530), vec2(-0.330,-0.190), vec2(-0.700,-0.380)+jitter3, 
                          border, hsl3, iTime, 2., D * (2. + cos(iTime)));
-    vec4 hp3 = halfplane(uv, vec2(fragCoord.x/4., fragCoord.y/4.), 
+    vec4 hp3 = halfplane(uv, uvDither4, 
                          vec2(0.780,0.060)+jitter2, vec2(0.410,-0.880)+jitter1, vec2(-0.310,0.780)+jitter3, vec2(-0.760,-0.340), 
                          border, hsl4, iTime, 5., D * (2. + cos(1.1*iTime+PI/4.)));
-	vec4 hp4 = halfplane(uv, vec2(fragCoord.x/4., fragCoord.y/4.), 
+	vec4 hp4 = halfplane(uv, uvDither4, 
                          vec2(0.690,0.010)+jitter1, vec2(0.220,-0.570)+jitter2, vec2(-0.330,0.340), vec2(-0.610,-0.500), 
                          border, hsl5, iTime, 3., D * (2. + sin(1.2*iTime)));
-    vec4 hp5 = halfplane(uv, vec2(fragCoord.x/8., fragCoord.y/8.), 
+    vec4 hp5 = halfplane(uv, uvDither8, 
                          vec2(0.700,-0.350)+jitter3, vec2(0.090,-0.680)+jitter2, vec2(-0.460,0.170), vec2(-0.680,-0.690)+jitter3, 
                          border, hsl6, iTime, 6., D * (2. + sin(1.1*iTime+PI/4.)));
 
