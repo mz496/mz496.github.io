@@ -62,10 +62,10 @@ float dither(float color, vec2 uvScreen) {
     
     float index = indexValue(uvScreen);
     float distanceToZero = abs(zero - color);
-    if (distanceToZero < jitterRange) {
+    if (distanceToZero < 0.11) { // Slightly more punitive on this end to avoid lots of dots
     	distanceToZero = 0.;
 	}
-    if (distanceToZero > 1.-jitterRange) {
+    if (distanceToZero > 0.9) {
         distanceToZero = 1.;
     }
     float diff = distanceToZero - index;
@@ -958,6 +958,7 @@ void main() {
     //vec3 hsl1 = vec3(h1,s,l);
     //vec3 hsl2 = vec3(h2,s,l);
     
+    
     vec3 hsl0 = vec3(0.8012824265655186, 0.9708396028586045, 0.1671445);
     vec3 hsl1 = vec3(0.6923312036257031, 0.39216403351473783, 0.3677785);
 	vec3 hsl2 = vec3(0.5679640341708213, 0.48941772016284557, 0.37336);
@@ -966,7 +967,8 @@ void main() {
 	vec3 hsl5 = vec3(0.24630620495450808, 0.6477674464872308, 0.5526535);
     vec3 hsl6 = vec3(0.14957616674830135, 0.9843489225976338, 0.568592);
     
-    /* plasma
+    // plasma
+    /*
     vec3 hsl1 = vec3(0.7593676180569101, 0.990059587302755, 0.326244);
 	vec3 hsl2 = vec3(0.8304124421657885, 0.745959684857531, 0.35507750000000005);
 	vec3 hsl3 = vec3(0.9390817067842427, 0.562094517392281, 0.5392065);
@@ -976,8 +978,8 @@ void main() {
     
     // Dispersion max
     float D = 0.1;
-    vec2 uvDither8 = vec2(fragCoord.x/16., fragCoord.y/16.);
-    vec2 uvDither4 = vec2(fragCoord.x/8., fragCoord.y/8.);
+    vec2 uvDither8 = vec2(fragCoord.x/64., fragCoord.y/64.);
+    vec2 uvDither4 = vec2(fragCoord.x/32., fragCoord.y/32.);
     vec2 jitter1 = vec2(0.03*sin(iTime), 0.02*cos(iTime));
     vec2 jitter2 = vec2(0.02*cos(iTime), 0.04*sin(iTime));
     vec2 jitter3 = vec2(0.02*sin(iTime+PI/4.), 0.03*cos(iTime+PI/4.));
