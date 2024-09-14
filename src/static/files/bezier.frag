@@ -46,14 +46,33 @@ float indexValue(vec2 uv) {
 }
 */
 
+
+// Returns a random number between 0 and 1
+float rand(vec2 co){
+    return fract(sin(dot(co, vec2(12.9898, 78.233))) * 43758.5453);
+}
+
 // in screen coordinates
+// Color is a value from 0 to 1, and is really an alpha value
 float dither(float color, vec2 uvScreen) {
-    float closestColor = (color < 0.5) ? 0. : 1.;
-    float secondClosestColor = 1. - closestColor;
-    float d = indexValue(uvScreen);
-    float distance = abs(closestColor - color);
+    float jitterRange = 0.1;
+    float jitter = rand(uvScreen)*2.*jitterRange - jitterRange;
+    float zero = 0. + jitter;
+    float one = 1. - zero;
+    
+    float index = indexValue(uvScreen);
+    float distanceToZero = abs(zero - color);
+    if (distanceToZero < jitterRange) {
+    	distanceToZero = 0.;
+	}
+    if (distanceToZero > 1.-jitterRange) {
+        distanceToZero = 1.;
+    }
+    float diff = distanceToZero - index;
+    
     // Thresholding to ensure we use both 0 and 1
-    return (distance - d < 0.01) ? closestColor : secondClosestColor;
+    return (diff < 0.01) ? zero : one;
+    
 }
 
 /*
@@ -707,10 +726,6 @@ vec3 hsl2rgb(float h, float s, float l) {
     return hsl2rgb(vec3(h, s, l));
 }
 
-float rand(vec2 co){
-    return fract(sin(dot(co, vec2(12.9898, 78.233))) * 43758.5453);
-}
-
 // Imagine the parametrized curve stretched straight horizontally from 0 to 1.
 // This returns the alpha value based on a linear ramp:
 // t = parameter from 0 to 1
@@ -728,7 +743,8 @@ float ramp(vec2 uv, float d, float t, float sgn, float dispersion) {
     //float easedD = 0.5 - sgn * dNormalized/2.;
     float easedD = -0.5 * sgn * sin(dNormalized*PI/2.) + 0.5;
     
-    return dither(sgn*easedD, uv);
+    //return easedD;
+    return dither(easedD, uv);
 }
 
 // t = What value of 0<=t<=1 is the closest point on the bezier?
@@ -762,9 +778,13 @@ void make_bezier(vec2 uv, vec2 p0, vec2 p1, vec2 p2, vec2 p3,
 }
 
 
-// dispersion value as a function of t in [0,1], scaled to not exceed max
+// dispersion value as a function of t in [0,1], scaled to max
 float dispersion(float time, float offset, float t, float max) {
-    return (sin(4.*t + time/4. + offset)+1.)*max;
+    // * max to scale sine wave [-1,1] to [-max,max]
+    // + max to offset to [0,2*max]
+    // / 2 to scale back down to [0,max]
+    // + min to offset to [min, min+max]
+    return (sin(4.*t + time/4. + offset) * max + max) / 2.;
 }
 
 // Using uv point, draw in a cubic bezier halfplane with points p0-p3, with colA as that color
@@ -955,7 +975,7 @@ void main() {
 	*/
     
     // Dispersion max
-    float D = 0.05;
+    float D = 0.1;
     vec2 uvDither8 = vec2(fragCoord.x/16., fragCoord.y/16.);
     vec2 uvDither4 = vec2(fragCoord.x/8., fragCoord.y/8.);
     vec2 jitter1 = vec2(0.03*sin(iTime), 0.02*cos(iTime));
