@@ -779,16 +779,16 @@ void make_bezier(vec2 uv, vec2 p0, vec2 p1, vec2 p2, vec2 p3,
 
 
 // dispersion value as a function of t in [0,1], scaled to max
-float dispersion(float time, float offset, float t, float max) {
+float dispersion(float time, float offset, float t, float max, float min) {
     // * max to scale sine wave [-1,1] to [-max,max]
     // + max to offset to [0,2*max]
     // / 2 to scale back down to [0,max]
     // + min to offset to [min, min+max]
-    return (sin(4.*t + time/4. + offset) * max + max) / 2.;
+    return (sin(4.*t + time/4. + offset) * max + max) / 2. + min;
 }
 
 // Using uv point, draw in a cubic bezier halfplane with points p0-p3, with colA as that color
-vec4 halfplane(vec2 uv, vec2 uvScreen, vec2 p0, vec2 p1, vec2 p2, vec2 p3, float border, vec3 hsl, float time, float offset, float dispersion_max) {
+vec4 halfplane(vec2 uv, vec2 uvScreen, vec2 p0, vec2 p1, vec2 p2, vec2 p3, float border, vec3 hsl, float time, float offset, float dispersion_max, float dispersion_min) {
     
 
     float dots = 1e38;
@@ -802,7 +802,7 @@ vec4 halfplane(vec2 uv, vec2 uvScreen, vec2 p0, vec2 p1, vec2 p2, vec2 p3, float
 
     float d = min(1e38,d0);
     float t = t0;
-    vec4 colA = vec4(hsl2rgb(hsl),ramp(uvScreen,d,t,sgn0,dispersion(time,offset,t,dispersion_max)));
+    vec4 colA = vec4(hsl2rgb(hsl),ramp(uvScreen,d,t,sgn0,dispersion(time,offset,t,dispersion_max,dispersion_min)));
 
 
 
@@ -978,6 +978,7 @@ void main() {
     
     // Dispersion max
     float D = 0.1;
+    float dispersion_min = D/2.;
     vec2 uvDither8 = vec2(fragCoord.x/64., fragCoord.y/64.);
     vec2 uvDither4 = vec2(fragCoord.x/32., fragCoord.y/32.);
     vec2 jitter1 = vec2(0.03*sin(iTime), 0.02*cos(iTime));
@@ -986,22 +987,22 @@ void main() {
 
 	vec4 hp0 = halfplane(uv, uvDither8, 
                          vec2(0.520,0.320)+jitter2, vec2(0.120,0.280), vec2(-0.460,0.570), vec2(-0.770,0.160)+jitter3, 
-                         border, hsl1, iTime, 1., D * (2. + cos(iTime+PI/4.)));
+                         border, hsl1, iTime, 1., D * (2. + cos(iTime+PI/4.)), dispersion_min);
 	vec4 hp1 = halfplane(uv, uvDither4, 
                          vec2(0.700,0.030), vec2(-0.140,0.560)+jitter2, vec2(0.040,0.200)+jitter1, vec2(-0.580,0.080), 
-                         border, hsl2, iTime, 4., D * (2. + sin(1.1*iTime+PI/4.)));
+                         border, hsl2, iTime, 4., D * (2. + sin(1.1*iTime+PI/4.)), dispersion_min);
     vec4 hp2 = halfplane(uv, uvDither8, 
                          vec2(0.670,-0.170), vec2(0.310,0.530), vec2(-0.330,-0.190), vec2(-0.700,-0.380)+jitter3, 
-                         border, hsl3, iTime, 2., D * (2. + cos(iTime)));
+                         border, hsl3, iTime, 2., D * (2. + cos(iTime)), dispersion_min);
     vec4 hp3 = halfplane(uv, uvDither4, 
                          vec2(0.780,0.060)+jitter2, vec2(0.410,-0.880)+jitter1, vec2(-0.310,0.780)+jitter3, vec2(-0.760,-0.340), 
-                         border, hsl4, iTime, 5., D * (2. + cos(1.1*iTime+PI/4.)));
+                         border, hsl4, iTime, 5., D * (2. + cos(1.1*iTime+PI/4.)), dispersion_min);
 	vec4 hp4 = halfplane(uv, uvDither4, 
                          vec2(0.690,0.010)+jitter1, vec2(0.220,-0.570)+jitter2, vec2(-0.330,0.340), vec2(-0.610,-0.500), 
-                         border, hsl5, iTime, 3., D * (2. + sin(1.2*iTime)));
+                         border, hsl5, iTime, 3., D * (2. + sin(1.2*iTime)), dispersion_min);
     vec4 hp5 = halfplane(uv, uvDither8, 
                          vec2(0.700,-0.350)+jitter3, vec2(0.090,-0.680)+jitter2, vec2(-0.460,0.170), vec2(-0.680,-0.690)+jitter3, 
-                         border, hsl6, iTime, 6., D * (2. + sin(1.1*iTime+PI/4.)));
+                         border, hsl6, iTime, 6., D * (2. + sin(1.1*iTime+PI/4.)), dispersion_min);
 
 
     
