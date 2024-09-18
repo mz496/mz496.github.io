@@ -732,7 +732,7 @@ vec3 hsl2rgb(float h, float s, float l) {
 // d = signed perpendicular distance from curve. Past the dispersion value we are just at 0 or 1.
 // sgn = which side of the curve we are on (-1 or 1)
 // dispersion = the max absolute value (must be between 0 and 1 because it's an alpha value)
-float ramp(vec2 uv, float d, float t, float sgn, float dispersion) {
+float ramp(vec2 uv, float d, float t, float sgn, float dispersion, bool ditherOn) {
     // For intuition:
     // d/dispersion is a normalizing factor; so the spread cannot go past dispersion distance
     // dNormalized is traveling perpendicularly away from the curve
@@ -743,8 +743,11 @@ float ramp(vec2 uv, float d, float t, float sgn, float dispersion) {
     //float easedD = 0.5 - sgn * dNormalized/2.;
     float easedD = -0.5 * sgn * sin(dNormalized*PI/2.) + 0.5;
     
-    //return easedD;
-    return dither(easedD, uv);
+    if (ditherOn) {
+        return dither(easedD, uv);
+    } else {
+        return easedD;
+    }
 }
 
 // t = What value of 0<=t<=1 is the closest point on the bezier?
@@ -788,7 +791,8 @@ float dispersion(float time, float offset, float t, float max, float min) {
 }
 
 // Using uv point, draw in a cubic bezier halfplane with points p0-p3, with colA as that color
-vec4 halfplane(vec2 uv, vec2 uvScreen, vec2 p0, vec2 p1, vec2 p2, vec2 p3, float border, vec3 hsl, float time, float offset, float dispersion_max, float dispersion_min) {
+vec4 halfplane(vec2 uv, vec2 uvScreen, vec2 p0, vec2 p1, vec2 p2, vec2 p3,
+               float border, vec3 rgb, float time, float offset, float dispersion_max, float dispersion_min, bool ditherOn) {
     
 
     float dots = 1e38;
@@ -802,7 +806,7 @@ vec4 halfplane(vec2 uv, vec2 uvScreen, vec2 p0, vec2 p1, vec2 p2, vec2 p3, float
 
     float d = min(1e38,d0);
     float t = t0;
-    vec4 colA = vec4(hsl2rgb(hsl),ramp(uvScreen,d,t,sgn0,dispersion(time,offset,t,dispersion_max,dispersion_min)));
+    vec4 colA = vec4(rgb,ramp(uvScreen, d, t, sgn0, dispersion(time,offset,t,dispersion_max,dispersion_min), ditherOn));
 
 
 
@@ -895,6 +899,7 @@ vec4 screen(vec4 fg, vec4 bg) {
 
 
 
+
 //void mainImage(out vec4 fragColor, in vec2 fragCoord){
 void main() {
     indexMatrix4x4[0] = 0;
@@ -926,8 +931,9 @@ void main() {
 	uv-=.5;
 	uv.y *= iResolution.y / iResolution.x;
 
+    // (0,0) to (1,1)
 	vec2 mouse = iMouse.xy / iResolution.xy;
-	mouse-=.5;
+	//mouse-=.5;
 	mouse.y *= iResolution.y / iResolution.x;
 
 	border*=zoom;
@@ -948,65 +954,83 @@ void main() {
     // M = 0.2
     // f(d, t): rgba(hsv2rgb(360*t), 1.-d)
     
-
-    float h1 = 0.928;
-    float h2 = 0.154;
-    float h3 = 0.5;
-    float s = .7;
-    float l = .7;
+    // A version of mouseX that makes it slightly different:
+    // [0,0.4] => 0
+    // [0.4,0.6] => 0 to 1
+    // [0.6,1] => 1
+    float mouseEasedX = clamp(5.*mouse.x-2.,0.,1.);
+    float mouseEasedY = clamp(5.*mouse.y-2.,0.,1.);
     
-    //vec3 hsl1 = vec3(h1,s,l);
-    //vec3 hsl2 = vec3(h2,s,l);
+    // viridis
+    vec3 hsl0x = vec3(0.8012824265655186, 0.9708396028586045, 0.1671445);
+    vec3 hsl1x = vec3(0.6923312036257031, 0.39216403351473783, 0.3677785);
+	vec3 hsl2x = vec3(0.5679640341708213, 0.48941772016284557, 0.37336);
+	vec3 hsl3x = vec3(0.49378178240145415, 0.6326425415072633, 0.3472585);
+	vec3 hsl4x = vec3(0.41976961031009524, 0.5510455569091788, 0.4633655);
+	vec3 hsl5x = vec3(0.24630620495450808, 0.6477674464872308, 0.5526535);
+    vec3 hsl6x = vec3(0.14957616674830135, 0.9843489225976338, 0.568592);
     
-    
-    vec3 hsl0 = vec3(0.8012824265655186, 0.9708396028586045, 0.1671445);
-    vec3 hsl1 = vec3(0.6923312036257031, 0.39216403351473783, 0.3677785);
-	vec3 hsl2 = vec3(0.5679640341708213, 0.48941772016284557, 0.37336);
-	vec3 hsl3 = vec3(0.49378178240145415, 0.6326425415072633, 0.3472585);
-	vec3 hsl4 = vec3(0.41976961031009524, 0.5510455569091788, 0.4633655);
-	vec3 hsl5 = vec3(0.24630620495450808, 0.6477674464872308, 0.5526535);
-    vec3 hsl6 = vec3(0.14957616674830135, 0.9843489225976338, 0.568592);
+    // inferno
+    vec3 hsl0y = vec3(0.6790547263681592, 0.9349706949483674, 0.007166);
+	vec3 hsl1y = vec3(0.7471285845220553, 0.810807148927784, 0.2029675);
+	vec3 hsl2y = vec3(0.8536006589621898, 0.6206836800343126, 0.2914375);
+	vec3 hsl3y = vec3(0.9633371618982756, 0.5462200592903028, 0.4757945);
+	vec3 hsl4y = vec3(0.05655144802155362, 0.8478771098899553, 0.5375055);
+	vec3 hsl5y = vec3(0.11509345144725826, 0.9696141157542842, 0.545019);
+	vec3 hsl6y = vec3(0.171383167345707, 0.9908273340958534, 0.821644);
     
     // plasma
     /*
-    vec3 hsl1 = vec3(0.7593676180569101, 0.990059587302755, 0.326244);
-	vec3 hsl2 = vec3(0.8304124421657885, 0.745959684857531, 0.35507750000000005);
-	vec3 hsl3 = vec3(0.9390817067842427, 0.562094517392281, 0.5392065);
-	vec3 hsl4 = vec3(0.04065451027404463, 0.8077504949007782, 0.6271979999999999);
-	vec3 hsl5 = vec3(0.10724318786274627, 0.9849698047605336, 0.5884285);
-	*/
+    vec3 hsl1y = vec3(0.7593676180569101, 0.990059587302755, 0.326244);
+	vec3 hsl2y = vec3(0.8304124421657885, 0.745959684857531, 0.35507750000000005);
+	vec3 hsl3y = vec3(0.9390817067842427, 0.562094517392281, 0.5392065);
+	vec3 hsl4y = vec3(1.04065451027404463, 0.8077504949007782, 0.6271979999999999);
+	vec3 hsl5y = vec3(1.10724318786274627, 0.9849698047605336, 0.5884285);
+    */
+    
+    vec3 rgb0 = mix(hsl2rgb(hsl0x), hsl2rgb(hsl0y), mouseEasedY);
+    vec3 rgb1 = mix(hsl2rgb(hsl1x), hsl2rgb(hsl1y), mouseEasedY);
+    vec3 rgb2 = mix(hsl2rgb(hsl2x), hsl2rgb(hsl2y), mouseEasedY);
+    vec3 rgb3 = mix(hsl2rgb(hsl3x), hsl2rgb(hsl3y), mouseEasedY);
+    vec3 rgb4 = mix(hsl2rgb(hsl4x), hsl2rgb(hsl4y), mouseEasedY);
+    vec3 rgb5 = mix(hsl2rgb(hsl5x), hsl2rgb(hsl5y), mouseEasedY);    
+    vec3 rgb6 = mix(hsl2rgb(hsl6x), hsl2rgb(hsl6y), mouseEasedY);
     
     // Dispersion max
     float D = 0.1;
-    float dispersion_min = D/2.;
-    vec2 uvDither8 = vec2(fragCoord.x/64., fragCoord.y/64.);
-    vec2 uvDither4 = vec2(fragCoord.x/32., fragCoord.y/32.);
+    float dispersionMin = mix(0., D/1.5, mouseEasedX);
+    float maxDitherAmountExponent = floor(log(iResolution.x/10.) / log(2.)) - 2.; // for a 2560wide display, use 6
+    float minDitherAmountExponent = 2.;
+    bool ditherOn = mouseEasedX > 0.;
+    float ditherAmount = pow(2., floor(minDitherAmountExponent + mouseEasedX * (maxDitherAmountExponent - minDitherAmountExponent)));
+    vec2 uvDither8 = vec2(fragCoord.x/ditherAmount/2., fragCoord.y/ditherAmount/2.);
+    vec2 uvDither4 = vec2(fragCoord.x/ditherAmount, fragCoord.y/ditherAmount);
     vec2 jitter1 = vec2(0.03*sin(iTime), 0.02*cos(iTime));
     vec2 jitter2 = vec2(0.02*cos(iTime), 0.04*sin(iTime));
     vec2 jitter3 = vec2(0.02*sin(iTime+PI/4.), 0.03*cos(iTime+PI/4.));
 
 	vec4 hp0 = halfplane(uv, uvDither8, 
                          vec2(0.520,0.320)+jitter2, vec2(0.120,0.280), vec2(-0.460,0.570), vec2(-0.770,0.160)+jitter3, 
-                         border, hsl1, iTime, 1., D * (2. + cos(iTime+PI/4.)), dispersion_min);
+                         border, rgb1, iTime, 1., D * (2. + cos(iTime+PI/4.)), dispersionMin, ditherOn);
 	vec4 hp1 = halfplane(uv, uvDither4, 
                          vec2(0.700,0.030), vec2(-0.140,0.560)+jitter2, vec2(0.040,0.200)+jitter1, vec2(-0.580,0.080), 
-                         border, hsl2, iTime, 4., D * (2. + sin(1.1*iTime+PI/4.)), dispersion_min);
+                         border, rgb2, iTime, 4., D * (2. + sin(1.1*iTime+PI/4.)), dispersionMin, ditherOn);
     vec4 hp2 = halfplane(uv, uvDither8, 
                          vec2(0.670,-0.170), vec2(0.310,0.530), vec2(-0.330,-0.190), vec2(-0.700,-0.380)+jitter3, 
-                         border, hsl3, iTime, 2., D * (2. + cos(iTime)), dispersion_min);
+                         border, rgb3, iTime, 2., D * (2. + cos(iTime)), dispersionMin, ditherOn);
     vec4 hp3 = halfplane(uv, uvDither4, 
                          vec2(0.780,0.060)+jitter2, vec2(0.410,-0.880)+jitter1, vec2(-0.310,0.780)+jitter3, vec2(-0.760,-0.340), 
-                         border, hsl4, iTime, 5., D * (2. + cos(1.1*iTime+PI/4.)), dispersion_min);
+                         border, rgb4, iTime, 5., D * (2. + cos(1.1*iTime+PI/4.)), dispersionMin, ditherOn);
 	vec4 hp4 = halfplane(uv, uvDither4, 
                          vec2(0.690,0.010)+jitter1, vec2(0.220,-0.570)+jitter2, vec2(-0.330,0.340), vec2(-0.610,-0.500), 
-                         border, hsl5, iTime, 3., D * (2. + sin(1.2*iTime)), dispersion_min);
+                         border, rgb5, iTime, 3., D * (2. + sin(1.2*iTime)), dispersionMin, ditherOn);
     vec4 hp5 = halfplane(uv, uvDither8, 
                          vec2(0.700,-0.350)+jitter3, vec2(0.090,-0.680)+jitter2, vec2(-0.460,0.170), vec2(-0.680,-0.690)+jitter3, 
-                         border, hsl6, iTime, 6., D * (2. + sin(1.1*iTime+PI/4.)), dispersion_min);
+                         border, rgb6, iTime, 6., D * (2. + sin(1.1*iTime+PI/4.)), dispersionMin, ditherOn);
 
 
     
-    vec4 finalColor = source_atop(hp5, source_atop(hp4, source_atop(hp3, source_atop(hp2, source_atop(hp1, source_atop(hp0, vec4(hsl2rgb(hsl0),1.)))))));
+    vec4 finalColor = source_atop(hp5, source_atop(hp4, source_atop(hp3, source_atop(hp2, source_atop(hp1, source_atop(hp0, vec4(rgb0,1.)))))));
     
     //vec4 finalColor = source_over(hp4, source_over(hp3, source_over(hp2, hp1)));
     gl_FragColor = finalColor;
