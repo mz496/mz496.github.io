@@ -933,26 +933,13 @@ void main() {
 
     // (0,0) to (1,1)
 	vec2 mouse = iMouse.xy / iResolution.xy;
-	//mouse-=.5;
-	//mouse.y *= iResolution.y / iResolution.x;
+    // for some reason in browser, but not book of shaders, you need these:
+    //mouse.x-=.5;
+    //mouse.y+=.5;
 
 	border*=zoom;
 	uv *= zoom;
 	mouse *= zoom;
-
-	//float t0 = mod(iTime*2.+1.5,24.*3.1416);
-
-
-    //mouse condition copied from mattz (https://www.shadertoy.com/view/4dyyR1)
-    /*if(max(iMouse.x, iMouse.y) > 20.){
-        p0=vec2(-.3,-.1);
-        p1=mouse;
-        p2=vec2(.1,-.2);
-        p3=vec2(.2,.15);
-    }*/
-
-    // M = 0.2
-    // f(d, t): rgba(hsv2rgb(360*t), 1.-d)
     
     // A version of mouseX that makes it slightly different:
     // [0,0.4] => 0
