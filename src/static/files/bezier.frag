@@ -934,7 +934,7 @@ void main() {
     // (0,0) to (1,1)
 	vec2 mouse = iMouse.xy / iResolution.xy;
 	//mouse-=.5;
-	mouse.y *= iResolution.y / iResolution.x;
+	//mouse.y *= iResolution.y / iResolution.x;
 
 	border*=zoom;
 	uv *= zoom;
