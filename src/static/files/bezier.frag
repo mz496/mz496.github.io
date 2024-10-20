@@ -996,22 +996,22 @@ void main() {
     vec2 jitter2 = vec2(0.02*cos(iTime), 0.04*sin(iTime));
     vec2 jitter3 = vec2(0.02*sin(iTime+PI/4.), 0.03*cos(iTime+PI/4.));
 
-	vec4 hp0 = halfplane(uv, uvDither8, 
+	vec4 hp0 = halfplane(uv, uvDither8+vec2(1.,0.), 
                          vec2(0.520,0.320)+jitter2, vec2(0.120,0.280), vec2(-0.460,0.570), vec2(-0.770,0.160)+jitter3, 
                          border, rgb1, iTime, 1., D * (2. + cos(iTime+PI/4.)), dispersionMin, ditherOn);
-	vec4 hp1 = halfplane(uv, uvDither4, 
+	vec4 hp1 = halfplane(uv, uvDither4+vec2(1.,1.),
                          vec2(0.700,0.030), vec2(-0.140,0.560)+jitter2, vec2(0.040,0.200)+jitter1, vec2(-0.580,0.080), 
                          border, rgb2, iTime, 4., D * (2. + sin(1.1*iTime+PI/4.)), dispersionMin, ditherOn);
-    vec4 hp2 = halfplane(uv, uvDither8, 
+    vec4 hp2 = halfplane(uv, uvDither4,
                          vec2(0.670,-0.170), vec2(0.310,0.530), vec2(-0.330,-0.190), vec2(-0.700,-0.380)+jitter3, 
                          border, rgb3, iTime, 2., D * (2. + cos(iTime)), dispersionMin, ditherOn);
-    vec4 hp3 = halfplane(uv, uvDither4, 
+    vec4 hp3 = halfplane(uv, uvDither8,
                          vec2(0.780,0.060)+jitter2, vec2(0.410,-0.880)+jitter1, vec2(-0.310,0.780)+jitter3, vec2(-0.760,-0.340), 
                          border, rgb4, iTime, 5., D * (2. + cos(1.1*iTime+PI/4.)), dispersionMin, ditherOn);
-	vec4 hp4 = halfplane(uv, uvDither4, 
+	vec4 hp4 = halfplane(uv, uvDither4+vec2(-1.,-1.),
                          vec2(0.690,0.010)+jitter1, vec2(0.220,-0.570)+jitter2, vec2(-0.330,0.340), vec2(-0.610,-0.500), 
                          border, rgb5, iTime, 3., D * (2. + sin(1.2*iTime)), dispersionMin, ditherOn);
-    vec4 hp5 = halfplane(uv, uvDither8, 
+    vec4 hp5 = halfplane(uv, uvDither8+vec2(-1.,0.), 
                          vec2(0.700,-0.350)+jitter3, vec2(0.090,-0.680)+jitter2, vec2(-0.460,0.170), vec2(-0.680,-0.690)+jitter3, 
                          border, rgb6, iTime, 6., D * (2. + sin(1.1*iTime+PI/4.)), dispersionMin, ditherOn);
 
