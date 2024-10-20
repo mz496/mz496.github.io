@@ -1,5 +1,3 @@
-// Author:
-// Title:
 
 #ifdef GL_ES
 precision mediump float;
@@ -37,15 +35,6 @@ float indexValue(vec2 uv) {
 
     return value / 16.0;
 }
-/*
-float indexValue(vec2 uv) {
-    int x = int(mod(uv.x, 4.));
-    int y = int(mod(uv.y, 4.));
-    int i = (x + y * 4);
-    return float(indexMatrix4x4[i]) / 16.0;
-}
-*/
-
 
 // Returns a random number between 0 and 1
 float rand(vec2 co){
@@ -793,46 +782,15 @@ float dispersion(float time, float offset, float t, float max, float min) {
 // Using uv point, draw in a cubic bezier halfplane with points p0-p3, with colA as that color
 vec4 halfplane(vec2 uv, vec2 uvScreen, vec2 p0, vec2 p1, vec2 p2, vec2 p3,
                float border, vec3 rgb, float time, float offset, float dispersion_max, float dispersion_min, bool ditherOn) {
-    
-
     float dots = 1e38;
-
     float t0;
     float d0;
     float sgn0;
 	make_bezier(uv, p0, p1, p2, p3, t0, d0, sgn0, dots);
 
-
-
     float d = min(1e38,d0);
     float t = t0;
     vec4 colA = vec4(rgb,ramp(uvScreen, d, t, sgn0, dispersion(time,offset,t,dispersion_max,dispersion_min), ditherOn));
-
-
-
-    /*
-    vec2 p4 = p3;
-    vec2 p5 = p4 + (p3-p2);
-    vec2 p6 = vec2(-0.3, -0.4);
-    vec2 p7 = vec2(-0.400,-0.330);
-    float t1;
-    float d1;
-    float sgn1;
-	make_bezier(uv, p4, p5, p6, p7, t1, d1, sgn1, dots);
-    */
-
-
-
-
-
-	//iq's sd color scheme
-    // Color regions as a function of t, d
-    //col = color(t0, d0, sgn0);
-    // f(0) = (h1+h2)/2, f(D) = h2, f(-D) = h1
-    // hue = d*(h2-h1)/(2D) + (h1+h2)/2
-        //float hue = clamp(d0*(h1-h2)/(2.*D) + (h1+h2)/2., h2, h1);
-        // (d=0,a=.5) (d=D,a=1)
-        //col = vec4(hsl2rgb(vec3(h1,s,mix(0.75,0.7,1.-exp(-10.*d0)))),1);
 
     // Color the +/- regions differently
 	//vec3 col = vec3(1.0) - sgn*vec3(0.1,0.4,0.7);
@@ -841,14 +799,12 @@ vec4 halfplane(vec2 uv, vec2 uvScreen, vec2 p0, vec2 p1, vec2 p2, vec2 p3,
     // Color the contour
 	//col *= 0.8 + 0.2*cos(480.0*d0);
     
-    
     // 2024-07-28: useful for debugging
     // Color in the curve itself using a stepdown from white at small values of d0
 	//colA = mix(colA, vec4(1.0), 1.0-smoothstep(0.0,0.005,abs(d0)));
 	// Color in dots
     //colA = mix(point_col,colA,smoothstep(0.,border,dots));
-    
-    
+
     return colA;
 }
 
@@ -897,11 +853,8 @@ vec4 screen(vec4 fg, vec4 bg) {
     return vec4(Comultiplied/alphaO, alphaO);
 }
 
-
-
-
-//void mainImage(out vec4 fragColor, in vec2 fragCoord){
 void main() {
+	// 4x4 Bayer matrix
     indexMatrix4x4[0] = 0;
     indexMatrix4x4[1] = 8;
     indexMatrix4x4[2] = 2;
@@ -918,7 +871,6 @@ void main() {
     indexMatrix4x4[13] = 7;
     indexMatrix4x4[14] = 13;
     indexMatrix4x4[15] = 5;
-    
 
     vec4 fragCoord = gl_FragCoord;
     vec2 iResolution = u_resolution;
@@ -966,15 +918,6 @@ void main() {
 	vec3 hsl5y = vec3(0.11509345144725826, 0.9696141157542842, 0.545019);
 	vec3 hsl6y = vec3(0.171383167345707, 0.9908273340958534, 0.821644);
     
-    // plasma
-    /*
-    vec3 hsl1y = vec3(0.7593676180569101, 0.990059587302755, 0.326244);
-	vec3 hsl2y = vec3(0.8304124421657885, 0.745959684857531, 0.35507750000000005);
-	vec3 hsl3y = vec3(0.9390817067842427, 0.562094517392281, 0.5392065);
-	vec3 hsl4y = vec3(1.04065451027404463, 0.8077504949007782, 0.6271979999999999);
-	vec3 hsl5y = vec3(1.10724318786274627, 0.9849698047605336, 0.5884285);
-    */
-    
     vec3 rgb0 = mix(hsl2rgb(hsl0x), hsl2rgb(hsl0y), mouseEasedY);
     vec3 rgb1 = mix(hsl2rgb(hsl1x), hsl2rgb(hsl1y), mouseEasedY);
     vec3 rgb2 = mix(hsl2rgb(hsl2x), hsl2rgb(hsl2y), mouseEasedY);
@@ -1015,22 +958,7 @@ void main() {
                          vec2(0.700,-0.350)+jitter3, vec2(0.090,-0.680)+jitter2, vec2(-0.460,0.170), vec2(-0.680,-0.690)+jitter3, 
                          border, rgb6, iTime, 6., D * (2. + sin(1.1*iTime+PI/4.)), dispersionMin, ditherOn);
 
-
-    
     vec4 finalColor = source_atop(hp5, source_atop(hp4, source_atop(hp3, source_atop(hp2, source_atop(hp1, source_atop(hp0, vec4(rgb0,1.)))))));
     
-    //vec4 finalColor = source_over(hp4, source_over(hp3, source_over(hp2, hp1)));
     gl_FragColor = finalColor;
 }
-
-
-
-
-
-
-
-
-
-
-
-
