@@ -4,23 +4,29 @@ description: All projects I've contributed to that live on the internet, 2012-20
 layout: default
 ---
 
-<div class="container max-w-3xl px-6">
-  <h1 class="font-bold text-5xl lg:text-7xl">{{title}}</h1>
-  <article class="prose lg:prose-xl my-8 mx-auto">
-    <p>Here's a selection of stuff I've contributed to that also lives on the internet, tagged and sorted by the time I started:</p>
-    <div class="grid grid-cols-5 gap-6">
+<section class="px-1 py-1">
+  <p class="text title fg0">{{title}}</p>
+  <article class="text prose fg2">
+    <p class="py-1">I like people, art, and technology. <a href="https://npme9g67d94.typeform.com/to/zFb7ommX">Contact me!</a></p>
     {% for name, data in projects.projects %}
-      <div class="text-right">
-        <time>
+    <div class="row">
+      <div class="text-right w-24 shrink-0">
+        <time class="fg4">
           {{ data.time }}
         </time>
       </div>
-      <div class="col-span-4">
+      <div class="pl-1 grow">
         {% if data.url %}<a href="{{ data.url | url }}">{{ name }}</a>
         {% else %}<span>{{ name }}</span>
         {% endif %}
 
-        <div>{{ data.description }}</div>
+        {% if data.tags %}
+        <span class="fg4">
+        {% for tag in data.tags %}
+        [{{ tag }}] 
+        {% endfor %}
+        </span>
+        {% endif %}
 
         {% if data.urls %}
         <ul>
@@ -30,8 +36,8 @@ layout: default
         </ul>
         {% endif %}
       </div>
-    {% endfor %}
     </div>
+    {% endfor %}
   </article>
 </div>
 

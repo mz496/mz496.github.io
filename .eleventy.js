@@ -24,23 +24,29 @@ module.exports = function (eleventyConfig) {
   });
 
   // Syntax Highlighting for Code blocks
-  eleventyConfig.addPlugin(syntaxHighlight);
+  //eleventyConfig.addPlugin(syntaxHighlight);
 
   // To Support .yaml Extension in _data
   // You may remove this if you can use JSON
   eleventyConfig.addDataExtension("yaml", (contents) => yaml.load(contents));
 
+  eleventyConfig.addPassthroughCopy("./src/static/css");
+
   // Copy Static Files to /_Site
+  // Not needed anymore in blog post
+  /*
   eleventyConfig.addPassthroughCopy({
     "./src/admin/config.yml": "./admin/config.yml",
     "./node_modules/alpinejs/dist/cdn.min.js": "./static/js/alpine.js",
     "./node_modules/prismjs/themes/prism-tomorrow.css":
       "./static/css/prism-tomorrow.css",
   });
+  */
 
   // Copy Image and File Folder to /_site
-  eleventyConfig.addPassthroughCopy("./src/static/img");
-  eleventyConfig.addPassthroughCopy("./src/static/files");
+  // Not exposing anymore
+  //eleventyConfig.addPassthroughCopy("./src/static/img");
+  //eleventyConfig.addPassthroughCopy("./src/static/files");
 
   // Minify HTML
   eleventyConfig.addTransform("htmlmin", function (content, outputPath) {

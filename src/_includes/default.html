@@ -12,9 +12,6 @@
     {% endif %}
     {% block head %}{% endblock %}
     <link rel="stylesheet" type="text/css" href="/static/css/style.css"/>
-    {% if prism == true %}
-      <link rel="stylesheet" type="text/css" href="/static/css/prism-tomorrow.css">
-    {% endif %}
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-H70DRKX1K6"></script>
     <script>
@@ -23,21 +20,18 @@
       gtag('js', new Date());
       gtag('config', 'G-H70DRKX1K6');
     </script>
-  </head>
-  <body>
-    {% include "./partials/navbar.html" %}
-
-    {{ content | safe }}
-
-    {% include "./partials/footer.html" %}
-
-    <script src="/static/js/alpine.js"></script>
-
     {% if path == "home" %}
-      <!-- Netlify Identity Widget -->
-      <!-- Needed only if you are using Netlify Identity feature -->
-      <script type="text/javascript" src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+    <script>
+      window.addEventListener('load', function() {
+        const canvas = document.getElementById('myCanvas');
+        const ratio = window.devicePixelRatio || 1;
+        canvas.width = window.innerWidth * ratio;
+        canvas.height = window.innerHeight * ratio;
+      });
+    </script>
     {% endif %}
-
+  </head>
+  <body class="bg1-background">
+    {{ content | safe }}
   </body>
 </html>
