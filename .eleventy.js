@@ -31,8 +31,8 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.addDataExtension("yaml", (contents) => yaml.load(contents));
 
   eleventyConfig.addPassthroughCopy("./src/static/css");
-  eleventyConfig.addPassthroughCopy("./src/static/files/shader.frag");
-  eleventyConfig.addPassthroughCopy("./src/static/js/GlslCanvas.js");
+  eleventyConfig.addPassthroughCopy("./src/static/files");
+  eleventyConfig.addPassthroughCopy("./src/static/js");
 
 
   // Copy Static Files to /_Site

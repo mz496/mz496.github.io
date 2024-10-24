@@ -54,10 +54,17 @@ section.overlay {
   align-items: center;    /* Vertically center */
 }
 
+@font-face {
+  font-family: docomo;
+  src: url('../files/og-dcm-emoji.ttf');
+}
 .text {
   font-family: "Chivo Mono", monospace;
   font-optical-sizing: auto;
   font-style: normal;
+}
+.docomo {
+  font-family: docomo;
 }
 .headline {
   font-weight: 900;
