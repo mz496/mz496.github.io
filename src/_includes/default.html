@@ -8,7 +8,7 @@
       {{title}}
     </title>
     {% if description %}
-      <meta name="description" content="{{description}}"/>
+    <meta name="description" content="{{description}}"/>
     {% endif %}
     {% block head %}{% endblock %}
     <link rel="stylesheet" type="text/css" href="/static/css/style.css"/>
@@ -23,7 +23,7 @@
     {% if path == "home" %}
     <script>
       window.addEventListener('load', function() {
-        const canvas = document.getElementById('myCanvas');
+        const canvas = document.getElementById('shader');
         const ratio = window.devicePixelRatio || 1;
         canvas.width = window.innerWidth * ratio;
         canvas.height = window.innerHeight * ratio;
