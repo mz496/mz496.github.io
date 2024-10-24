@@ -10,11 +10,21 @@ date: 2024-10-24
   <section class="overlay">
     <section class="content">
       <p class="text headline fg0">Matthew Zhu</p>
-      <p class="text subtitle fg0">San Francisco, CA • <a href="/projects">Projects</a></p>
+      <p class="text subtitle fg0">San Francisco, CA <span id="animated-divider" class="docomo">&nbsp;&nbsp;&nbsp;&nbsp;</span> <a href="/projects">Projects</a></p>
     </section>
   </section>
   <script type="text/javascript" src="static/js/GlslCanvas.js"></script>
   <section>
     <canvas id="shader" class="glslCanvas" data-fragment-url="static/files/shader.frag" />
   </section>
+  <script type="text/javascript">
+    const emojis = ["💥", "😃", "🐶", "⛵️", "‼️", "✨", "🎶", "✌️", "🏁", "💡", "❤️", "💔", "🎥", "⚡️", "🎮", "🚗", "⛄️", "🎁", "☔️"];
+    const divider = document.getElementById("animated-divider");
+    let index = 0;
+    divider.innerHTML = emojis[index];
+    setInterval(() => {
+        index = (index + 1) % emojis.length;
+        divider.innerHTML = emojis[index];
+    }, 200);
+  </script>
 </div>
