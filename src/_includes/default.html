@@ -11,9 +11,10 @@
     <meta name="description" content="{{description}}"/>
     {% endif %}
     {% block head %}{% endblock %}
+    
     <link rel="stylesheet" type="text/css" href="/static/css/style.css"/>
-    <link rel="preload" as="font" href="/static/files/og-dcm-emoji.ttf"/>
-    <link rel="preload" as="fetch" href="/static/files/shader.frag"/>
+    <link rel="preload" as="font" href="/static/files/og-dcm-emoji.ttf" crossorigin/>
+
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-H70DRKX1K6"></script>
     <script>
@@ -22,7 +23,9 @@
       gtag('js', new Date());
       gtag('config', 'G-H70DRKX1K6');
     </script>
+
     {% if path == "home" %}
+    <link rel="preload" as="fetch" href="/static/files/shader.frag" crossorigin/>
     <script>
       window.addEventListener('load', function() {
         const canvas = document.getElementById('shader');
