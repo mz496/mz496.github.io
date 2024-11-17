@@ -2055,8 +2055,45 @@ function loadAllGlslCanvas() {
     }
 }
 
+function fadeInGlslCanvas(durationMs) {
+    var list = document.getElementsByClassName('glslCanvas');
+    const steps = 50;
+    const interval = durationMs / steps;
+    const increment = 1 / steps;
+    let progress = 0; // Tracks progress from 0 to 1
+
+    const intervalId = setInterval(() => {
+        let allVisible = true;
+
+        for (var i = 0; i < list.length; i++) {
+            let currentOpacity = parseFloat(list[i].style.opacity) || 0;
+
+            // Apply the sinusoidal ramp-up
+            let targetOpacity = (1 - Math.cos(progress * Math.PI)) / 2;
+
+            if (currentOpacity <= targetOpacity) {
+                list[i].style.opacity = targetOpacity;
+                allVisible = false;
+            } else {
+                list[i].style.opacity = 1; // Ensure it caps at 1
+            }
+        }
+
+        progress += increment;
+
+        if (progress >= 1) {
+            clearInterval(intervalId);
+            // Ensure all elements are fully visible at the end
+            for (var i = 0; i < list.length; i++) {
+                list[i].style.opacity = 1;
+            }
+        }
+    }, interval);
+}
+
 window.addEventListener('load', function () {
     loadAllGlslCanvas();
+    fadeInGlslCanvas(200);
 });
 
 return GlslCanvas;
