@@ -17,6 +17,11 @@ time, mark, audio, video {
   font-size: 100%;
   font: inherit;
   vertical-align: baseline;
+  --bg1: #3c3836;
+  --bg2: #504945;
+  --fg4: #928374;
+  --fg2: #d5c4a1;
+  --fg0: #fbf1c7;
 }
 
 canvas {
@@ -30,19 +35,19 @@ canvas {
 }
 
 .bg1-background {
-  background-color: #3c3836;
+  background-color: var(--bg1);
 }
 .bg2 {
-  color: #504945; 
+  color: var(--bg2);
 }
 .fg4 {
-  color: #928374;
+  color: var(--fg4);
 }
 .fg2 {
-  color: #d5c4a1;
+  color: var(--fg2);
 }
 .fg0 {
-  color: #fbf1c7;
+  color: var(--fg0);
 }
 
 section.overlay {
@@ -65,6 +70,8 @@ section.overlay {
 }
 .docomo {
   font-family: docomo;
+  line-height: 1.5;
+  vertical-align: -0.15em;
 }
 .headline {
   font-weight: 900;
@@ -83,8 +90,13 @@ section.overlay {
   font-size: 1rem;
 }
 
-a { color: inherit; }
-a:visited { color: inherit; }
+a {
+  color: inherit;
+  text-decoration-color: var(--fg4);
+}
+a:visited {
+  color: inherit;
+}
 
 .text-right {
   text-align: right;
@@ -92,12 +104,21 @@ a:visited { color: inherit; }
 
 li {
   margin-left: 1rem;
+  text-indent: -1rem;
+}
+li:before {
+  content: "> ";
+  color: var(--fg4);
+}
+ul {
+  list-style: none;
+  margin-left: 0;
+  padding-left: 0;
 }
 
 .row {
   display: flex;
   flex-direction: row;
-  padding-top: 0.25rem;
 }
 .grow {
   flex-grow: 1;
@@ -107,6 +128,9 @@ li {
 }
 .w-24 {
   width: 6rem;
+}
+.pt-0 {
+  padding-top: 0.25rem;
 }
 .pl-1 {
   padding-left: 1rem;

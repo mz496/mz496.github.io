@@ -1,62 +1,42 @@
 ---
 projects:
-  Remix of Milky Chance - Stolen Dance:
-    url: https://soundcloud.com/blueticksound/milky-chance-stolen-dance-blue-tick-remix
-    time: 2023
-    tags: [ableton]
-  Remix of Borgeous - Ruin LA:
-    url: https://soundcloud.com/blueticksound/borgeous-ruin-la-blue-tick-remix
-    time: 2023
-    tags: [ableton]
-  2023 MIT Mystery Hunt registration website:
-    url: https://mitmh2023.com
+  Typing to make the Preonic ortholinear keyboard look good on video:
+    url: https://www.kickstarter.com/projects/keyboardio/preonic
+    time: 2024
+  Registration website for the MIT Mystery Hunt:
+    url: https://puzzles.mit.edu/2023/mitmh2023.com
     time: 2023
     tags: [django]
-  Remix of Distant Matter - Four Leaf Clover:
-    url: https://soundcloud.com/blueticksound/distant-matter-four-leaf-clover-blue-tick-remix
-    time: 2022
-    tags: [ableton]
-  Remix of Felix Cartal, Elohim - Nothing Good Comes Easy:
-    url: https://soundcloud.com/blueticksound/felix-cartal-feat-elohim-nothing-good-comes-easy-blue-tick-remix
-    time: 2022
-    tags: [ableton]
-  Remix of NOTD, The Band Camino - Never A Good Time:
-    url: https://soundcloud.com/blueticksound/notd-the-band-camino-never-a-good-time-blue-tick-remix
-    time: 2021
-    tags: [ableton]
-  EDM DJ set:
-    url: https://soundcloud.com/blueticksound/dreamworld-open-aux-contest-blue-tick
-    time: 2021
-    tags: [ableton]
-  Mixing & mastering Young Dynasty - Raining Down:
-    url: https://open.spotify.com/track/1uiDpZOPS49X8h3sldZM2y?si=23167e99c3014deb
-    time: 2021
-    tags: [ableton]
-  Mixing & mastering Young Dynasty - Above the Hate:
-    url: https://open.spotify.com/track/1Ew1DvwkQTTOC8hLGIhPWD?si=161ef3f9a0be44d7
-    time: 2021
-    tags: [ableton]
-  Remix of Seeb, K Camp, Tim North, Marty James - Run It Up:
-    url: https://soundcloud.com/blueticksound/seeb-k-camp-tim-north-marty-james-run-it-up-blue-tick-remix
-    time: 2021
-    tags: [ableton]
-  Remix of Emma Holzer - Queen:
-    url: https://soundcloud.com/blueticksound/emma-holzer-queen-blue-tick-remix
-    time: 2021
-    tags: [ableton]
-  Remix of Young Dynasty - Ketosis:
-    url: https://soundcloud.com/blueticksound/young-dynasty-ketosis-blue-tick-remix
-    time: 2021
-    tags: [ableton]
-  Remix of Jonas Aden - Tell Me A Lie:
-    url: https://soundcloud.com/blueticksound/jonas-aden-tell-me-a-lie-blue-tick-remix
-    time: 2019
-    tags: [fl studio]
-  Pop music instrumental covers:
+  Improving the developer experience of deploying code to production:
+    url: https://stripe.com
+    time: 2021-2022
+    tags: [go, typescript, react]
+  Producing, mixing, mastering music:
+    time: 2019-2024
+    tags: [ableton, fl studio]
+    urls:
+      Remix of Ayokay, Forester - Thousand Nights: https://soundcloud.com/blueticksound/ayokay-forester-thousand-nights-blue-tick-remix
+      Remix of Milky Chance - Stolen Dance: https://soundcloud.com/blueticksound/milky-chance-stolen-dance-blue-tick-remix
+      Remix of Borgeous - Ruin LA: https://soundcloud.com/blueticksound/borgeous-ruin-la-blue-tick-remix
+      Remix of Distant Matter - Four Leaf Clover: https://soundcloud.com/blueticksound/distant-matter-four-leaf-clover-blue-tick-remix
+      Remix of Felix Cartal, Elohim - Nothing Good Comes Easy: https://soundcloud.com/blueticksound/felix-cartal-feat-elohim-nothing-good-comes-easy-blue-tick-remix
+      Remix of NOTD, The Band Camino - Never A Good Time: https://soundcloud.com/blueticksound/notd-the-band-camino-never-a-good-time-blue-tick-remix
+      EDM DJ set: https://soundcloud.com/blueticksound/dreamworld-open-aux-contest-blue-tick
+      Mixing & mastering Young Dynasty - Raining Down: https://open.spotify.com/track/1uiDpZOPS49X8h3sldZM2y?si=23167e99c3014deb
+      Mixing & mastering Young Dynasty - Above the Hate: https://open.spotify.com/track/1Ew1DvwkQTTOC8hLGIhPWD?si=161ef3f9a0be44d7
+      Remix of Seeb, K Camp, Tim North, Marty James - Run It Up: https://soundcloud.com/blueticksound/seeb-k-camp-tim-north-marty-james-run-it-up-blue-tick-remix
+      Remix of Emma Holzer - Queen: https://soundcloud.com/blueticksound/emma-holzer-queen-blue-tick-remix
+      Remix of Young Dynasty - Ketosis: https://soundcloud.com/blueticksound/young-dynasty-ketosis-blue-tick-remix
+      Remix of Jonas Aden - Tell Me A Lie: https://soundcloud.com/blueticksound/jonas-aden-tell-me-a-lie-blue-tick-remix
+  Improving the initial motion, audio, and visual response upon saying "Alexa" to Amazon's home robot:
+    url: https://www.amazon.com/Introducing-Amazon-Astro/dp/B078NSDFSB
+    time: 2019-2020
+    tags: [java, aosp android]
+  Instrumental covers of pop songs:
     url: https://soundcloud.com/blueticksound/sets/instrumental-covers
     time: 2018–2019
     tags: [audacity, adobe audition]
-  Sketching from life:
+  Sketches from life:
     time: 2018–2024
     tags: [pencil, micron, ballpoint]
     urls:
@@ -73,37 +53,39 @@ projects:
       Orlando: https://www.instagram.com/p/CYLL7EOtd_J/
       Napa: https://www.instagram.com/p/CbmEhE-OI43/
       Mexico City: https://www.instagram.com/p/Ch7mqNRgsEm/
-  Mashing up pop songs:
+      Copenhagen: https://www.instagram.com/p/CsB8bl2ASPN/
+      Oslo: https://www.instagram.com/p/CtDLDy7gO0M/
+  Pop song mashups:
     url: https://www.youtube.com/channel/UCA_pPuTJTPlFbVj5WcgNkYA/videos
     time: 2017
     tags: [audacity, google sheets]
-  Math competition tests for high school students:
+  Tests for high school math competitions:
     time: 2016–2019
     urls:
       A test on math-based programming (downloads a file): https://floridamao.org/FAMATSite/PublicPages/TestArchive.aspx?TDID=9792
       A test on geometry (downloads a file): https://floridamao.org/FAMATSite/PublicPages/TestArchive.aspx?TDID=9837
       A test on triangles: https://mualphatheta.org/sites/default/files/2019_Theta_Triangles.pdf
-  Mellon College of Science logo:
+  T-shirt design for the CMU sciences department:
     url: https://www.facebook.com/cmuscience/posts/914896098581454
     time: 2015
     tags: [adobe illustrator]
-  Dayta:
+  Calendar date calculator:
     url: https://mz496.github.io/dayta
     time: 2015
     tags: [angular 1]
-  Lights Out:
+  Recreating the Lights Out game:
     url: http://mz496.github.io/lights-out
     time: 2014
     tags: [html, javascript]
-  Planetarium:
+  Planetarium where a year lasts ten seconds:
     url: http://mz496.github.io/planetarium
     time: 2014
     tags: [canvas, javascript]
-  Math competition timers:
+  Purpose-built timers for high school math competitions:
     url: https://mz496.github.io/mao-timers
     time: 2014
     tags: [jquery]
-  Pop music transcriptions:
+  Sheet music for pop songs:
     url: https://www.youtube.com/c/MattZhu/videos
     time: 2012–2013
     tags: [noteflight]
