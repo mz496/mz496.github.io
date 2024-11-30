@@ -58,6 +58,9 @@ section.overlay {
   justify-content: center; /* Horizontally center */
   align-items: center;    /* Vertically center */
 }
+section.projects {
+  max-width: 60em;
+}
 
 @font-face {
   font-family: docomo;
