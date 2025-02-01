@@ -3,6 +3,15 @@ projects:
   Typing to make the Preonic ortholinear keyboard look good on video:
     url: https://www.kickstarter.com/projects/keyboardio/preonic
     time: 2024
+  Building loan repayment scheduling, communication, and monitoring systems:
+    tags: [scala, postgres, python, fujifilm xt3]
+    time: 2023-
+    urls:
+      Upgrading our underwriting stack: https://www.parafin.com/blog-posts/upgrading-our-underwriting-stack
+      Tracking runtime against a cutoff (anonymized): /../static/img/projects/cutoff.png
+      Understanding schedule alignment (anonymized): /../static/img/projects/schedules.png
+      Investigating datapoints exceeding limits (anonymized): /../static/img/projects/limits.png
+      A movie (anonymized): /../static/img/projects/movie.png
   Registration website for the MIT Mystery Hunt:
     url: https://puzzles.mit.edu/2023/mitmh2023.com
     time: 2023
@@ -11,6 +20,8 @@ projects:
     url: https://stripe.com
     time: 2021-2022
     tags: [go, typescript, react]
+    urls:
+      Redesigning UI for monitoring Kubernetes deployments: /../static/img/projects/msp.png
   Producing, mixing, mastering music:
     time: 2019-2024
     tags: [ableton, fl studio]
@@ -32,6 +43,8 @@ projects:
     url: https://www.amazon.com/Introducing-Amazon-Astro/dp/B078NSDFSB
     time: 2019-2020
     tags: [java, aosp android]
+    urls:
+      180° rotation at original speed, October 2020 testing: /../static/img/projects/wakeword.gif
   Instrumental covers of pop songs:
     url: https://soundcloud.com/blueticksound/sets/instrumental-covers
     time: 2018–2019

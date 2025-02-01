@@ -18,9 +18,7 @@ module.exports = function (eleventyConfig) {
   });
 
   eleventyConfig.addFilter("iso8601Date", (dateObj) => {
-    return DateTime.fromJSDate(dateObj, { zone: "utc" }).toFormat(
-      "yyyy-LL-dd"
-    );
+    return DateTime.fromJSDate(dateObj, { zone: "utc" }).toFormat("yyyy-LL-dd");
   });
 
   // Syntax Highlighting for Code blocks
@@ -34,7 +32,6 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy("./src/static/files");
   eleventyConfig.addPassthroughCopy("./src/static/js");
 
-
   // Copy Static Files to /_Site
   // Not needed anymore in blog post
   /*
@@ -47,8 +44,7 @@ module.exports = function (eleventyConfig) {
   */
 
   // Copy Image and File Folder to /_site
-  // Not exposing anymore
-  //eleventyConfig.addPassthroughCopy("./src/static/img");
+  eleventyConfig.addPassthroughCopy("./src/static/img/projects");
   //eleventyConfig.addPassthroughCopy("./src/static/files");
 
   // Minify HTML
