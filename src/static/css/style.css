@@ -1,16 +1,84 @@
-html, body, div, span, applet, object, iframe,
-h1, h2, h3, h4, h5, h6, p, blockquote, pre,
-a, abbr, acronym, address, big, cite, code,
-del, dfn, em, img, ins, kbd, q, s, samp,
-small, strike, strong, sub, sup, tt, var,
-b, u, i, center,
-dl, dt, dd, ol, ul, li,
-fieldset, form, label, legend,
-table, caption, tbody, tfoot, thead, tr, th, td,
-article, aside, canvas, details, embed, 
-figure, figcaption, footer, header, hgroup, 
-menu, nav, output, ruby, section, summary,
-time, mark, audio, video {
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
   margin: 0;
   padding: 0;
   border: 0;
@@ -28,7 +96,7 @@ canvas {
   position: absolute;
   left: 0;
   top: 0;
-  display: block;  /* prevents scrollbar */
+  display: block; /* prevents scrollbar */
   width: 100vw;
   height: 100vh;
   z-index: -1000;
@@ -51,12 +119,12 @@ canvas {
 }
 
 section.overlay {
-  position: relative;   /* Make this the reference for absolute positioning */
+  position: relative; /* Make this the reference for absolute positioning */
   width: 100%;
-  height: 100vh;        /* Full viewport height */
+  height: 100vh; /* Full viewport height */
   display: flex;
   justify-content: center; /* Horizontally center */
-  align-items: center;    /* Vertically center */
+  align-items: center; /* Vertically center */
 }
 section.projects {
   max-width: 60em;
@@ -64,7 +132,7 @@ section.projects {
 
 @font-face {
   font-family: docomo;
-  src: url('../files/og-dcm-emoji.ttf');
+  src: url("../files/og-dcm-emoji.ttf");
 }
 .text {
   font-family: "Chivo Mono", monospace;
@@ -105,17 +173,12 @@ a:visited {
   text-align: right;
 }
 
-li {
-  margin-left: 1rem;
-  text-indent: -1rem;
-}
-li:before {
+li::marker {
   content: "> ";
   color: var(--fg4);
 }
 ul {
-  list-style: none;
-  margin-left: 0;
+  margin-left: 1.2rem;
   padding-left: 0;
 }
 
@@ -133,14 +196,14 @@ ul {
   width: 6rem;
 }
 .pt-0 {
-  padding-top: 0.25rem;
+  padding-top: 0.5rem;
 }
 .pl-1 {
-  padding-left: 1rem;
+  padding-left: 1.2rem; /* one character seems to be 3:5 (1rem high by 0.6rem wide) in this monospace font */
 }
 .px-1 {
-  padding-left: 1rem;
-  padding-right: 1rem;
+  padding-left: 1.2rem;
+  padding-right: 1.2rem;
 }
 .py-1 {
   padding-top: 1rem;
