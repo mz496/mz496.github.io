@@ -1,6 +1,6 @@
 User-agent: *
 Allow: /
-Disallow: /hiring/
+Disallow: /searching/
 
 Host: https://matthewzhu.com/
 
