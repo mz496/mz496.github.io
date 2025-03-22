@@ -31,6 +31,8 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy("./src/static/css");
   eleventyConfig.addPassthroughCopy("./src/static/files");
   eleventyConfig.addPassthroughCopy("./src/static/js");
+  eleventyConfig.addPassthroughCopy("./src/robots.txt");
+
 
   // Copy Static Files to /_Site
   // Not needed anymore in blog post

@@ -126,8 +126,11 @@ section.overlay {
   justify-content: center; /* Horizontally center */
   align-items: center; /* Vertically center */
 }
-section.projects {
+section.max-width-60 {
   max-width: 60em;
+}
+section.max-width-40 {
+  max-width: 40em;
 }
 
 @font-face {
@@ -151,10 +154,24 @@ section.projects {
   font-weight: 600;
   font-size: 3vw;
 }
-.title {
+.heading-1 {
   font-weight: 600;
   font-size: 2rem;
 }
+.heading-2 {
+  font-weight: 600;
+  font-size: 1.6rem;
+}
+.heading-3 {
+  font-weight: 600;
+  font-size: 1.2rem;
+}
+
+.strong {
+  font-weight: 600;
+  color: var(--fg0);
+}
+
 .prose {
   font-weight: 400;
   font-size: 1rem;
@@ -206,5 +223,11 @@ ul {
 }
 .py-1 {
   padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+.pt-1 {
+  padding-top: 1rem;
+}
+.pb-1 {
   padding-bottom: 1rem;
 }

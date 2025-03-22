@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Disallow: /hiring/
+
+Host: https://matthewzhu.com/
+
+Sitemap: https://matthewzhu.com/sitemap.xml
